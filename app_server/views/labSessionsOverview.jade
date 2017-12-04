@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .container
+    .row.page-header
+      .col-lg-12
+        h3 #{title}
+    .row
+      .col-md-12
+        table.table.table-striped.table-hover
+         thead
+           tr
+             th Lab Code
+             th Lab Name
+             th.center-align-table-cell Session Number
+             th.center-align-table-cell Start Date
+             th.center-align-table-cell get Details
+         tbody
+           each labSession in labSessions
+             - var dateParts = labSession.start_date.split("T");
+             - var dateOnly = dateParts[0];
+             tr
+               td #{labSession.lab_code}
+               td #{labSession.long_name}
+               td.center-align-table-cell #{labSession.session_number}
+               td.center-align-table-cell #{dateOnly}
+               td.center-align-table-cell
+                 a(href="/samplesForSession/#{labSession.lab_id}/#{labSession.session_number}/#{labSession.long_name}").btn.btn-sm.btn-info View Site Samples

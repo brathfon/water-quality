@@ -1,0 +1,62 @@
+mixin samplersString(samplers)
+ - var samplerStr = "";
+ - var count = 0;
+ each sampler in samplers
+   - samplerStr += sampler.first_name + " " + sampler.last_name;
+   - ++count;
+   - if (count < samplers.length) {
+   -   samplerStr += ", ";
+   - }
+ .p.text-left #{samplerStr}
+
+
+mixin outputMeasurementsRow(sample)
+  tr
+    td #{sample.long_name}
+    td.in-situ-table-cell #{sample.time}
+    td.in-situ-table-cell #{sample.temperature}
+    td.in-situ-table-cell #{sample.salinity}
+    td.in-situ-table-cell #{sample.dissolved_oxygen}
+    td.in-situ-table-cell #{sample.dissolved_oxygen_pct}
+    td.in-situ-table-cell #{sample.ph}
+    td
+      table.in-situ-inner-table
+          tr
+            td #{sample.turbidity_1}
+          tr
+            td #{sample.turbidity_2}
+          tr
+            td #{sample.turbidity_3}
+    td #{sample.comments}
+
+
+
+mixin outputSessionDay(dayObj)
+ .row
+   h3 #{dayObj.date}
+ .row
+   .col-md-1
+     strong Samplers:
+   .col-md-11
+     +samplersString(dayObj.workers)
+ .row
+   .col-md-12
+      table.table.table-striped.table-hover
+       thead
+         tr
+           th Location Name
+           th.in-situ-header-cell Time
+           th.in-situ-header-cell Temp (C)
+           th.in-situ-header-cell Sal (ppt)
+           th.in-situ-header-cell DO (mg/L)
+           th.in-situ-header-cell DO Saturation (%)
+           th.in-situ-header-cell pH
+           th.in-situ-header-cell Turbidity(NTU)
+           th Comments
+       tbody
+         each sample in dayObj.samples
+           +outputMeasurementsRow(sample)
+
+mixin outputSession(dataByDate)
+  each dayObj in dataByDate
+   +outputSessionDay(dayObj)

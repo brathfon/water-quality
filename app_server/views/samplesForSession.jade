@@ -1,0 +1,12 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  .container
+    .row.page-header
+      .col-lg-12
+        h3 #{title}
+    .row
+      .col-md-12
+        +outputSession(dataByDate)
