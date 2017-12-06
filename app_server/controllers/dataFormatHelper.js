@@ -68,6 +68,6 @@ module.exports.organizeSamplesAndWorkersByDate = function (samples, workers) {
 
   //TDB  If error checking put in, could check for samples without workers or workers without samples, etc.
 
-  console.log("results: " + util.inspect(results, false, null));
+  //console.log("results: " + util.inspect(results, false, null));
   return results;
 };

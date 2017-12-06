@@ -7,6 +7,12 @@ block content
     .row.page-header
       .col-lg-12
         h3 #{title}
+    - if ((errors) && (errors.length > 0)) {
+      .row
+        h3.text-danger Errors and Warnings Detected
+      .row
+        +outputErrors(errors)
+    - }
     .row
       .col-md-12
         +outputSession(dataByDate)

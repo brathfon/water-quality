@@ -3,6 +3,7 @@ var util = require('util');
 var chalk = require("chalk");
 var request = require('request');
 var dfHelper = require('./dataFormatHelper');
+var env = require('get-env');
 
 var apiOptions = null;
 
@@ -29,8 +30,9 @@ var getLabSessionsOverviewData =  function (req, res, data, callback) {
   };
   request(
     requestOptions,
-    function(err, response, labSessions) {
-      data["labSessions"] = labSessions;  // add the results to the data object
+    function(err, response, labSessionsData) {
+      data["labSessions"] = labSessionsData['labSessions'];  // add the results to the data object
+      data["errors"]      = data["errors"].concat(labSessionsData['errors']);       // add any errors to the data object
       if (callback) {
         callback(req, res, data, callback);
       }
@@ -50,8 +52,9 @@ var getSamplesForSessionData =  function (req, res, data, callback) {
   };
   request(
     requestOptions,
-    function(err, response, samples) {
-      data["samples"] = samples;
+    function(err, response, samplesData) {
+      data["samples"] = samplesData["samples"];
+      data["errors"]  = data["errors"].concat(samplesData["errors"]);
       if (callback) {
         callback(req, res, data, callback);
       }
@@ -71,8 +74,9 @@ var getWorkersForSessionData =  function (req, res, data, callback) {
   };
   request(
     requestOptions,
-    function(err, response, workers) {
-      data["workers"] = workers;
+    function(err, response, workersData) {
+      data["workers"] = workersData["workers"];
+      data["errors"]  = data["errors"].concat(workersData["errors"]);
       if (callback) {
         callback(req, res, data, callback);
       }
@@ -83,15 +87,18 @@ var getWorkersForSessionData =  function (req, res, data, callback) {
 /****************************  LabSessionsOverview *******************************/
 
 var renderLabSessionsOverview = function(req, res, data){
+  //console.log(util.inspect(data, false, null));
   res.render('labSessionsOverview',
     { title: 'Lab Sessions',
-      labSessions: data.labSessions
+      labSessions: data.labSessions,
+      errors: data.errors
     });
 };
 
 
 module.exports.labSessionsOverview = function (req, res) {
   var data = {};
+  data['errors'] = [];   // these may be multiple
   getLabSessionsOverviewData(req, res, data, function () { 
     renderLabSessionsOverview(req, res, data);
   });
@@ -103,17 +110,19 @@ module.exports.labSessionsOverview = function (req, res) {
 var renderSamplesForSession = function(req, res, data){
   // will be doing some re-org of data here
   var dataByDate = dfHelper.organizeSamplesAndWorkersByDate(data.samples, data.workers);
-  console.log(util.inspect(data, false, null));
+  //console.log(util.inspect(data, false, null));
   var title = "Samples for " + req.params.labLongName + ", Session " + req.params.sessionNumber;
   res.render('samplesForSession',
     { title: title,
-      dataByDate: dataByDate
+      dataByDate: dataByDate,
+      errors: data.errors
     });
 };
 
 
 module.exports.samplesForSession = function (req, res) {
   var data = {};
+  data['errors'] = [];   // these may be multiple
   getSamplesForSessionData(req, res, data, function () { 
     getWorkersForSessionData(req, res, data, function () { 
       renderSamplesForSession(req, res, data);

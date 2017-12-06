@@ -4,11 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var env = require('get-env');
 require('./app_api/models/db');   // no functions are exported from db.js, so no var needed
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 //var users = require('.//app_server/routes/users');
+
+console.log("get-env is " + env());
 
 var app = express();
 
@@ -39,7 +42,8 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (env() === 'dev') {
+  console.log("In development mode, will be printing stack traces");
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
