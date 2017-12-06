@@ -1,3 +1,11 @@
+mixin outputErrors(errors)
+  each error in errors
+    - levelClass = "text-" + error.level.toLowerCase()
+    div
+     h4(class="#{levelClass}") #{error.title}
+     each textRow in error.text
+       div(class="#{levelClass}") #{textRow}
+
 mixin samplersString(samplers)
  - var samplerStr = "";
  - var count = 0;
