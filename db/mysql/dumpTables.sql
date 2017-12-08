@@ -24,18 +24,15 @@ from sites;
 
 select * from sessions;
 
-select * from site_samples;
-
 select * from qa_codes;
 
 select 
-  site_sample_id,
+  sample_id,
   site_id,
   date_and_time,
   moon,
   qa_code,
-  lab_id,
-  session_number as sess_num,
+  session_id,
   temperature as temp,
   salinity,
   dissolved_oxygen as do,
@@ -44,8 +41,8 @@ select
   turbidity_1 as turb_1,
   turbidity_2 as turb_2,
   turbidity_3 as turb_3,
-  commments
-from site_samples;
+  comments
+from samples;
 
-select * from site_sample_workers order by site_sample_id;
+select * from sample_workers order by sample_id;
 
