@@ -87,6 +87,8 @@ var readTeamSheet = function(teamSheetFile) {
           obj['On Beach']   = pieces[41];
           obj['Campers']    = pieces[42];
           obj['Comments']   = pieces[43];
+          // get rid of the Microsoft end of line char
+          obj['Comments']   = obj['Comments'].replace("\r", "");
           lineList.push(obj);
         }
         else {

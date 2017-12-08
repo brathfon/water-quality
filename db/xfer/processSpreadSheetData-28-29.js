@@ -12,6 +12,7 @@ var rss  = require('./readSpreadSheets');
 
 //sessions = rss.readTeamSheets("./data-sessions-28");
 sessions = rss.readTeamSheets("./data-sessions-28-29");
+//sessions = rss.readTeamSheets("./data-sessions-28-30-1-2");
 
 
 /*

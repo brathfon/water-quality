@@ -18,25 +18,65 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null);
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lyn', 'Hutchings', 'LH', null, null);
 
+-- lab NMS
+-- Kamaole
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Audrey', 'Quinn', 'AQ', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Donna', 'Howard', 'DH', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Scott', 'Graves', 'SG', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Steve', 'Paselk', 'SP', null, null);
+-- Makena
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Sheryl', 'Fries', 'SF', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Alfred', 'Wolf', 'AW', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Tina', 'Wildberger', 'TW', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lory', 'Lowder', 'LL', null, null);
+
+-- additional workers
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Kit', 'Harris', 'KH', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Brenda', 'Jarmakani', 'BJ', null, null);
+
 
 INSERT INTO labs (lab_code, long_name, address) values ('LLHS', 'Lahainaluna High School', 'Lahainaluna Road');
-INSERT INTO labs (lab_code, long_name, address) values ('PWS', 'Pacific Whale Sanctuary', 'South Kihei Road');
+INSERT INTO labs (lab_code, long_name, address) values ('NMS', 'National Marine Sanctuary', 'South Kihei Road');
 
 INSERT INTO teams (team_code, long_name, lab_id) values ('R2RS', 'Ridge-to-Reef South', 1);
 INSERT INTO teams (team_code, long_name, lab_id) values ('Polanui', 'Polanui', 1);
 INSERT INTO teams (team_code, long_name, lab_id) values ('Olowalu', 'Olowalu', 1);
 INSERT INTO teams (team_code, long_name, lab_id) values ('NR2R', 'North Ridge-to-Reef', 1);
 
+-- lab NMS
+INSERT INTO teams (team_code, long_name, lab_id) values ('Kamaole', 'Kamaole', 2);
+INSERT INTO teams (team_code, long_name, lab_id) values ('Makena', 'Makena', 2);
+
 INSERT INTO team_members (team_id, worker_id) values ( 1, 1);
 INSERT INTO team_members (team_id, worker_id) values ( 1, 2);
 INSERT INTO team_members (team_id, worker_id) values ( 1, 4);
+INSERT INTO team_members (team_id, worker_id) values ( 1, 27);
+
 INSERT INTO team_members (team_id, worker_id) values ( 2, 8);
 INSERT INTO team_members (team_id, worker_id) values ( 2, 3);
+INSERT INTO team_members (team_id, worker_id) values ( 2, 26);
+
 INSERT INTO team_members (team_id, worker_id) values ( 3, 8);
 INSERT INTO team_members (team_id, worker_id) values ( 3, 5);
+
 INSERT INTO team_members (team_id, worker_id) values ( 4, 7);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 6);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 4);
+
+-- lab NMS
+-- Kamaole
+INSERT INTO team_members (team_id, worker_id) values ( 5, 17);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 18);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 19);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 20);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 21);
+-- Makena
+INSERT INTO team_members (team_id, worker_id) values ( 6, 22);
+INSERT INTO team_members (team_id, worker_id) values ( 6, 23);
+INSERT INTO team_members (team_id, worker_id) values ( 6, 24);
+INSERT INTO team_members (team_id, worker_id) values ( 6, 25);
+
 
 -- R2RS
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
@@ -93,6 +133,35 @@ INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, 
   values (2008, 'RKO', '000692', 'Ka\'opala',      1, 4, 5, null, null, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
   values (2074, 'RKV',  null,    'Kahana Village', 1, 4, 5, null, null, null);
+
+-- NMS lab
+-- Kamaole
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9000, 'KWP', NULL, 'Waipuilani Park',        2, 5, 1, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9001, 'KKS', NULL, 'Kihei South',            2, 5, 1, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9002, 'KKP', NULL, 'Kalama Park',            2, 5, 1, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9003, 'KCP', NULL, 'Cove Park',              2, 5, 1, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9004, 'KKO', NULL, 'Kamaole Beach I',        2, 5, 1, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9005, 'KKT', NULL, 'Kamaole Beach III',      2, 5, 1, null, null, null);
+
+-- Makena 
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9006, 'MML', NULL, 'Makena Landing',         2, 6, 2, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9007, 'MMB', NULL, 'Maluaka Beach',          2, 6, 2, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9008, 'MON', NULL, 'Oneuli',                 2, 6, 2, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9009, 'MBS', NULL, 'Makena Beach Shoreline', 2, 6, 2, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9010, 'MAN', NULL, 'Ahihi North',            2, 6, 2, null, null, null);
+INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, lat, lon, description)
+  values (9011, 'MAS', NULL, 'Ahihi South',            2, 6, 2, null, null, null);
 
 /* extra Olowalu sites
 2031,OBR,,Ukumehame Bridge,Olowalu,
