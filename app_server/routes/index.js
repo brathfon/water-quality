@@ -9,5 +9,6 @@ var ctrlSampleCollecting = require('../controllers/sampleCollecting');
 router.get('/', ctrlSampleCollecting.labSessionsOverview);
 router.get('/labSessionsOverview', ctrlSampleCollecting.labSessionsOverview);
 router.get('/samplesForSession/:labId/:sessionNumber/:labLongName', ctrlSampleCollecting.samplesForSession);
+router.get('/createNewSession', ctrlSampleCollecting.createNewSession);
 
 module.exports = router;

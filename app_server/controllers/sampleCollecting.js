@@ -41,6 +41,26 @@ var getLabSessionsOverviewData =  function (req, res, data, callback) {
 };
 
 
+var getMaxSessionNumbersForLabsData =  function (req, res, data, callback) {
+  var path = "/api/getMaxSessionNumbersForLabs";
+  var requestOptions = {
+    url: apiOptions.server + path,
+    method: "GET",
+    json : {}
+  };
+  request(
+    requestOptions,
+    function(err, response, maxSessionNumbersForLabs) {
+      data["maxSessionNumbers"] = maxSessionNumbersForLabs['maxSessionNumbers'];  // add the results to the data object
+      data["errors"]      = data["errors"].concat(maxSessionNumbersForLabs['errors']);       // add any errors to the data object
+      if (callback) {
+        callback(req, res, data, callback);
+      }
+    }
+  );
+};
+
+
 var getSamplesForSessionData =  function (req, res, data, callback) {
   var labId         = req.params.labId;
   var sessionNumber = req.params.sessionNumber;
@@ -129,4 +149,27 @@ module.exports.samplesForSession = function (req, res) {
     });
   });
 };
+
+/************************** createNewSession *********************************/
+
+var renderCreateNewSession = function(req, res, data){
+  // will be doing some re-org of data here
+  console.log(util.inspect(data, false, null));
+  var title = "Create new session";
+  res.render('createNewSession',
+    { title: title,
+      maxSessionNumbers: data.maxSessionNumbers,
+      errors: data.errors
+    });
+};
+
+
+module.exports.createNewSession = function (req, res) {
+  var data = {};
+  data['errors'] = [];   // these may be multiple
+  getMaxSessionNumbersForLabsData(req, res, data, function () { 
+    renderCreateNewSession(req, res, data);
+  });
+};
+
 

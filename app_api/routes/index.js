@@ -7,5 +7,6 @@ var ctrlWQ = require('../controllers/waterQuality');
 router.get('/getLabSessionsOverview', ctrlWQ.getLabSessionsOverview);
 router.get('/getSamplesForSession/:labId/:sessionNumber', ctrlWQ.getSamplesForSession);
 router.get('/getWorkersForSession/:labId/:sessionNumber', ctrlWQ.getWorkersForSession);
+router.get('/getMaxSessionNumbersForLabs',                ctrlWQ.getMaxSessionNumbersForLabs);
 
 module.exports = router;

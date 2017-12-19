@@ -65,6 +65,28 @@ module.exports.getLabSessionsOverview = function (req, res) {
 };
 
 
+module.exports.getMaxSessionNumbersForLabs = function (req, res) {
+
+  db.connection.query("select * from max_session_numbers_for_labs", function(err, rows, fields) {
+
+    var data = {};
+    data['maxSessionNumbers'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error retrieving data from database for max session numbers for labs",
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      data['maxSessionNumbers'] =  rows;
+      sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+
 module.exports.getSamplesForSession = function (req, res) {
 
   var labId = req.params.labId;
