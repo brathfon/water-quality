@@ -11,14 +11,13 @@ select l.lab_id,
 
 
 select 
-  ss.site_sample_id,
+  ss.sample_id,
   ss.site_id,
    s.long_name,
   cast(ss.date_and_time as char) as date_and_time,
   date(ss.date_and_time) as date,
   time(ss.date_and_time) as time,
-  ss.lab_id,
-  ss.session_number,
+  ss.session_id,
   ss.temperature,
   ss.salinity,
   ss.dissolved_oxygen,
@@ -28,30 +27,35 @@ select
   ss.turbidity_2,
   ss.turbidity_3,
   ss.comments
-from site_samples as ss, sites as s
-where ss.lab_id = 1 and
-      ss.session_number = 28 and
+from samples as ss,
+     sessions as se,
+     sites as s
+where se.lab_id = 1 and
+      se.session_number = 28 and
+      se.session_id = ss.session_id and
       ss.site_id = s.site_id
 order by ss.date_and_time
 ;
 
 
 select
-  ss.site_sample_id,
+  ss.sample_id,
   ss.site_id,
   ssw.worker_id,
   w.first_name,
   w.last_name,
   date(ss.date_and_time) as date,
   time(ss.date_and_time) as time,
-  ss.lab_id,
-  ss.session_number
-from site_samples as ss,
-     site_sample_workers as ssw,
+  ss.session_id,
+  se.session_number
+from samples as ss,
+     sessions as se,
+     sample_workers as ssw,
      workers as w
-where ss.lab_id = 1 and
-      ss.session_number = 28 and
-      ss.site_sample_id = ssw.site_sample_id and
+where se.lab_id = 1 and
+      se.session_number = 28 and
+      ss.session_id = se.session_id and
+      ss.sample_id = ssw.sample_id and
       w.worker_id = ssw.worker_id
 order by ss.date_and_time
 ;
@@ -61,12 +65,14 @@ select distinct
   w.first_name,
   w.last_name,
   date(ss.date_and_time) as date
-from site_samples as ss,
-     site_sample_workers as ssw,
+from samples as ss,
+     sessions as se,
+     sample_workers as ssw,
      workers as w
-where ss.lab_id = 1 and
-      ss.session_number = 28 and
-      ss.site_sample_id = ssw.site_sample_id and
+where se.lab_id = 1 and
+      se.session_number = 28 and
+      se.session_id = ss.session_id and
+      ss.sample_id = ssw.sample_id and
       w.worker_id = ssw.worker_id
 order by date
 ;

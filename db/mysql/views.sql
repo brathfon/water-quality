@@ -7,7 +7,8 @@ SELECT l.lab_id,
        s.session_number,
        s.start_date
   FROM labs AS l, sessions AS s
-  WHERE l.lab_id = s.lab_id;
+  WHERE l.lab_id = s.lab_id
+  ORDER BY l.lab_code;
 
 
 CREATE OR REPLACE VIEW max_session_numbers_for_labs AS
