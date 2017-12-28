@@ -16,8 +16,8 @@ block content
   each maxData in maxSessionNumbers
     - var newSessionNumber = maxData.max_session_number + 1;
     .row
-      form(action="/modifyHostStatus", method="POST", role="form").form-horizontal.col-md-12.jumbotron
-        input(type="hidden", name="lab_id", value="#{maxData.lab_id")
+      form(action="/executeCreateNewSession", method="POST", role="form").form-horizontal.col-md-12.jumbotron
+        input(type="hidden", name="lab_id", value="#{maxData.lab_id}")
         fieldset
           legend Create a Session for #{maxData.lab_code} (#{maxData.long_name})
           .form-group

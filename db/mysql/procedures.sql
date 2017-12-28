@@ -58,6 +58,14 @@ delimiter //
 
 CREATE PROCEDURE create_session(IN curr_lab_id INT,IN curr_session_number INT,IN curr_session_date DATE)
 BEGIN
+
+  DECLARE exit handler FOR sqlexception
+  BEGIN
+    SHOW ERRORS;
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
   INSERT INTO sessions (
     lab_id,
     session_number,
@@ -76,7 +84,7 @@ BEGIN
            sessions AS se
       WHERE si.lab_id = curr_lab_id
       AND   se.session_number = curr_session_number;
-
+  COMMIT;
 END//
 
 delimiter ;

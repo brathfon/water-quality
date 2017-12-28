@@ -173,3 +173,52 @@ module.exports.createNewSession = function (req, res) {
 };
 
 
+// this is the controller for the posting of the data from createNewSessions page
+// it handles the post from that page and calls to api to do the actual creation
+// of the session in the store.
+
+module.exports.executeCreateNewSession =  function (req, res) {
+  var requestOptions, path;
+  path = '/api/createNewSession';
+  var postData = {
+    lab_id:         req.body.lab_id,
+    session_number: req.body.session_number,
+    start_date:     req.body.start_date
+  };
+  requestOptions = {
+    url : apiOptions.server + path,
+    method : "POST",
+    json: postData
+  };
+  console.log("excuteCreateNewSession: " + util.inspect(requestOptions, false, null));
+  request(
+    requestOptions,
+    function(err, response, body) {
+      var data = {};
+      //console.log("excuteCreateNewSession response " + util.inspect(response.body, false, null));
+      if (response.statusCode === 201) {
+        console.log("excuteCreateNewSessions response was code " + response.statusCode);
+        var nextURL = '/labSessionsOverview';
+        console.log("executeCreateNewSession redirecting to " + nextURL);
+        res.redirect(nextURL);
+      }
+      else {
+        console.log("ERROR: executeCreateNewSession post failed with a status of " + response.statusCode);
+        
+        //var data = {};
+        if (response.body.errors !== null) {
+          data['errors'] = response.body.errors;   // these error came back from the api
+        }
+        // send back a response that is reports the error.
+        getMaxSessionNumbersForLabsData(req, res, data, function () {
+          renderCreateNewSession(req, res, data);
+        });
+        //res.redirect('/labSessionsOverview');
+      }
+    }
+  );
+
+}
+
+
+

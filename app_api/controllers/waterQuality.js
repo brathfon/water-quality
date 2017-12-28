@@ -21,10 +21,13 @@ var errorObjToArray = function(obj) {
   return array;
 }
 
+
+// Note: returnData should be passed with two attributes already set as arrays,
+// either empty or having additional errors in them, for example.
+
 var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
 
     var errorMsg = {};
-    returnData['errors'] = [];
 
     // send this to the console, for sure, if dev or prod
     console.log(chalk.red(title + ": " + util.inspect(sqlError, false, null)));
@@ -43,9 +46,63 @@ var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
 }
 
 
+
+module.exports.createNewSession = function (req, res) {
+
+  //console.log(chalk.blue(util.inspect(req.body, false, null)));
+  var lab_id         = req.body.lab_id;
+  var session_number = req.body.session_number;
+  var start_date     = req.body.start_date;
+  //console.log("sessionNumber " + sessionNumber);
+
+  db.connection.query("call create_session(" + lab_id + ", " + session_number + ", '" + start_date + "')", function(err, rows, fields) {
+
+  //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.blue("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['create_results'] = [];
+    data['errors'] = [];
+
+    // create session normally does not return any data, but if it catches an exception and rolls back
+    // the transaction, the error comes back as a data row.
+    // rows : [ [ RowDataPacket {
+    //       Level: 'Error',
+    //       Code: 1062,
+    //       Message: 'Duplicate entry \'1-501\' for key \'natural\'' } ],
+    //   OkPacket {
+    //     fieldCount: 0,
+    if ((err === null) && (rows !== null) && (rows !== undefined) && (rows.length > 1 )) {
+      sendJsonErrorResponse("Error creating new session",
+                            "Danger",
+                            rows[0][0],  // this is the array of errors
+                            data,
+                            res);
+    }
+    else if (err) {  
+      sendJsonErrorResponse("Error creating new session",
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount".
+      data['create_results'] = rows[0];  // this will be empty when successful
+      sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+
 module.exports.getLabSessionsOverview = function (req, res) {
 
   db.connection.query("select * from lab_sessions_overview", function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
 
     var data = {};
     data['labSessions'] = [];
