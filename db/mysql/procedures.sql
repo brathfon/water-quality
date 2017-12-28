@@ -29,7 +29,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-order by sam.date_and_time;
+order by sam.date_and_time, site.default_session_order; -- if all dates are equal, like when first created, sort bu default-session-order
 
 
 DROP PROCEDURE IF EXISTS workers_for_session;
@@ -51,3 +51,40 @@ where sess.lab_id = curr_lab_id and
 order by date, last_name, first_name
 ;
 
+
+DROP PROCEDURE IF EXISTS create_session;
+
+delimiter //
+
+CREATE PROCEDURE create_session(IN curr_lab_id INT,IN curr_session_number INT,IN curr_session_date DATE)
+BEGIN
+
+  DECLARE exit handler FOR sqlexception
+  BEGIN
+    SHOW ERRORS;
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
+  INSERT INTO sessions (
+    lab_id,
+    session_number,
+    start_date)
+   VALUES (curr_lab_id, curr_session_number, curr_session_date);
+
+  INSERT INTO samples (
+    site_id,
+    date_and_time,
+    session_id)
+      SELECT
+        si.site_id,
+        DATE_ADD(curr_session_date, INTERVAL (si.default_sample_day - 1 ) DAY),
+        se.session_id
+      FROM sites AS si,
+           sessions AS se
+      WHERE si.lab_id = curr_lab_id
+      AND   se.session_number = curr_session_number;
+  COMMIT;
+END//
+
+delimiter ;

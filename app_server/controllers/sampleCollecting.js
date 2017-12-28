@@ -41,6 +41,26 @@ var getLabSessionsOverviewData =  function (req, res, data, callback) {
 };
 
 
+var getMaxSessionNumbersForLabsData =  function (req, res, data, callback) {
+  var path = "/api/getMaxSessionNumbersForLabs";
+  var requestOptions = {
+    url: apiOptions.server + path,
+    method: "GET",
+    json : {}
+  };
+  request(
+    requestOptions,
+    function(err, response, maxSessionNumbersForLabs) {
+      data["maxSessionNumbers"] = maxSessionNumbersForLabs['maxSessionNumbers'];  // add the results to the data object
+      data["errors"]      = data["errors"].concat(maxSessionNumbersForLabs['errors']);       // add any errors to the data object
+      if (callback) {
+        callback(req, res, data, callback);
+      }
+    }
+  );
+};
+
+
 var getSamplesForSessionData =  function (req, res, data, callback) {
   var labId         = req.params.labId;
   var sessionNumber = req.params.sessionNumber;
@@ -129,4 +149,76 @@ module.exports.samplesForSession = function (req, res) {
     });
   });
 };
+
+/************************** createNewSession *********************************/
+
+var renderCreateNewSession = function(req, res, data){
+  // will be doing some re-org of data here
+  console.log(util.inspect(data, false, null));
+  var title = "Create new session";
+  res.render('createNewSession',
+    { title: title,
+      maxSessionNumbers: data.maxSessionNumbers,
+      errors: data.errors
+    });
+};
+
+
+module.exports.createNewSession = function (req, res) {
+  var data = {};
+  data['errors'] = [];   // these may be multiple
+  getMaxSessionNumbersForLabsData(req, res, data, function () { 
+    renderCreateNewSession(req, res, data);
+  });
+};
+
+
+// this is the controller for the posting of the data from createNewSessions page
+// it handles the post from that page and calls to api to do the actual creation
+// of the session in the store.
+
+module.exports.executeCreateNewSession =  function (req, res) {
+  var requestOptions, path;
+  path = '/api/createNewSession';
+  var postData = {
+    lab_id:         req.body.lab_id,
+    session_number: req.body.session_number,
+    start_date:     req.body.start_date
+  };
+  requestOptions = {
+    url : apiOptions.server + path,
+    method : "POST",
+    json: postData
+  };
+  console.log("excuteCreateNewSession: " + util.inspect(requestOptions, false, null));
+  request(
+    requestOptions,
+    function(err, response, body) {
+      var data = {};
+      //console.log("excuteCreateNewSession response " + util.inspect(response.body, false, null));
+      if (response.statusCode === 201) {
+        console.log("excuteCreateNewSessions response was code " + response.statusCode);
+        var nextURL = '/labSessionsOverview';
+        console.log("executeCreateNewSession redirecting to " + nextURL);
+        res.redirect(nextURL);
+      }
+      else {
+        console.log("ERROR: executeCreateNewSession post failed with a status of " + response.statusCode);
+        
+        //var data = {};
+        if (response.body.errors !== null) {
+          data['errors'] = response.body.errors;   // these error came back from the api
+        }
+        // send back a response that is reports the error.
+        getMaxSessionNumbersForLabsData(req, res, data, function () {
+          renderCreateNewSession(req, res, data);
+        });
+        //res.redirect('/labSessionsOverview');
+      }
+    }
+  );
+
+}
+
+
 
