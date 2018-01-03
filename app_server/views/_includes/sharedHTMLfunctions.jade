@@ -39,9 +39,12 @@ mixin outputMeasurementsRow(sample)
 
 
 
-mixin outputSessionDay(dayObj)
+mixin outputSessionDay(dayObj, labId, sessionNumber)
  .row
-   h3 #{dayObj.date}
+   .col-md-2
+     h3 #{dayObj.date}
+   .col-md-4
+     a(href="/editSampleDay/#{labId}/#{sessionNumber}/#{dayObj.date}").btn.btn-sm.btn-info Edit This Day
  .row
    .col-md-1
      strong Samplers:
@@ -65,6 +68,6 @@ mixin outputSessionDay(dayObj)
          each sample in dayObj.samples
            +outputMeasurementsRow(sample)
 
-mixin outputSession(dataByDate)
+mixin outputSession(dataByDate, labId, sessionNumber)
   each dayObj in dataByDate
-   +outputSessionDay(dayObj)
+   +outputSessionDay(dayObj, labId, sessionNumber)

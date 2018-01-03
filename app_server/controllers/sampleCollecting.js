@@ -130,11 +130,14 @@ module.exports.labSessionsOverview = function (req, res) {
 var renderSamplesForSession = function(req, res, data){
   // will be doing some re-org of data here
   var dataByDate = dfHelper.organizeSamplesAndWorkersByDate(data.samples, data.workers);
-  //console.log(util.inspect(data, false, null));
+  console.log(util.inspect(req.params, false, null));
+  console.log(util.inspect(dataByDate, false, null));
   var title = "Samples for " + req.params.labLongName + ", Session " + req.params.sessionNumber;
   res.render('samplesForSession',
     { title: title,
       dataByDate: dataByDate,
+      labId: req.params.labId,
+      sessionNumber: req.params.sessionNumber,
       errors: data.errors
     });
 };
@@ -217,8 +220,29 @@ module.exports.executeCreateNewSession =  function (req, res) {
       }
     }
   );
+};
 
-}
 
 
+/************************** createNewSession *********************************/
+
+var renderEditSampleDay = function(req, res, data){
+  // will be doing some re-org of data here
+  console.log(util.inspect(data, false, null));
+  var title = "Edit Complete Day";
+  res.render('editSampleDay',
+    { title: title,
+      //maxSessionNumbers: data.maxSessionNumbers,
+      errors: data.errors
+    });
+};
+
+
+module.exports.editSampleDay = function (req, res) {
+  var data = {};
+  data['errors'] = [];   // these may be multiple
+  //getMaxSessionNumbersForLabsData(req, res, data, function () { 
+    renderEditSampleDay(req, res, data);
+ // });
+};
 

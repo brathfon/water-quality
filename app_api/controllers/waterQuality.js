@@ -171,6 +171,35 @@ module.exports.getSamplesForSession = function (req, res) {
 };
 
 
+module.exports.getSamplesForSessionOnDate = function (req, res) {
+
+  var labId         = req.params.labId;
+  var sessionNumber = req.params.sessionNumber;
+  var theDate       = req.params.theDate;
+  //console.log("sessionNumber " + sessionNumber);
+  db.connection.query("call samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+
+    var data = {};
+    data['samples'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error retrieving samples for session and date",
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount.
+      data['samples'] = rows[0];
+      sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+
+
 module.exports.getWorkersForSession = function (req, res) {
 
   var labId = req.params.labId;
