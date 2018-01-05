@@ -48,6 +48,7 @@ var getMaxSessionNumbersForLabsData =  function (req, res, data, callback) {
     method: "GET",
     json : {}
   };
+  console.log("in getMaxSessionNumbersForLabsData data: " + util.inspect(data, false, null));
   request(
     requestOptions,
     function(err, response, maxSessionNumbersForLabs) {
@@ -82,6 +83,28 @@ var getSamplesForSessionData =  function (req, res, data, callback) {
   );
 };
 
+
+var getSamplesForSessionOnDateData =  function (req, res, data, callback) {
+  var labId         = req.params.labId;
+  var sessionNumber = req.params.sessionNumber;
+  var theDate       = req.params.theDate;
+  var path = "/api/getSamplesForSessionOnDate/" + labId + "/" + sessionNumber + "/" + theDate ;
+  var requestOptions = {
+    url: apiOptions.server + path,
+    method: "GET",
+    json : {}
+  };
+  request(
+    requestOptions,
+    function(err, response, samplesData) {
+      data["samples"] = samplesData["samples"];
+      data["errors"]  = data["errors"].concat(samplesData["errors"]);
+      if (callback) {
+        callback(req, res, data, callback);
+      }
+    }
+  );
+};
 
 var getWorkersForSessionData =  function (req, res, data, callback) {
   var labId         = req.params.labId;
@@ -130,8 +153,8 @@ module.exports.labSessionsOverview = function (req, res) {
 var renderSamplesForSession = function(req, res, data){
   // will be doing some re-org of data here
   var dataByDate = dfHelper.organizeSamplesAndWorkersByDate(data.samples, data.workers);
-  console.log(util.inspect(req.params, false, null));
-  console.log(util.inspect(dataByDate, false, null));
+  //console.log(util.inspect(req.params, false, null));
+  //console.log(util.inspect(dataByDate, false, null));
   var title = "Samples for " + req.params.labLongName + ", Session " + req.params.sessionNumber;
   res.render('samplesForSession',
     { title: title,
@@ -198,6 +221,8 @@ module.exports.executeCreateNewSession =  function (req, res) {
     requestOptions,
     function(err, response, body) {
       var data = {};
+      data['errors'] = [];
+      var errorMsg = null;
       //console.log("excuteCreateNewSession response " + util.inspect(response.body, false, null));
       if (response.statusCode === 201) {
         console.log("excuteCreateNewSessions response was code " + response.statusCode);
@@ -206,11 +231,19 @@ module.exports.executeCreateNewSession =  function (req, res) {
         res.redirect(nextURL);
       }
       else {
-        console.log("ERROR: executeCreateNewSession post failed with a status of " + response.statusCode);
+
+        errorMsg = {};
+        errorMsg['title'] = "ERROR: executeCreateNewSession post failed with a status of " + response.statusCode;
+        errorMsg['level'] = "Danger";
+        errorMsg['text']  = [];
+        errorMsg['text'].push("Your data was not saved in the database");
+  
+        console.log(errorMsg.title);
+        data['errors'].push(errorMsg);
         
-        //var data = {};
-        if (response.body.errors !== null) {
-          data['errors'] = response.body.errors;   // these error came back from the api
+        if ((response.body.errors !== null) && (response.body.errors !== undefined)) {
+          //data['errors'] = response.body.errors;   // these error came back from the api
+          data['errors'] = data['errors'].concat(response.body.errors);   // these error came back from the api
         }
         // send back a response that is reports the error.
         getMaxSessionNumbersForLabsData(req, res, data, function () {
@@ -223,26 +256,97 @@ module.exports.executeCreateNewSession =  function (req, res) {
 };
 
 
+// this is the controller for the posting of updates to a days worth of collected data
+// it handles the post from that page and calls to api to do the actual update
+// of samples in the database.
 
-/************************** createNewSession *********************************/
+module.exports.executeEditSamplesOnDate =  function (req, res) {
+  console.log("excuteEditSamplesOnDate req.body: " + util.inspect(req.body, false, null));
+  var requestOptions, path;
+  path = '/api/updateSamplesOnDate';
+  var labId         = req.body.labId;
+  var sessionNumber = req.body.sessionNumber;
+  var theDate       = req.body.theDate;
 
-var renderEditSampleDay = function(req, res, data){
+  var postData = {
+    lab_id:         req.body.lab_id,
+    session_number: req.body.session_number,
+    start_date:     req.body.start_date
+  };
+  requestOptions = {
+    url : apiOptions.server + path,
+    method : "POST",
+    json: postData
+  };
+  console.log("excuteEditSamplesOnDate: " + util.inspect(requestOptions, false, null));
+  request(
+    requestOptions,
+    function(err, response, body) {
+      var data = {};
+      data['errors'] = [];
+      var errorMsg = null;
+
+      //console.log("excuteCreateNewSession response " + util.inspect(response.body, false, null));
+      if (response.statusCode === 201) {
+        console.log("excuteEditSamplesOnDate response was code " + response.statusCode);
+        var nextURL = '/labSessionsOverview';
+        console.log("executeEditSamplesOnDate redirecting to " + nextURL);
+        res.redirect(nextURL);
+      }
+      else {
+
+        errorMsg = {};
+        errorMsg['title'] = "ERROR: executeEditSamplesOnDate post failed with a status of " + response.statusCode;
+        errorMsg['level'] = "Danger";
+        errorMsg['text']  = [];
+        errorMsg['text'].push("Your data was not saved in the database");
+  
+        console.log(errorMsg.title);
+        data['errors'].push(errorMsg);
+        
+        if ((response.body.errors !== null) && (response.body.errors !== undefined)) {
+          data['errors'].concat(response.body.errors);   // these error came back from the api
+        }
+        // send back a response that is reports the error.
+        // need to add these req.params back in
+        req.params.labId = labId;
+        req.params.sessionNumber = sessionNumber;
+        req.params.theDate = theDate;
+        getSamplesForSessionOnDateData(req, res, data, function () { 
+          renderEditSamplesOnDate(req, res, data);
+        });
+      }
+    }
+  );
+};
+
+
+/************************** editSamplesOnDate functions ******************************/
+
+var renderEditSamplesOnDate = function(req, res, data){
   // will be doing some re-org of data here
-  console.log(util.inspect(data, false, null));
-  var title = "Edit Complete Day";
-  res.render('editSampleDay',
-    { title: title,
-      //maxSessionNumbers: data.maxSessionNumbers,
-      errors: data.errors
+  console.log("renderEditSamplesOnDate data: " + util.inspect(data, false, null));
+  console.log("renderEditSamplesOnDate req.params: " + util.inspect(req.params, false, null));
+  var theDate = req.params.theDate;
+  var title   = "Edit Day " + theDate;
+  var labId   = req.params.labId;
+  var sessionNumber = req.params.sessionNumber;
+  res.render('editSamplesOnDate',
+    { title:         title,
+      theDate:       theDate,
+      labId:         labId,
+      sessionNumber: sessionNumber,
+      samples:       data.samples, 
+      errors:        data.errors
     });
 };
 
 
-module.exports.editSampleDay = function (req, res) {
+module.exports.editSamplesOnDate = function (req, res) {
   var data = {};
   data['errors'] = [];   // these may be multiple
-  //getMaxSessionNumbersForLabsData(req, res, data, function () { 
-    renderEditSampleDay(req, res, data);
- // });
+    getSamplesForSessionOnDateData(req, res, data, function () { 
+      renderEditSamplesOnDate(req, res, data);
+  });
 };
 
