@@ -10,5 +10,6 @@ router.get('/getSamplesForSession/:labId/:sessionNumber',                ctrlWQ.
 router.get('/getSamplesForSessionOnDate/:labId/:sessionNumber/:theDate', ctrlWQ.getSamplesForSessionOnDate);
 router.get('/getMaxSessionNumbersForLabs',                               ctrlWQ.getMaxSessionNumbersForLabs);
 router.get('/getWorkersForSession/:labId/:sessionNumber',                ctrlWQ.getWorkersForSession);
+router.put('/updateOneSample',                                           ctrlWQ.updateOneSample);
 
 module.exports = router;

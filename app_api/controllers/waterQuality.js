@@ -225,3 +225,53 @@ module.exports.getWorkersForSession = function (req, res) {
     }
   });
 };
+
+
+module.exports.updateOneSample = function (req, res) {
+
+  //console.log(chalk.blue(util.inspect(req.body, false, null)));
+
+  var query = "update samples set " + 
+     "date_and_time = '" + req.body.theDate + " " + req.body.time + "', " +
+    // "moon = " + 
+    "temperature = " + req.body.temperature + ", "  +
+    "salinity = " +  req.body.salinity + ", " +
+    "dissolved_oxygen = " + req.body.dissolved_oxygen + ", " +
+    "dissolved_oxygen_pct = " + req.body.dissolved_oxygen_pct + ", " +
+    "ph = " + req.body.ph + ", " +
+    "turbidity_1 = " + req.body.turbidity_1 + ", " +
+    "turbidity_2 = " + req.body.turbidity_2 + ", " +
+    "turbidity_3 = " + req.body.turbidity_3 + " " +
+    "where sample_id = " + req.body.sample_id;
+
+
+  db.connection.query(query, function(err, rows, fields) {
+
+    //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
+    //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
+    //console.log(chalk.blue("rows affected : " + util.inspect(rows.affectedRows, false, null)));
+
+    var data = {};
+    data['updateResults'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error updating sample with id of " + req.body.sampleId,
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    }
+    else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
+      sendJsonErrorResponse("Expecting 1 row affected in database.  " + rows.affectedRows + " reported",
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    }
+    else {
+      sendJsonResponse(res, 201, data);
+    }
+
+  });
+};

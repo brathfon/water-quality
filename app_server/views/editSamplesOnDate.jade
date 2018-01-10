@@ -18,6 +18,7 @@ block content
         form(action="/executeEditSamplesOnDate", method="POST", role="form").col-md-12
           input(type="hidden", name="labId", value="#{labId}")
           input(type="hidden", name="sessionNumber", value="#{sessionNumber}")
+          input(type="hidden", name="labLongName", value="#{labLongName}")
           input(type="hidden", name="theDate", value="#{theDate}")
           table.table.table-striped.table-hover
            thead
@@ -48,21 +49,21 @@ block content
              tr
                td #{sample.long_name}
                td
-                 input(type="text", name="#{sample.sample_id}.time", value="#{sample.time}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.time", value="#{sample.time}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.temp", value="#{sample.temperature}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.temperature", value="#{sample.temperature}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.salinity", value="#{sample.salinity}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.salinity", value="#{sample.salinity}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.dissolved_oxygen", value="#{sample.dissolved_oxygen}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.dissolved_oxygen", value="#{sample.dissolved_oxygen}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.dissolved_oxygen_sat", value="#{sample.dissolved_oxygen_pct}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.dissolved_oxygen_pct", value="#{sample.dissolved_oxygen_pct}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.ph", value="#{sample.ph}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.ph", value="#{sample.ph}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.turbidity1", value="#{sample.turbidity_1}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_1", value="#{sample.turbidity_1}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.turbidity2", value="#{sample.turbidity_2}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_2", value="#{sample.turbidity_2}").form-control
                td
-                 input(type="text", name="#{sample.sample_id}.turbidity3", value="#{sample.turbidity_3}").form-control
+                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_3", value="#{sample.turbidity_3}").form-control
           button(type="submit").btn.btn-primary Update
