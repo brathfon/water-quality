@@ -1,0 +1,21 @@
+
+mixin formatSampleTime(theTime)
+  - var newTime = "";
+  - if ((theTime !== null) && (theTime !== undefined)) {
+  -   newTime = theTime.slice(0,5);
+  - }
+  - else {
+  -   newTime = "";
+  - }
+  | #{newTime}
+
+
+mixin formatSampleWithSigFigs(theSample, numSigFigs)
+  - var newSample = "";
+  - if ((theSample !== null) && (theSample !== undefined)) {
+  -   newSample = theSample.toFixed(numSigFigs);
+  - }
+  - else {
+  -   newSample = "";
+  - }
+  | #{newSample}

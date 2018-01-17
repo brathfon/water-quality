@@ -29,7 +29,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-order by sam.date_and_time, site.default_session_order; -- if all dates are equal, like when first created, sort by default-session-order
+order by site.default_session_order; -- ignore time, just order by the usual order of collection
 
 
 DROP PROCEDURE IF EXISTS samples_for_session_on_date;
@@ -61,7 +61,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       date(sam.date_and_time) = curr_date and
       sam.site_id = site.site_id
-order by sam.date_and_time, site.default_session_order; -- if all dates are equal, like when first created, sort bu default-session-order
+order by site.default_session_order; -- ignore time, just order by the usual order of collection
 
 
 

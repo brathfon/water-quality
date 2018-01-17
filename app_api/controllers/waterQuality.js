@@ -46,6 +46,39 @@ var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
 }
 
 
+// make sure that the time is on HH:MM.  If someone adds seconds, truncate them.
+
+var formatSampleTime = function(theTime) {
+  var newTime = theTime;
+  if ((theTime !== null) && (theTime !== undefined)) {
+    newTime = theTime.slice(0,5);
+  }
+  return newTime;
+};
+
+
+var formatSampleWithSigFigs = function(theSample, numSigFigs) {
+
+  var newSample = null;
+
+  //console.log("Formatting : " + theSample);
+
+  if ((theSample !== null) && (theSample !== undefined)) {
+    if (theSample === "") {
+      newSample = null;
+    }
+    else {
+      newSample = parseFloat(theSample).toFixed(numSigFigs);
+    }
+  }
+  else {
+    newSample = null;
+  }
+  return newSample;
+};
+
+
+
 
 module.exports.createNewSession = function (req, res) {
 
@@ -229,21 +262,22 @@ module.exports.getWorkersForSession = function (req, res) {
 
 module.exports.updateOneSample = function (req, res) {
 
-  //console.log(chalk.blue(util.inspect(req.body, false, null)));
+  console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
 
   var query = "update samples set " + 
-     "date_and_time = '" + req.body.theDate + " " + req.body.time + "', " +
+     "date_and_time = '" + req.body.theDate + " " + formatSampleTime(req.body.time) + "', " +
     // "moon = " + 
-    "temperature = " + req.body.temperature + ", "  +
-    "salinity = " +  req.body.salinity + ", " +
-    "dissolved_oxygen = " + req.body.dissolved_oxygen + ", " +
-    "dissolved_oxygen_pct = " + req.body.dissolved_oxygen_pct + ", " +
-    "ph = " + req.body.ph + ", " +
-    "turbidity_1 = " + req.body.turbidity_1 + ", " +
-    "turbidity_2 = " + req.body.turbidity_2 + ", " +
-    "turbidity_3 = " + req.body.turbidity_3 + " " +
+    "temperature = "          + formatSampleWithSigFigs(req.body.temperature, 1) + ", "  +
+    "salinity = "             + formatSampleWithSigFigs(req.body.salinity, 1) + ", " +
+    "dissolved_oxygen = "     + formatSampleWithSigFigs(req.body.dissolved_oxygen, 2) + ", " +
+    "dissolved_oxygen_pct = " + formatSampleWithSigFigs(req.body.dissolved_oxygen_pct, 1) + ", " +
+    "ph = "                   + formatSampleWithSigFigs(req.body.ph, 2)     + ", " +
+    "turbidity_1 = "          + formatSampleWithSigFigs(req.body.turbidity_1, 2) + ", " +
+    "turbidity_2 = "          + formatSampleWithSigFigs(req.body.turbidity_2, 2) + ", " +
+    "turbidity_3 = "          + formatSampleWithSigFigs(req.body.turbidity_3, 2) + " " +
     "where sample_id = " + req.body.sample_id;
 
+    console.log(chalk.blue("query : " + util.inspect(query, false, null)));
 
   db.connection.query(query, function(err, rows, fields) {
 

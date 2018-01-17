@@ -1,3 +1,4 @@
+
 extends layout
 
 include _includes/sharedHTMLfunctions
@@ -46,24 +47,44 @@ block content
                th.in-situ-header-cell 2
                th.in-situ-header-cell 3
            each sample in samples
+
+             - var sampleTime = sample.time;
+             - if ((sampleTime !== null) && (sampleTime !== undefined)){ sampleTime = sampleTime.slice(0,5); } else { sampleTime = ""};
+             - var temperature = sample.temperature;
+             - if ((temperature !== null) && (temperature !== undefined)) { temperature = temperature.toFixed(1); } else { temperature = ""; };
+             - var salinity = sample.salinity
+             - if ((salinity !== null) && (salinity !== undefined)) { salinity = salinity.toFixed(1); } else { salinity = ""; };
+             - var dissolved_oxygen = sample.dissolved_oxygen
+             - if ((dissolved_oxygen !== null) && (dissolved_oxygen !== undefined)) { dissolved_oxygen = dissolved_oxygen.toFixed(2); } else { dissolved_oxygen = ""; };
+             - var dissolved_oxygen_pct = sample.dissolved_oxygen_pct
+             - if ((dissolved_oxygen_pct !== null) && (dissolved_oxygen_pct !== undefined)) { dissolved_oxygen_pct = dissolved_oxygen_pct.toFixed(1); } else { dissolved_oxygen_pct = ""; };
+             - var ph = sample.ph
+             - if ((ph !== null) && (ph !== undefined)) { ph = ph.toFixed(2); } else { ph = ""; };
+             - var turbidity_1 = sample.turbidity_1
+             - if ((turbidity_1 !== null) && (turbidity_1 !== undefined)) { turbidity_1 = turbidity_1.toFixed(2); } else { turbidity_1 = ""; };
+             - var turbidity_2 = sample.turbidity_2
+             - if ((turbidity_2 !== null) && (turbidity_2 !== undefined)) { turbidity_2 = turbidity_2.toFixed(2); } else { turbidity_2 = ""; };
+             - var turbidity_3 = sample.turbidity_3
+             - if ((turbidity_3 !== null) && (turbidity_3 !== undefined)) { turbidity_3 = turbidity_3.toFixed(2); } else { turbidity_3 = ""; };
+
              tr
                td #{sample.long_name}
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.time", value="#{sample.time}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.time", value="#{sampleTime}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.temperature", value="#{sample.temperature}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.temperature", value="#{temperature}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.salinity", value="#{sample.salinity}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.salinity", value="#{salinity}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.dissolved_oxygen", value="#{sample.dissolved_oxygen}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.dissolved_oxygen", value="#{dissolved_oxygen}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.dissolved_oxygen_pct", value="#{sample.dissolved_oxygen_pct}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.dissolved_oxygen_pct", value="#{dissolved_oxygen_pct}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.ph", value="#{sample.ph}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.ph", value="#{ph}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_1", value="#{sample.turbidity_1}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.turbidity_1", value="#{turbidity_1}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_2", value="#{sample.turbidity_2}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.turbidity_2", value="#{turbidity_2}").form-control
                td
-                 input(type="text", name="sampleTag.#{sample.sample_id}.turbidity_3", value="#{sample.turbidity_3}").form-control
+                 input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.turbidity_3", value="#{turbidity_3}").form-control
           button(type="submit").btn.btn-primary Update

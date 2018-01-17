@@ -1,3 +1,5 @@
+include dataFormatting
+
 mixin outputErrors(errors)
   each error in errors
     - levelClass = "text-" + error.level.toLowerCase()
@@ -21,20 +23,29 @@ mixin samplersString(samplers)
 mixin outputMeasurementsRow(sample)
   tr
     td #{sample.long_name}
-    td.in-situ-table-cell #{sample.time}
-    td.in-situ-table-cell #{sample.temperature}
-    td.in-situ-table-cell #{sample.salinity}
-    td.in-situ-table-cell #{sample.dissolved_oxygen}
-    td.in-situ-table-cell #{sample.dissolved_oxygen_pct}
-    td.in-situ-table-cell #{sample.ph}
+    td.in-situ-table-cell
+     +formatSampleTime(sample.time)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.temperature, 1)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.salinity, 1)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.dissolved_oxygen, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.dissolved_oxygen_pct, 1)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.ph, 2)
     td
       table.in-situ-inner-table
           tr
-            td #{sample.turbidity_1}
+            td
+              +formatSampleWithSigFigs(sample.turbidity_1, 2)
           tr
-            td #{sample.turbidity_2}
+            td
+              +formatSampleWithSigFigs(sample.turbidity_2, 2)
           tr
-            td #{sample.turbidity_3}
+            td
+              +formatSampleWithSigFigs(sample.turbidity_3, 2)
     td #{sample.comments}
 
 

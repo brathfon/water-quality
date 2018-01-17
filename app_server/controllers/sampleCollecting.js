@@ -48,7 +48,7 @@ var getMaxSessionNumbersForLabsData =  function (req, res, data, callback) {
     method: "GET",
     json : {}
   };
-  console.log("in getMaxSessionNumbersForLabsData data: " + util.inspect(data, false, null));
+  //console.log("in getMaxSessionNumbersForLabsData data: " + util.inspect(data, false, null));
   request(
     requestOptions,
     function(err, response, maxSessionNumbersForLabs) {
@@ -181,7 +181,7 @@ module.exports.samplesForSession = function (req, res) {
 
 var renderCreateNewSession = function(req, res, data){
   // will be doing some re-org of data here
-  console.log(util.inspect(data, false, null));
+  //console.log(util.inspect(data, false, null));
   var title = "Create new session";
   res.render('createNewSession',
     { title: title,
@@ -217,7 +217,7 @@ module.exports.executeCreateNewSession =  function (req, res) {
     method : "POST",
     json: postData
   };
-  console.log("excuteCreateNewSession: " + util.inspect(requestOptions, false, null));
+  //console.log("excuteCreateNewSession: " + util.inspect(requestOptions, false, null));
   request(
     requestOptions,
     function(err, response, body) {
@@ -260,7 +260,7 @@ module.exports.executeCreateNewSession =  function (req, res) {
 /* this function calls the api to update the day */
 
 var updateEditedSamplesOnDate =  function (req, res, dayObjsArray) {
-  console.log("updateEditSamplesOnDate req.body: " + util.inspect(req.body, false, null));
+  //console.log("updateEditSamplesOnDate req.body: " + util.inspect(req.body, false, null));
   var requestOptions, path;
   var labId         = req.body.labId;
   var sessionNumber = req.body.sessionNumber;
@@ -275,7 +275,7 @@ var updateEditedSamplesOnDate =  function (req, res, dayObjsArray) {
   }
 
   var sample = dayObjsArray.pop();
-  console.log("updateEditedSamplesOnDate sample: " + util.inspect(sample, false, null));
+  //console.log("updateEditedSamplesOnDate sample: " + util.inspect(sample, false, null));
 
   var putData = {
     theDate:              theDate,
@@ -336,6 +336,7 @@ var updateEditedSamplesOnDate =  function (req, res, dayObjsArray) {
         req.params.labId = labId;
         req.params.sessionNumber = sessionNumber;
         req.params.theDate = theDate;
+        req.params.labLongName = labLongName;
         getSamplesForSessionOnDateData(req, res, data, function () { 
           renderEditSamplesOnDate(req, res, data);
         });
@@ -370,7 +371,7 @@ module.exports.executeEditSamplesOnDate =  function (req, res) {
 var renderEditSamplesOnDate = function(req, res, data){
   // will be doing some re-org of data here
   //console.log("renderEditSamplesOnDate data: " + util.inspect(data, false, null));
-  console.log("renderEditSamplesOnDate req.params: " + util.inspect(req.params, false, null));
+  //console.log("renderEditSamplesOnDate req.params: " + util.inspect(req.params, false, null));
   var theDate       = req.params.theDate;
   var labId         = req.params.labId;
   var sessionNumber = req.params.sessionNumber;
