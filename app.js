@@ -13,6 +13,10 @@ var routesApi = require('./app_api/routes/index');
 
 console.log("get-env is " + env());
 
+if (process.env.PORT) {
+  console.log("PORT set to " + process.env.PORT);
+}
+
 var app = express();
 
 // view engine setup
