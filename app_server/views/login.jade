@@ -1,0 +1,27 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+  .container
+    .row.page-header
+      .col-lg-12
+        h3 #{title}
+    - if ((errors) && (errors.length > 0)) {
+      .row
+        h3.text-danger Errors and Warnings Detected
+      .row
+        +outputErrors(errors)
+    - }
+    .row
+      .col-md-offset-4.col-md-4
+        .form-login
+          form(action="/executeLogin", method="POST", role="form")
+            h4.login-header Welcome Back
+            input(type="text" name="email" class="form-control input-sm chat-input" placeholder="email")
+            br
+            input(type="text" name="password" class="form-control input-sm chat-input" placeholder="password")
+            br
+            div.login-wrapper
+              span.group-btn
+                button(type="submit").btn.btn-primary.btn-md Login

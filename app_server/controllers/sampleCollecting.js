@@ -16,11 +16,6 @@ else {
 }
 
 
-module.exports.sampleSession = function (req, res) {
-  res.render('sampleSession', { title: 'Sample Session' });
-};
-
-
 var getLabSessionsOverviewData =  function (req, res, data, callback) {
   var path = "/api/getLabSessionsOverview";
   var requestOptions = {

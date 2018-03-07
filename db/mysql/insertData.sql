@@ -1,6 +1,14 @@
 USE water_quality;
 
 
+-- special case for the root worker that will have permissions to do all.  Initial root password will be "default"
+-- email will be used as the login
+INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values
+   ('root', 'root', '99', 'root@root.com', null,
+   '1cde9aa1d680a208887e359a300f0205',
+   'd58ef56cba0559ee822b2b385458eb51dabd372b16822dc15a5a9a00df3a940a7fdbaa176563bf55c837a280d78041bfd9d06c376962244de325a8bde33915bf');
+
+-- these users will not have an initial pw at least for now
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Marie', 'Shroeder', 'MS', 'ms@yahoo.com', '808-345-6789');
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Terry', 'Shroeder', 'TS', 'ms@yahoo.com', '808-345-6789');
@@ -48,34 +56,45 @@ INSERT INTO teams (team_code, long_name, lab_id) values ('NR2R', 'North Ridge-to
 INSERT INTO teams (team_code, long_name, lab_id) values ('Kamaole', 'Kamaole', 2);
 INSERT INTO teams (team_code, long_name, lab_id) values ('Makena', 'Makena', 2);
 
-INSERT INTO team_members (team_id, worker_id) values ( 1, 1);
 INSERT INTO team_members (team_id, worker_id) values ( 1, 2);
-INSERT INTO team_members (team_id, worker_id) values ( 1, 4);
-INSERT INTO team_members (team_id, worker_id) values ( 1, 27);
+INSERT INTO team_members (team_id, worker_id) values ( 1, 3);
+INSERT INTO team_members (team_id, worker_id) values ( 1, 5);
+INSERT INTO team_members (team_id, worker_id) values ( 1, 28);
 
-INSERT INTO team_members (team_id, worker_id) values ( 2, 8);
-INSERT INTO team_members (team_id, worker_id) values ( 2, 3);
-INSERT INTO team_members (team_id, worker_id) values ( 2, 26);
+INSERT INTO team_members (team_id, worker_id) values ( 2, 9);
+INSERT INTO team_members (team_id, worker_id) values ( 2, 4);
+INSERT INTO team_members (team_id, worker_id) values ( 2, 27);
 
-INSERT INTO team_members (team_id, worker_id) values ( 3, 8);
-INSERT INTO team_members (team_id, worker_id) values ( 3, 5);
+INSERT INTO team_members (team_id, worker_id) values ( 3, 9);
+INSERT INTO team_members (team_id, worker_id) values ( 3, 6);
 
+INSERT INTO team_members (team_id, worker_id) values ( 4, 8);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 7);
-INSERT INTO team_members (team_id, worker_id) values ( 4, 6);
-INSERT INTO team_members (team_id, worker_id) values ( 4, 4);
+INSERT INTO team_members (team_id, worker_id) values ( 4, 5);
 
 -- lab NMS
 -- Kamaole
-INSERT INTO team_members (team_id, worker_id) values ( 5, 17);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 18);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 19);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 20);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 21);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 22);
 -- Makena
-INSERT INTO team_members (team_id, worker_id) values ( 6, 22);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 23);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 24);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 25);
+INSERT INTO team_members (team_id, worker_id) values ( 6, 26);
+
+-- Roles information
+INSERT INTO roles (abrv, long_name) VALUES ( 'ADM', 'Administration');
+INSERT INTO roles (abrv, long_name) VALUES ( 'DE', 'Data Entry');
+INSERT INTO roles (abrv, long_name) VALUES ( 'DV', 'Data Verification');
+INSERT INTO roles (abrv, long_name) VALUES ( 'QA', 'Quality Assurance');
+INSERT INTO roles (abrv, long_name) VALUES ( 'RO', 'Read Only');   -- in case we want to let someone look at the data as entered
+
+
+INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 1);  -- initial root worker who has admin privileges
+INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 2);  -- this value is more for testing, giving root DE privs
 
 
 -- R2RS
