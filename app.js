@@ -1,3 +1,4 @@
+require('dotenv').load();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -10,6 +11,16 @@ require('./app_api/models/db');   // no functions are exported from db.js, so no
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
 //var users = require('.//app_server/routes/users');
+
+if ((process.env.JWT_SECRET === null) || (process.env.JWT_SECRET === undefined)) {
+  console.log("ERROR: JWT_SECRET not defined");
+  // might want a sleep here for production
+  process.exit(1);
+}
+else {
+  console.log("JWT secret is defined");
+}
+
 
 console.log("get-env is " + env());
 
@@ -43,6 +54,14 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
+// catch unauthorized errors
+app.use(function(err, req, res, next) {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401);
+    res.json({"message" : err.name + ": " + err.message});
+  }
+});
+
 
 // development error handler
 // will print stacktrace

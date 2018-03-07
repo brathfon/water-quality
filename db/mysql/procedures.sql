@@ -121,3 +121,39 @@ BEGIN
 END//
 
 delimiter ;
+
+DROP PROCEDURE IF EXISTS set_password;
+
+delimiter //
+
+CREATE PROCEDURE set_password(IN curr_worker_id INT,IN curr_salt CHAR(32),IN curr_hash CHAR(128))
+BEGIN
+
+  DECLARE exit handler FOR sqlexception
+  BEGIN
+    SHOW ERRORS;
+    ROLLBACK;
+  END;
+
+  START TRANSACTION;
+  UPDATE workers SET
+    salt = curr_salt,
+    hash = curr_hash
+  WHERE worker_id = curr_worker_id;
+
+  SELECT
+    w.worker_id,
+    w.first_name,
+    w.last_name,
+    w.salt,
+    w.hash,
+    wr.role_id
+  FROM workers w,
+       worker_roles wr
+  WHERE w.worker_id = curr_worker_id and
+        w.worker_id = wr.worker_id and
+        w.active    = 1;
+  COMMIT;
+END//
+
+delimiter ;
