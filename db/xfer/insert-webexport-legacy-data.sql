@@ -55,9 +55,6 @@
 -- hui_abv WPO site_id 49
 -- hui_abv WUL site_id 46
 -- hui_abv WWA site_id 47
-
-use water_quality;
-
 -- session :  1 session_id auto_increment : 1
 
 -- insert this session

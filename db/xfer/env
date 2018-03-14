@@ -1,1 +1,5 @@
 export WQ_FILES=/Users/bill/Development/water-quality-data
+export DB_HOST=localhost
+export DB_USER=wq_dba
+export DB_PASSWORD=ntus
+export DB_DATABASE=water_quality

@@ -91,8 +91,6 @@
 -- lab_code LLHS lab_id 1
 -- lab_code NMS lab_id 2
 
-use water_quality;
-
 -- session :  1 session_id auto_increment : 28
 
 -- insert this session

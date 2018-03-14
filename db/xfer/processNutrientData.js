@@ -12,12 +12,11 @@ var rsf  = require('./readSoestFiles');
 
 
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'wq_dba',
-    password: 'ntus',
-    database: 'water_quality'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
-
 
 connection.connect(function(err) {
   if (!err) {
@@ -120,38 +119,64 @@ var getKnownSites = function (data, endConnection, callback) {
 };
 
 
+var checkForQA = function(qaInsertList, value, sampleId, columnName, reportName) {
+
+   var returnValue = value;
+   var cmd = null;
+
+   if (value.match(/^</)) {
+     returnValue = value.substr(1);  // remove the < off the front
+     cmd = "insert into qa_issue_samples ( sample_id, sample_column_name, report_attribute_name, description) ";
+     cmd += "values (" + sampleId + ", \"" + columnName + "\", \"" + reportName + "\", \"below detectable limit\");";
+     qaInsertList.push(cmd);
+  }
+  return returnValue;
+}
+
+
+
 
 var createSqlStatements = function (data, callback) {
 
   var sample;
   var cmd;
-  //console.log("data " + util.inspect(data , false, null));
+  var qaNitrates;
+  var qaAmmonia;
+  var qaInserts = [];   // this is to hold all the insert statements into the qa_samples table
 
-  console.log(""); 
-  console.log("use water_quality;"); 
-  console.log(""); 
+  //console.log("data " + util.inspect(data , false, null));
 
   for (siteAndDate in data.nutrientSamples) {
 
     nutrients = data.nutrientSamples[siteAndDate];
     
     if (data.siteAndDateToSampleId[nutrients.SampleID]) { // found the sample_id for this site and date
+
+      // these are currently the only values that sometimes have "<1.5" as their value
+      qaNitrates = checkForQA(qaInserts, nutrients.NNN, data.siteAndDateToSampleId[nutrients.SampleID], "nitrates", "NNN");
+      qaAmmonia  = checkForQA(qaInserts, nutrients.NH4, data.siteAndDateToSampleId[nutrients.SampleID], "ammonia", "NH4");
+
+
       cmd = "";
       cmd += "UPDATE samples SET ";
       cmd += "total_nitrogen = " + nutrients.TotalN + ", ";
       cmd += "total_phosphorus = " + nutrients.TotalP + ", ";
       cmd += "phosphate = " + nutrients.Phosphate + ", ";
       cmd += "silicate = " + nutrients.Silicate + ", ";
-      cmd += "nitrates = " + nutrients.NNN + ", ";
-      cmd += "ammonia = " + nutrients.NH4 + " ";
+      cmd += "nitrates = " + qaNitrates + ", ";
+      cmd += "ammonia = "  + qaAmmonia + " ";
       cmd += "where sample_id = " + data.siteAndDateToSampleId[nutrients.SampleID] + ";";
       console.log(cmd);
     }
     else {
       console.log("-- WARNING: did not find sample id for  " + nutrients.SampleID + " site: " + nutrients.Location + " date " + nutrients.Date);
     }
-    
   }
+
+  for (k = 0; k < qaInserts.length; ++k) {
+    console.log(qaInserts[k]);
+  }
+
 
   if (callback) {
     callback();

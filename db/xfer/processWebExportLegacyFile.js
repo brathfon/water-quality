@@ -27,10 +27,10 @@ var printSessionsAsComments = function(theSessions) {
 
 
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'wq_dba',
-    password: 'ntus',
-    database: 'water_quality'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
 
 
@@ -287,10 +287,6 @@ var createSqlStatements = function (data, callback) {
   var session_auto_increment  = data.maxSessionId;
   var sample_auto_increment   = data.maxSampleId;      
   var j, k;
-
-  console.log(""); 
-  console.log("use water_quality;"); 
-  console.log(""); 
 
   for (session_number in data.sessions) {
     ++session_auto_increment;  // DANGER: there is an assumption that this parallels auto-increment value in db

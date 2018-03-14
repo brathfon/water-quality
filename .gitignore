@@ -6,3 +6,4 @@ trans
 node_modules/
 .env
 res
+errs

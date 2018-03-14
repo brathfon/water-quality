@@ -39,14 +39,12 @@ var printSessionsAsComments = function(theSessions) {
 
 //printSessionsAsComments(sessions);
 
-
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'wq_dba',
-    password: 'ntus',
-    database: 'water_quality'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
-
 
 connection.connect(function(err) {
   if (!err) {
@@ -332,11 +330,6 @@ var createSqlStatements = function (data, callback) {
   var workerId    = null;
   var workerIndex = null;
   var session_number = null;
-
-
-  console.log(""); 
-  console.log("use water_quality;"); 
-  console.log(""); 
 
   for (session_number in data.sessions) {
     ++session_auto_increment;  // DANGER: there is an assumption that this parallels auto-increment value in db
