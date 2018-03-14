@@ -116,6 +116,7 @@ BEGIN
       FROM sites AS si,
            sessions AS se
       WHERE si.lab_id = curr_lab_id
+      AND   si.active = 1
       AND   se.session_number = curr_session_number;
   COMMIT;
 END//

@@ -1,17 +1,15 @@
 
--- to get for from a particular date
+
 
 use water_quality;
 
 select
-  w.worker_id,
-  w.first_name,
-  w.last_name,
-  w.salt,
-  w.hash,
-  wr.role_id
-from workers w,
-     worker_roles wr
-where w.worker_id = wr.worker_id and
-      w.email = 'root'
-;
+  CONCAT(site.hui_abv, DATE_FORMAT(sam.date_and_time, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  sam.sample_id,
+  site.hui_abv,
+  DATE_FORMAT(sam.date_and_time, '%c/%e/%y') as day -- returns as a string, should be safe from UTC conversion by mySQL node package
+from samples as sam,
+     sites as site
+where sam.site_id = site.site_id
+order by site.hui_abv, sam.date_and_time; 
+
