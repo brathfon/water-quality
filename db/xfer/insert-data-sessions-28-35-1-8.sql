@@ -90,7 +90,6 @@
 -- hui_abv WWA site_id 47
 -- lab_code LLHS lab_id 1
 -- lab_code NMS lab_id 2
-
 -- session :  1 session_id auto_increment : 28
 
 -- insert this session

@@ -251,6 +251,7 @@ var checkForQA = function(qaInsertList, value, sampleId, columnName, reportName)
      returnValue = null;
      cmd = "insert into qa_issue_samples ( sample_id, sample_column_name, report_attribute_name, description) ";
      cmd += "values (" + sampleId + ", \"" + columnName + "\", \"" + reportName + "\", \"QA\'ed out\");";
+     returnValue = null;
      qaInsertList.push(cmd);
   }
   return returnValue;

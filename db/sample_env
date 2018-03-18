@@ -1,0 +1,6 @@
+#  fill these in with the correct values
+export WQ_FILES=/Users/bill/Development/water-quality-data
+export DB_HOST=localhost
+export DB_USER=?????
+export DB_PASSWORD=?????
+export DB_DATABASE=?????

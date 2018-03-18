@@ -1,4 +1,3 @@
-use water_quality;
 
 CREATE OR REPLACE VIEW lab_sessions_overview AS
 SELECT l.lab_id,
@@ -32,7 +31,7 @@ SELECT
   site.hui_abv,
   sess.session_number,
   DATE_FORMAT(sam.date_and_time, '%c/%e/%y') as day, -- returns as a string, should be safe from UTC conversion by mySQL node package
-  DATE_FORMAT(sam.date_and_time, '%k:%i') as time,   -- (m:ss) 8:58, 10:10
+  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (m:ss) 8:58, 10:10
   FORMAT(sam.temperature,      1)     AS temperature,
   FORMAT(sam.salinity,         1)     AS salinity,
   FORMAT(sam.dissolved_oxygen, 2)     AS dissolved_oxygen,
@@ -44,7 +43,7 @@ SELECT
   FORMAT(ROUND(((sam.turbidity_1 + sam.turbidity_2 + sam.turbidity_3) / 3.0), 2), 2) as avg_turbidity,
   FORMAT(sam.total_nitrogen,   2)     AS total_nitrogen,
   FORMAT(sam.total_phosphorus, 2)     AS total_phosphorus,
-  FORMAT(sam.phosphate,        2)     AS phospate,
+  FORMAT(sam.phosphate,        2)     AS phosphate,
   FORMAT(sam.silicate,         2)     AS silicate,
   FORMAT(sam.nitrates,         2)     AS nitrates,
   FORMAT(sam.ammonia,          2)     AS ammonia,
@@ -79,3 +78,31 @@ FROM sites AS site
 ORDER BY site.hui_abv; 
 
 
+CREATE OR REPLACE VIEW diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  temperature,
+  salinity,
+  dissolved_oxygen,
+  dissolved_oxygen_pct,
+  ph,
+  turbidity_1,
+  turbidity_2,
+  turbidity_3,
+  avg_turbidity,
+  total_nitrogen,
+  total_phosphorus,
+  phosphate,
+  silicate,
+  nitrates,
+  ammonia,
+  lat,
+  lon
+FROM base_sample_report
+ORDER BY lab_id, session_number, day, time;

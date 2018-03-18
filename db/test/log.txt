@@ -1,0 +1,11 @@
+
+3/17/2018
+files water_quality.2018-03-17_15-46-28.sql and diff_report.2018-03-17_15-46-28.tsv:
+  The represent the data from:
+        xfer/insert-webexport-legacy-data.sql
+        xfer/insert-data-sessions-28-35-1-8.sql
+        xfer/update-nutrient-data.sql
+
+They were tested round robin: dumped down the two files, rebuild database with the sql file,
+then dumped down again and all was equal.
+~
