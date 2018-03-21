@@ -1288,20 +1288,20 @@ CREATE TABLE `samples` (
   `moon` int(11) DEFAULT NULL,
   `qa_code` int(10) unsigned NOT NULL DEFAULT '162' COMMENT '162 is awaiting review',
   `session_id` int(10) unsigned NOT NULL,
-  `temperature` float DEFAULT NULL COMMENT 'Units: degrees C',
-  `salinity` float DEFAULT NULL COMMENT 'Units: ppt (parts per thousand)',
-  `dissolved_oxygen` float DEFAULT NULL COMMENT 'Units: mg/L (milligrams per liter)',
-  `dissolved_oxygen_pct` float DEFAULT NULL COMMENT 'This is the dissolved oxygen percent saturation. Units: %',
-  `ph` float DEFAULT NULL,
-  `turbidity_1` float DEFAULT NULL COMMENT 'Units: NTU (Nephelometric Turbidity Unit)',
-  `turbidity_2` float DEFAULT NULL,
-  `turbidity_3` float DEFAULT NULL,
-  `total_nitrogen` float DEFAULT NULL COMMENT 'Units: micrograms per liter',
-  `total_phosphorus` float DEFAULT NULL COMMENT 'Units: micrograms per liter',
-  `phosphate` float DEFAULT NULL COMMENT 'Units: micrograms per liter',
-  `silicate` float DEFAULT NULL,
-  `nitrates` float DEFAULT NULL COMMENT 'Units: micrograms per liter',
-  `ammonia` float DEFAULT NULL COMMENT 'Units: micrograms per liter',
+  `temperature` double DEFAULT NULL COMMENT 'Units: degrees C',
+  `salinity` double DEFAULT NULL COMMENT 'Units: ppt (parts per thousand)',
+  `dissolved_oxygen` double DEFAULT NULL COMMENT 'Units: mg/L (milligrams per liter)',
+  `dissolved_oxygen_pct` double DEFAULT NULL COMMENT 'This is the dissolved oxygen percent saturation. Units: %',
+  `ph` double DEFAULT NULL,
+  `turbidity_1` double DEFAULT NULL COMMENT 'Units: NTU (Nephelometric Turbidity Unit)',
+  `turbidity_2` double DEFAULT NULL,
+  `turbidity_3` double DEFAULT NULL,
+  `total_nitrogen` double DEFAULT NULL COMMENT 'Units: micrograms per liter',
+  `total_phosphorus` double DEFAULT NULL COMMENT 'Units: micrograms per liter',
+  `phosphate` double DEFAULT NULL COMMENT 'Units: micrograms per liter',
+  `silicate` double DEFAULT NULL,
+  `nitrates` double DEFAULT NULL COMMENT 'Units: micrograms per liter',
+  `ammonia` double DEFAULT NULL COMMENT 'Units: micrograms per liter',
   `nitrate_last_run_date` date DEFAULT NULL,
   `comments` varchar(256) DEFAULT NULL COMMENT 'Date of the last, or oldest, processing run of the nitrate testing.',
   PRIMARY KEY (`sample_id`),
@@ -2484,7 +2484,7 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`wq_dba`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `base_sample_report` AS select `sess`.`lab_id` AS `lab_id`,`sam`.`sample_id` AS `sample_id`,concat(`site`.`hui_abv`,convert(date_format(`sam`.`date_and_time`,'%y%m%d') using latin1)) AS `sampleID`,`site`.`long_name` AS `long_name`,`site`.`hui_abv` AS `hui_abv`,`sess`.`session_number` AS `session_number`,date_format(`sam`.`date_and_time`,'%c/%e/%y') AS `day`,date_format(`sam`.`date_and_time`,'%H:%i') AS `time`,format(`sam`.`temperature`,1) AS `temperature`,format(`sam`.`salinity`,1) AS `salinity`,format(`sam`.`dissolved_oxygen`,2) AS `dissolved_oxygen`,format(`sam`.`dissolved_oxygen_pct`,2) AS `dissolved_oxygen_pct`,format(`sam`.`ph`,2) AS `ph`,format(`sam`.`turbidity_1`,2) AS `turbidity_1`,format(`sam`.`turbidity_2`,2) AS `turbidity_2`,format(`sam`.`turbidity_3`,2) AS `turbidity_3`,format(round((((`sam`.`turbidity_1` + `sam`.`turbidity_2`) + `sam`.`turbidity_3`) / 3.0),2),2) AS `avg_turbidity`,format(`sam`.`total_nitrogen`,2) AS `total_nitrogen`,format(`sam`.`total_phosphorus`,2) AS `total_phosphorus`,format(`sam`.`phosphate`,2) AS `phosphate`,format(`sam`.`silicate`,2) AS `silicate`,format(`sam`.`nitrates`,2) AS `nitrates`,format(`sam`.`ammonia`,2) AS `ammonia`,format(`site`.`lat`,6) AS `lat`,format(`site`.`lon`,6) AS `lon` from ((`samples` `sam` join `sites` `site`) join `sessions` `sess`) where ((`sess`.`session_id` = `sam`.`session_id`) and (`sam`.`site_id` = `site`.`site_id`)) order by `sess`.`lab_id`,`sam`.`date_and_time` */;
+/*!50001 VIEW `base_sample_report` AS select `sess`.`lab_id` AS `lab_id`,`sam`.`sample_id` AS `sample_id`,concat(`site`.`hui_abv`,convert(date_format(`sam`.`date_and_time`,'%y%m%d') using latin1)) AS `sampleID`,`site`.`long_name` AS `long_name`,`site`.`hui_abv` AS `hui_abv`,`sess`.`session_number` AS `session_number`,date_format(`sam`.`date_and_time`,'%c/%e/%y') AS `day`,date_format(`sam`.`date_and_time`,'%H:%i') AS `time`,replace(format(`sam`.`temperature`,1),' ','') AS `temperature`,replace(format(`sam`.`salinity`,1),' ','') AS `salinity`,replace(format(`sam`.`dissolved_oxygen`,2),' ','') AS `dissolved_oxygen`,replace(format(`sam`.`dissolved_oxygen_pct`,2),' ','') AS `dissolved_oxygen_pct`,replace(format(`sam`.`ph`,2),' ','') AS `ph`,replace(format(`sam`.`turbidity_1`,2),' ','') AS `turbidity_1`,replace(format(`sam`.`turbidity_2`,2),' ','') AS `turbidity_2`,replace(format(`sam`.`turbidity_3`,2),' ','') AS `turbidity_3`,replace(format(round((((`sam`.`turbidity_1` + `sam`.`turbidity_2`) + `sam`.`turbidity_3`) / 3.0),2),2),' ','') AS `avg_turbidity`,replace(format(`sam`.`total_nitrogen`,2),' ','') AS `total_nitrogen`,replace(format(`sam`.`total_phosphorus`,2),' ','') AS `total_phosphorus`,replace(format(`sam`.`phosphate`,2),' ','') AS `phosphate`,replace(format(`sam`.`silicate`,2),',','') AS `silicate`,replace(format(`sam`.`nitrates`,2),',','') AS `nitrates`,replace(format(`sam`.`ammonia`,2),' ','') AS `ammonia`,replace(format(`site`.`lat`,6),' ','') AS `lat`,replace(format(`site`.`lon`,6),' ','') AS `lon` from ((`samples` `sam` join `sites` `site`) join `sessions` `sess`) where ((`sess`.`session_id` = `sam`.`session_id`) and (`sam`.`site_id` = `site`.`site_id`)) order by `sess`.`lab_id`,`sam`.`date_and_time` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -2588,4 +2588,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-17 15:46:28
+-- Dump completed on 2018-03-20 19:56:59

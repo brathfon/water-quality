@@ -8,4 +8,18 @@ files water_quality.2018-03-17_15-46-28.sql and diff_report.2018-03-17_15-46-28.
 
 They were tested round robin: dumped down the two files, rebuild database with the sql file,
 then dumped down again and all was equal.
+
+
+3/19/2018
+
+water_quality.2018-03-19_08-17-07.sql and diff_report.2018-03-19_08-17-07.tsv
+Changed the basic types of the parameters from FLOAT to DOUBLE after seeing a
+problem with not enough precision on the lat/lons.  No differences in report ouput.
+Did a round robin of installing db from dump output and all good.
+
+
+3/20/2018
+New files
+water_quality.2018-03-20_19-56-59.sql and diff_report.2018-03-20_19-56-59.tsv
+removed ,'s from >= 1000 numbers
 ~

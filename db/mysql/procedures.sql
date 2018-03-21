@@ -166,6 +166,7 @@ CREATE PROCEDURE sample_report_for_lab(IN curr_lab_id INT)
 BEGIN
 
   SELECT
+    sample_id,
     lab_id,
     sampleID,
     long_name,
