@@ -46,6 +46,18 @@ mixin outputMeasurementsRow(sample)
           tr
             td
               +formatSampleWithSigFigs(sample.turbidity_3, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.total_nitrogen, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.total_phosphorus, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.phosphate, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.silicate, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.nitrates, 2)
+    td.in-situ-table-cell
+     +formatSampleWithSigFigs(sample.ammonia, 2)
     td #{sample.comments}
 
 
@@ -74,6 +86,12 @@ mixin outputSessionDay(dayObj, labId, sessionNumber)
            th.in-situ-header-cell DO Saturation (%)
            th.in-situ-header-cell pH
            th.in-situ-header-cell Turbidity(NTU)
+           th.in-situ-header-cell Total N (ug/L)
+           th.in-situ-header-cell Total P (ug/L)
+           th.in-situ-header-cell Phosphate (ug/L)
+           th.in-situ-header-cell Silicate (ug/L)
+           th.in-situ-header-cell NNN (ug/L)
+           th.in-situ-header-cell Ammonia (ug/L)
            th Comments
        tbody
          each sample in dayObj.samples
