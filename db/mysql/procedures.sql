@@ -6,6 +6,7 @@ select
   sam.sample_id,
   sam.site_id,
   site.long_name,
+  site.hui_abv,
   date(sam.date_and_time) as date,
   cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,
@@ -44,6 +45,7 @@ select
   sam.sample_id,
   sam.site_id,
   site.long_name,
+  site.hui_abv,
   date(sam.date_and_time) as date,
   cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,

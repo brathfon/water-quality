@@ -7,6 +7,19 @@ var util  = require('util');
 var i = 0;
 var data = {};
 var sessions = null;
+var labId = null;
+var pathPieces;
+var scriptname;
+
+pathPieces = process.argv[1].split("/");
+scriptname = pathPieces[pathPieces.length - 1];
+
+if( ! process.argv[2] ) {
+  console.error("usage: " + scriptname + "  < 1 | 2 > where 1 is West Maui and 2 is South Maui");
+  process.exit(1);
+} else {
+  labId = process.argv[2];
+}
 
 
 var connection = mysql.createConnection({
@@ -28,7 +41,7 @@ connection.connect(function(err) {
 
 var getSampleReportData = function (data, endConnection, callback) {
 
-  connection.query("call sample_report_for_lab(1)", function(err, rows, fields) {
+  connection.query("call sample_report_for_lab(?)", labId, function(err, rows, fields) {
    
     if (endConnection) {
       connection.end();

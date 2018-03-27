@@ -25,8 +25,9 @@ block content
            thead
              tr
                th Location Name
+               th Location Code
                th.in-situ-header-cell Time
-               th.in-situ-header-cell Temp (C)
+               th.in-situ-header-cell Temp
                th.in-situ-header-cell Sal
                th.in-situ-header-cell DO
                th.in-situ-header-cell DO Sat
@@ -36,6 +37,7 @@ block content
                th.in-situ-header-cell 
            thead
              tr
+               th 
                th 
                th.in-situ-header-cell
                th.in-situ-header-cell (C)
@@ -69,6 +71,7 @@ block content
 
              tr
                td #{sample.long_name}
+               td #{sample.hui_abv}
                td
                  input(type="text", autoComplete="off", name="sampleTag.#{sample.sample_id}.time", value="#{sampleTime}").form-control
                td

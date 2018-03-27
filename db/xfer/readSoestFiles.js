@@ -31,6 +31,7 @@ var getSoestFiles = function(directory) {
      });
   } catch (err) {
      console.log("ERROR CAUGHT in getSoestFiles: " + err);
+     console.error("ERROR CAUGHT in getSoestFiles: " + err);
      process.exit(1);
     return null;
   }
@@ -111,6 +112,8 @@ var readSoestFile = function(soestFile, knownSites) {
             else {
               console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
               console.log("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
+              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.error("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
             }
           } // length greater than 13
           else {
@@ -120,6 +123,8 @@ var readSoestFile = function(soestFile, knownSites) {
                 line !== ',,110,16,,,3.5,2') {
               console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
               console.log("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
+              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.error("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
             }
           }
         }

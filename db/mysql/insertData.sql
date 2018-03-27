@@ -59,6 +59,11 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('CiCi', 'Hehemann', 'CH', null, null); -- #37
 
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Renee', 'Riley', 'RR', null, null); -- #38  South Maui, North Kihei
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', null, null); -- #39 West Maui, R2RN
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Flo', 'Bahr', 'FB', null, null); -- #40 South Maui, North Kihei
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('L', 'R', 'LR', null, null); -- #41 West Maui, Olowalu 
+
 
 INSERT INTO labs (lab_code, long_name, address) values ('LLHS', 'Lahainaluna High School', 'Lahainaluna Road');
 INSERT INTO labs (lab_code, long_name, address) values ('NMS', 'National Marine Sanctuary', 'South Kihei Road');
@@ -88,12 +93,14 @@ INSERT INTO team_members (team_id, worker_id) values ( 2, 27);
 -- Olowalu
 INSERT INTO team_members (team_id, worker_id) values ( 3, 9);
 INSERT INTO team_members (team_id, worker_id) values ( 3, 6);
+INSERT INTO team_members (team_id, worker_id) values ( 3, 41);
 
 -- NR2R
 INSERT INTO team_members (team_id, worker_id) values ( 4, 8);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 7);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 5);
 INSERT INTO team_members (team_id, worker_id) values ( 4, 37);
+INSERT INTO team_members (team_id, worker_id) values ( 4, 39);
 
 -- lab NMS
 -- Kamaole
@@ -113,6 +120,8 @@ INSERT INTO team_members (team_id, worker_id) values ( 6, 36);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 29);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 30);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 31);
+INSERT INTO team_members (team_id, worker_id) values ( 7, 38);
+INSERT INTO team_members (team_id, worker_id) values ( 7, 40);
 -- Makena
 INSERT INTO team_members (team_id, worker_id) values ( 8, 32);
 INSERT INTO team_members (team_id, worker_id) values ( 8, 33);

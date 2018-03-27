@@ -23,6 +23,7 @@ mixin samplersString(samplers)
 mixin outputMeasurementsRow(sample)
   tr
     td #{sample.long_name}
+    td #{sample.hui_abv}
     td.in-situ-table-cell
      +formatSampleTime(sample.time)
     td.in-situ-table-cell
@@ -79,13 +80,14 @@ mixin outputSessionDay(dayObj, labId, sessionNumber)
        thead
          tr
            th Location Name
+           th Location Code
            th.in-situ-header-cell Time
            th.in-situ-header-cell Temp (C)
            th.in-situ-header-cell Sal (ppt)
            th.in-situ-header-cell DO (mg/L)
            th.in-situ-header-cell DO Saturation (%)
            th.in-situ-header-cell pH
-           th.in-situ-header-cell Turbidity(NTU)
+           th.in-situ-header-cell Turbidity (NTU)
            th.in-situ-header-cell Total N (ug/L)
            th.in-situ-header-cell Total P (ug/L)
            th.in-situ-header-cell Phosphate (ug/L)

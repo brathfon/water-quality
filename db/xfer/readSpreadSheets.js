@@ -38,10 +38,8 @@ var readTeamSheet = function(teamSheetFile) {
       pieces = line.split("\t");
       //console.log("line " + lineCount + " line length " + pieces.length);
       if (lineCount > 3) {  // first three lines are header information
+        // for (j = 0; j < pieces.length; ++j) { console.log(j, pieces[j]); }  // print out all pieces for debug
         if (pieces.length === 44) {
-          //for (j = 0; j < pieces.length; ++j) {
-            //console.log(pieces[j]);
-          //}
           obj = {};
           obj['Added_to_Main'] =  pieces[0];  // not going to use this
           obj['Ver_By_Dana']   =  pieces[1];  // not going to use this
@@ -92,7 +90,8 @@ var readTeamSheet = function(teamSheetFile) {
           lineList.push(obj);
         }
         else {
-          console.log("ERROR: unexpected number of column: " + pieces.length + ". Expecting 44.");
+          console.error("ERROR: unexpected number of column: " + pieces.length + ". Expecting 44.");
+          console.error("ERROR: Line: " + line);
         }
       }
     });
