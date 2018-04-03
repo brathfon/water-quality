@@ -297,6 +297,24 @@ var getMaxSampleId = function (data, endConnection, callback) {
 };
 
 
+
+var checkForQA = function(qaInsertList, value, sampleId, columnName, reportName) {
+
+   var returnValue = value;
+   var cmd = null;
+
+
+   if (value === "") {
+     returnValue = null;
+     cmd = "insert into qa_issue_samples ( sample_id, sample_column_name, report_attribute_name, description) ";
+     cmd += "values (" + sampleId + ", \"" + columnName + "\", \"" + reportName + "\", \"QA\'ed out\");";
+     returnValue = null;
+     qaInsertList.push(cmd);
+  }
+  return returnValue;
+}
+
+
 var createSqlStatements = function (data, callback) {
 
   //console.log("data " + util.inspect(data , false, null));
@@ -319,8 +337,10 @@ var createSqlStatements = function (data, callback) {
   var turbidity_1          = null;
   var turbidity_2          = null;
   var turbidity_3          = null;
+  var k;
 
   var cmd                = null;
+  var qaInserts = [];   // this is to hold all the insert statements into the qa_samples table
 
   // DANGER: there is an assumption that these parallel auto-increment value in db
   var session_auto_increment  = data.maxSessionId;
@@ -363,15 +383,26 @@ var createSqlStatements = function (data, callback) {
       date_and_time = sample['Date'] + " " + sample['Time'];
       moon          = sample['Moon'];
       qa_code       = 162;   // awaiting approval
+
       // insitu measurements
-      temperature          = sample['Temp'];
-      salinity             = sample['Salinity'];
-      dissolved_oxygen     = sample['DO'];
-      dissolved_oxygen_pct = sample['DO%'];
-      ph                   = sample['pH'];
-      turbidity_1          = sample['Turb1'];
-      turbidity_2          = sample['Turb2'];
-      turbidity_3          = sample['Turb3'];
+
+      //temperature          = sample['Temp'];
+      //salinity             = sample['Salinity'];
+      //dissolved_oxygen     = sample['DO'];
+      //dissolved_oxygen_pct = sample['DO%'];
+      //ph                   = sample['pH'];
+      //turbidity_1          = sample['Turb1'];
+      //turbidity_2          = sample['Turb2'];
+      //turbidity_3          = sample['Turb3'];
+
+      temperature          = checkForQA(qaInserts, sample['Temp'],      sample_auto_increment, 'temperature',          'Temp');
+      salinity             = checkForQA(qaInserts, sample['Salinity'],  sample_auto_increment, 'salinity',             'Salinity');
+      dissolved_oxygen     = checkForQA(qaInserts, sample['DO'],        sample_auto_increment, 'dissolved_oxygen',     'DO');
+      dissolved_oxygen_pct = checkForQA(qaInserts, sample['DO%'],       sample_auto_increment, 'dissolved_oxygen_pct', 'DO%');
+      ph                   = checkForQA(qaInserts, sample['pH'],        sample_auto_increment, 'ph',                   'pH');
+      turbidity_1          = checkForQA(qaInserts, sample['Turb1'],     sample_auto_increment, 'turbidity_1',          'Turbidity');
+      turbidity_2          = checkForQA(qaInserts, sample['Turb2'],     sample_auto_increment, 'turbidity_2',          'Turbidity');
+      turbidity_3          = checkForQA(qaInserts, sample['Turb3'],     sample_auto_increment, 'turbidity_3',          'Turbidity');
 
       // workers involved
       workerIdsToAdd = [];
@@ -438,7 +469,14 @@ var createSqlStatements = function (data, callback) {
         cmd +=    ");";
         console.log(cmd);
       }
+
     }
+  }
+  console.log("");
+  console.log("-- samples with qa issues");
+
+  for (k = 0; k < qaInserts.length; ++k) {
+    console.log(qaInserts[k]);
   }
 
   if (callback) {

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ -z $DB_DATABASE ] && { echo "Need to set DB_DATABASE"; exit 1; }
+
 scriptDir=`dirname $0`
 
 theDate=`date '+%Y-%m-%d_%H-%M-%S'`

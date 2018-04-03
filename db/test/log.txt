@@ -14,7 +14,7 @@ then dumped down again and all was equal.
 
 water_quality.2018-03-19_08-17-07.sql and diff_report.2018-03-19_08-17-07.tsv
 Changed the basic types of the parameters from FLOAT to DOUBLE after seeing a
-problem with not enough precision on the lat/lons.  No differences in report ouput.
+problem with not enough precision on the lat/lons.  No differences in report output.
 Did a round robin of installing db from dump output and all good.
 
 
@@ -23,3 +23,24 @@ New files
 water_quality.2018-03-20_19-56-59.sql and diff_report.2018-03-20_19-56-59.tsv
 removed ,'s from >= 1000 numbers
 ~
+
+4/2/2018
+Received fixed files of soest data for sessions 4 and 6.  *.2018-04-02_11-16-19.*
+diff of these two files showed expected missing two samples in each session.
+report.2018-03-27_11-33-09.txt vs report.2018-04-02_11-16-19.txt
+
+
+Dana decided to QA out some entries.  had to change some scripts, but saw expected differences.
+report.2018-04-02_11-16-19.txt vs report.2018-04-02_18-05-15.txt
+
+More QA changes.  Prior diffs did not reflect changes to the qa_issue_samples table.
+diff water_quality.2018-04-02_18-05-15.sql water_quality.2018-04-02_19-04-04.sql
+diff report.2018-04-02_19-04-04.txt report.2018-04-02_18-05-15.txt shows no diffs because
+qa_issue_samples data does not get diffed, and that is a problem.
+
+
+
+4/3/2018
+Found a problem with order of dates due to m/d/yy vs mm/dd/yy.  These diffs reflect that.
+Have to really use the head command to see that the only difference is in the date
+report.2018-04-02_19-04-04.txt vs report.2018-04-03_08-04-12.txt
