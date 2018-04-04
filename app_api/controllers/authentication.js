@@ -27,15 +27,15 @@ var errorObjToArray = function(obj) {
   return array;
 }
 
-var atob = function(text) { 
-  var buf = new Buffer(text, "base64"); 
-  var bytes = []; 
-  for ( var i = buf.length; i >= 0; i-- ) { 
-    bytes[i] = String.fromCharCode(buf[i]); 
-  } 
+var atob = function(text) {
+  var buf = new Buffer(text, "base64");
+  var bytes = [];
+  for ( var i = buf.length; i >= 0; i-- ) {
+    bytes[i] = String.fromCharCode(buf[i]);
+  }
 
-  return bytes.join(""); 
-}; 
+  return bytes.join("");
+};
 
 
 // Note: returnData should be passed with the return objects already set as either
@@ -59,7 +59,7 @@ var sendJsonErrorResponse = function(title, level, errorTextArray, returnData, r
       errorMsg['text'].push("Please report this error to " + process.env.WEB_MASTER_EMAIL);
     }
     returnData['errors'].push(errorMsg);
-    
+
     //debugJson("in sendJsonErrorResponse just before send");
     sendJsonResponse(res, 400, returnData);
 };
@@ -69,7 +69,7 @@ var sendJsonSQLErrorResponse = function(title, level, sqlError, returnData, res)
 
   var errorMsgArray = errorObjToArray(sqlError);
   sendJsonErrorResponse(title, level, errorMsgArray, returnData, res);
-     
+
 };
 
 
@@ -148,7 +148,9 @@ module.exports.login = function (req, res) {
   data['loginSuccessful'] = false;
   data['errors'] = [];
 
-// debugLogin("in api login");
+  debugLogin("in api login");
+  debugLogin(chalk.green("err : " + util.inspect(req.body, false, null)));
+
   if ( !req.body.email ) {
     danger("no email in req.body");
     sendJsonSimpleErrorResponse("EMAIL_PARAM_NOT_PASSED", "Danger", "missing req.body.email", data, res);
@@ -170,7 +172,7 @@ module.exports.login = function (req, res) {
   }
 
 
-  query = 
+  query =
     "select " +
     "  w.worker_id, " +
     "  w.first_name, " +
@@ -192,7 +194,7 @@ module.exports.login = function (req, res) {
   //debugLogin(chalk.green("rows : " + util.inspect(rows, false, null)));
   //debugLogin(chalk.green("fields : " + util.inspect(fields, false, null)));
 
-    var userInfo = null; 
+    var userInfo = null;
     var hashFromInput = null;
 
     if (err) {
@@ -253,7 +255,7 @@ module.exports.setPassword = function (req, res) {
 
   var saltAndHash = createSaltAndHash(password);
 
-  var query = "call set_password (" + workerID + ", '" + saltAndHash.salt + "', '" +  saltAndHash.hash + "')"; 
+  var query = "call set_password (" + workerID + ", '" + saltAndHash.salt + "', '" +  saltAndHash.hash + "')";
 
   //debugPassword(chalk.blue("query : " + util.inspect(query, false, null)));
 
@@ -266,7 +268,7 @@ module.exports.setPassword = function (req, res) {
     var data = {};
     data['token'] = null;
     data['errors'] = [];
-    var userInfo = null; 
+    var userInfo = null;
 
     if (err) {
       sendJsonSQLErrorResponse("Error retrieving data from database for user " + workerID + " role information",
@@ -377,7 +379,7 @@ module.exports.createNewSession = function (req, res) {
                             data,
                             res);
     }
-    else if (err) {  
+    else if (err) {
       sendJsonErrorResponse("Error creating new session",
                             "Danger",
                             err,
@@ -528,9 +530,9 @@ module.exports.updateOneSample = function (req, res) {
 
   console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
 
-  var query = "update samples set " + 
+  var query = "update samples set " +
      "date_and_time = '" + req.body.theDate + " " + formatSampleTime(req.body.time) + "', " +
-    // "moon = " + 
+    // "moon = " +
     "temperature = "          + formatSampleWithSigFigs(req.body.temperature, 1) + ", "  +
     "salinity = "             + formatSampleWithSigFigs(req.body.salinity, 1) + ", " +
     "dissolved_oxygen = "     + formatSampleWithSigFigs(req.body.dissolved_oxygen, 2) + ", " +
