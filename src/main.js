@@ -18,8 +18,13 @@ const store = new Vuex.Store({
   state: {
     firstName : '',
     lastName : '',
+    workerID : -1,
     roles : [],
-    workerID : -1
+    hasAdministrationRole : false,
+    hasDataEntryRole : false,
+    hasDataVerificationRole : false,
+    hasQualityAssuranceRole : false,
+    hasReadOnlyRole : false
   },
   mutations : {
     updateFirstName(state, newFirstName) {
@@ -33,8 +38,23 @@ const store = new Vuex.Store({
     },
     updateWorkerID (state, newWorkerID) {
       state.workerID = newWorkerID;
+    },
+    updateHasAdministrationRole (state, status) {
+      state.hasAdministrationRole = status;
+    },
+    updateHasDataEntryRole (state, status) {
+      state.hasDataEntryRole = status;
+    },
+    updateHasDataVerificationRole (state, status) {
+      state.hasDataVerificationRole = status;
+    },
+    updateHasQualityAssuranceRole (state, status) {
+      state.hasQualityAssuranceRole = status;
+    },
+    updateHasReadOnlyRole (state, status) {
+      state.hasReadOnlyRole = status;
     }
-  }
+  },
 })
 
 import Banner from './components/Banner.vue';

@@ -33,6 +33,7 @@
 
   import axios from 'axios';
   import ErrorAlerts from './ErrorAlerts.vue';
+  import roles from '../util/roles';
 
   export default {
     data() {
@@ -97,6 +98,12 @@
       resetErrors : function() {
         this.loginErrors = [];
       },
+      resetStoreValues: function() {
+        this.$store.commit('updateWorkerID',  -1);
+        this.$store.commit('updateFirstName', '');
+        this.$store.commit('updateLastName',  '');
+        this.$store.commit('updateRoles',     []);
+      },
       loginInfoSubmitted : function() {
         console.log("loginInfoSubmitted called");
         this.loginResponse = null;
@@ -134,6 +141,13 @@
               this.$store.commit('updateFirstName', payload.firstName);
               this.$store.commit('updateLastName',  payload.lastName);
               this.$store.commit('updateRoles',     payload.roles);
+              // roles
+              this.$store.commit('updateHasAdministrationRole',     payload.roles.find(roles.ADMINISTRATION));
+
+
+            }
+            else {
+              this.resetStoreValues();
             }
           })
         .catch( (error) => {
@@ -161,10 +175,8 @@
           console.log(error.config);
           this.createUserFriendlyMessage();
           this.password = "";
-          this.$store.commit('updateWorkerID',  -1);
-          this.$store.commit('updateFirstName', '');
-          this.$store.commit('updateLastName',  '');
-          this.$store.commit('updateRoles',     []);
+          this.resetStoreValues();
+
         });
       }  // end of loginInfoSubmitted
     }
