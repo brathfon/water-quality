@@ -39,8 +39,19 @@ diff report.2018-04-02_19-04-04.txt report.2018-04-02_18-05-15.txt shows no diff
 qa_issue_samples data does not get diffed, and that is a problem.
 
 
-
 4/3/2018
 Found a problem with order of dates due to m/d/yy vs mm/dd/yy.  These diffs reflect that.
 Have to really use the head command to see that the only difference is in the date
 report.2018-04-02_19-04-04.txt vs report.2018-04-03_08-04-12.txt
+
+4/6/2018
+diff report.2018-04-03_08-04-12.txt report.2018-04-06_13-02-01.txt
+
+These differences were created due to having the lat/lon wrong for Ahihi South
+
+4/7/2018
+
+Made some changes to the database to handle a duplicate user in the insert-data.sql file
+No differences in the data reports output.  diffs in sql were expected.
+
+diff water_quality.2018-04-06_13-02-01.sql water_quality.2018-04-07_15-26-49.sql

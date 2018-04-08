@@ -9,38 +9,39 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt,
    'd58ef56cba0559ee822b2b385458eb51dabd372b16822dc15a5a9a00df3a940a7fdbaa176563bf55c837a280d78041bfd9d06c376962244de325a8bde33915bf');
 
 -- these users will not have an initial pw at least for now
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Marie', 'Shroeder', 'MS', 'ms@yahoo.com', '808-345-6789');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Terry', 'Shroeder', 'TS', 'ms@yahoo.com', '808-345-6789');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Rich', 'Bailey', 'RB', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'cathy@ubermax.com', '808-456-1234');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Jim', 'Maxwell', 'JM', 'jim@ubermax.com', '808-456-1234');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Nell', 'Woods', 'NW', null, '808-567-3452');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Dana', 'Reed', 'DR', 'dreedyah@yahoo.com', '720-567-3412');
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ananda', 'Stone', 'AS', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('George', 'Burnette', 'GB', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bruce', 'Banker', 'BB', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Michelle', 'Griffoul', 'MG', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Richard', 'Noponen', 'RN', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Layne', 'Otomo', 'LO', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lyn', 'Hutchings', 'LH', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');  -- 2
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Marie', 'Shroeder', 'MS', 'ms@yahoo.com', '808-345-6789');  -- 3
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Terry', 'Shroeder', 'TS', 'ts@yahoo.com', '808-345-6789');  -- 4
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Rich', 'Bailey', 'RB', null, null);  -- 5
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'cathy@ubermax.com', '808-456-1234'); -- 6
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Jim', 'Maxwell', 'JM', 'jim@ubermax.com', '808-456-1234'); -- 7
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Nell', 'Woods', 'NW', null, '808-567-3452'); -- 8
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Dana', 'Reed', 'DR', 'dreedyah@yahoo.com', '720-567-3412'); -- 9
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ananda', 'Stone', 'AS', null, null); -- 10
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('George', 'Burnette', 'GB', null, null); -- 11
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bruce', 'Banker', 'BB', null, null); -- 12
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Michelle', 'Griffoul', 'MG', null, null); -- 13
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Richard', 'Noponen', 'RN', null, null); -- 14
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Layne', 'Otomo', 'LO', null, null); -- 15
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null); -- 16 Duplicated at one point
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lyn', 'Hutchings', 'LH', null, null);  -- 17
 
+-- INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null); # 18  <- this was the duplicate
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lindsay', 'Ranieri', 'LR', null, null); -- #18 West Maui, Olowalu , was 41 at one point
 -- lab NMS
 -- Kamaole
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Mitch', 'Brown', 'MB', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Audrey', 'Quinn', 'AQ', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Donna', 'Howard', 'DH', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Scott', 'Graves', 'SG', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Steve', 'Paselk', 'SP', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Audrey', 'Quinn', 'AQ', null, null);  -- 19
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Donna', 'Howard', 'DH', null, null);  -- 20
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Scott', 'Graves', 'SG', null, null);  -- 21
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Steve', 'Paselk', 'SP', null, null);  -- 22
 -- Makena
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Sheryl', 'Fries', 'SF', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Alfred', 'Wolf', 'AW', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Tina', 'Wildberger', 'TW', null, null);
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lory', 'Lowder', 'LL', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Sheryl', 'Fries', 'SF', null, null);  -- 23
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Alfred', 'Wolf', 'AW', null, null);  -- 24
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Tina', 'Wildberger', 'TW', null, null);  -- 25
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Lory', 'Lowder', 'LL', null, null);  -- 26
 
 -- additional workers
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Kit', 'Harris', 'KH', null, null);
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Kit', 'Harris', 'KH', null, null); -- 27
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Brenda', 'Jarmakani', 'BJ', null, null); -- # 28
 
 -- North Kihei
@@ -62,7 +63,6 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Renee', 'Riley', 'RR', null, null); -- #38  South Maui, North Kihei
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', null, null); -- #39 West Maui, R2RN
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Flo', 'Bahr', 'FB', null, null); -- #40 South Maui, North Kihei
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('L', 'R', 'LR', null, null); -- #41 West Maui, Olowalu 
 
 
 INSERT INTO labs (lab_code, long_name, address) values ('LLHS', 'Lahainaluna High School', 'Lahainaluna Road');
@@ -93,7 +93,8 @@ INSERT INTO team_members (team_id, worker_id) values ( 2, 27);
 -- Olowalu
 INSERT INTO team_members (team_id, worker_id) values ( 3, 9);
 INSERT INTO team_members (team_id, worker_id) values ( 3, 6);
-INSERT INTO team_members (team_id, worker_id) values ( 3, 41);
+INSERT INTO team_members (team_id, worker_id) values ( 3, 16); -- Mitch Brown
+INSERT INTO team_members (team_id, worker_id) values ( 3, 18);
 
 -- NR2R
 INSERT INTO team_members (team_id, worker_id) values ( 4, 8);
@@ -104,7 +105,7 @@ INSERT INTO team_members (team_id, worker_id) values ( 4, 39);
 
 -- lab NMS
 -- Kamaole
-INSERT INTO team_members (team_id, worker_id) values ( 5, 18);
+INSERT INTO team_members (team_id, worker_id) values ( 5, 16);  -- Mitch Brown
 INSERT INTO team_members (team_id, worker_id) values ( 5, 19);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 20);
 INSERT INTO team_members (team_id, worker_id) values ( 5, 21);
@@ -225,7 +226,7 @@ INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, 
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
   values (9010, 'MAN', NULL, 'Ahihi North',            2, 6, 2, 11, 20.618366, -156.437572, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (9011, 'MAS', NULL, 'Ahihi South',            2, 6, 2, 12, 20.765132, -156.459344, 1, null);
+  values (9011, 'MAS', NULL, 'Ahihi South',            2, 6, 2, 12, 20.6138,   -156.436853, 1, null);
 
 -- North Kihei
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name,               lab_id, team_id, default_sample_day, default_session_order, lat,       lon,         active,  description)
