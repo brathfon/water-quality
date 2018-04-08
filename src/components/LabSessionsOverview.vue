@@ -1,5 +1,5 @@
 <template>
-  <div class="container labsession">
+  <div class="container">
     <div class="row page-header">
       <div class="col-lg-12">
         <h3>Lab Sessions</h3>

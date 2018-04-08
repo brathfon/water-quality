@@ -103,8 +103,17 @@
         this.$store.commit('updateFirstName', '');
         this.$store.commit('updateLastName',  '');
         this.$store.commit('updateRoles',     []);
+        this.$store.commit('updateHasAdministrationRole', false);
+        this.$store.commit('updateHasDataEntryRole', false);
+        this.$store.commit('updateHasDataVerificationRole', false);
+        this.$store.commit('updateHasQualityAssuranceRole', false);
+        this.$store.commit('updateHasReadOnlyRole', false);
+        this.$store.commit('updateIsLoggedIn', false);
       },
       loginInfoSubmitted : function() {
+        var role;
+        var payload;
+        var i;
         console.log("loginInfoSubmitted called");
         this.loginResponse = null;
         this.loginErrors = [];
@@ -135,16 +144,27 @@
             this.createUserFriendlyMessage();
             this.password = "";
             if (this.token) {
-              var payload = JSON.parse(atob(this.token.split('.')[1]));
+              payload = JSON.parse(atob(this.token.split('.')[1]));
               console.log('payload', payload);
               this.$store.commit('updateWorkerID',  payload.workerID);
               this.$store.commit('updateFirstName', payload.firstName);
               this.$store.commit('updateLastName',  payload.lastName);
               this.$store.commit('updateRoles',     payload.roles);
               // roles
-              this.$store.commit('updateHasAdministrationRole',     payload.roles.find(roles.ADMINISTRATION));
-
-
+              //this.$store.commit('updateHasAdministrationRole',     payload.roles.find(roles.ADMINISTRATION));
+              console.log("GOT TO HERE, DAMN IT");
+              console.log("PAYLOAD LENGTH ", payload.roles.length);
+              for (i = 0; i < payload.roles.length; ++i) {
+                role = payload.roles[i];
+                console.log("testing ", role);
+                if (role === roles.ADMINISTRATION)    {this.$store.commit('updateHasAdministrationRole', true);}
+                if (role === roles.DATA_ENTRY)        {this.$store.commit('updateHasDataEntryRole', true);}
+                if (role === roles.DATA_VERIFICATION) {this.$store.commit('updateHasDataVerificationRole', true);}
+                if (role === roles.QUALITY_ASSURANCE) {this.$store.commit('updateHasQualityAssuranceRole', true);}
+                if (role === roles.READ_ONLY)         {this.$store.commit('updateHasReadOnlyRole', true);}
+              }
+              this.$store.commit('updateIsLoggedIn', true); // finally set the overall status that there is some logged in.
+              this.$router.push('/labSessionsOverview');  // redirect to the labSessionsOverview page
             }
             else {
               this.resetStoreValues();
@@ -179,6 +199,10 @@
 
         });
       }  // end of loginInfoSubmitted
-    }
+    },
+    created() {
+      this.resetStoreValues();  // if we are at the login page, no user data should be saved
+      console.log("creating logIn page")
   }
+}
 </script>

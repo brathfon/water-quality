@@ -6,13 +6,10 @@
      </div>
      <div id="navbar-main" class="navbar-collapse collapse">
        <ul class="nav navbar-nav">
-         <li>
+         <li v-if="showSessions">
            <a href="/#/labSessionsOverview/">Sessions</a>
          </li>
-         <li>
-           <a href="/#/labSessionsOverview/">About</a>
-         </li>
-         <li>
+         <li v-if="showLogout">
            <a href="/#/login/">Logout</a>
          </li>
        </ul>
@@ -22,4 +19,11 @@
 </template>
 
 <script>
+  export default {
+    computed: {
+      showSessions() { return this.$store.state.isLoggedIn; },
+      showLogout() { return this.$store.state.isLoggedIn; },
+      testIt() {return true;}
+    }
+  }
 </script>
