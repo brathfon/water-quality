@@ -1,6 +1,7 @@
 *.backup
 .*.swp
 *.bak
+~$*
 trans
 .DS_Store
 node_modules/
@@ -8,3 +9,4 @@ node_modules/
 res
 errs
 env
+temp

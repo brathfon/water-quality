@@ -21,6 +21,8 @@ router.put('/updateOneSample',                                           ctrlWQ.
 /* authentication */
 router.post('/login', ctrlAuth.login);
 router.post('/setPassword', auth, ctrlAuth.setPassword);
+//router.post('/createNewWorker', auth, ctrlAuth.createNewWorker);
+router.post('/createNewWorker', ctrlAuth.createNewWorker);
 //router.get('/isValidPassword/:worker_id/:password', ctrlAuth.isValidPassword);
 
 

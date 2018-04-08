@@ -30,8 +30,8 @@ SELECT
   site.long_name,
   site.hui_abv,
   sess.session_number,
-  DATE_FORMAT(sam.date_and_time, '%c/%e/%y') as day, -- returns as a string, should be safe from UTC conversion by mySQL node package
-  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (m:ss) 8:58, 10:10
+  DATE_FORMAT(sam.date_and_time, '%m/%d/%y') as day, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
+  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (mm:ss) 08:58, 10:10
   REPLACE(FORMAT(sam.temperature,      1), ' ', '')      AS temperature,  -- REPLACE takes out an commas in numbers
   REPLACE(FORMAT(sam.salinity,         1), ' ', '')      AS salinity,
   REPLACE(FORMAT(sam.dissolved_oxygen, 2), ' ', '')      AS dissolved_oxygen,
