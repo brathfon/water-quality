@@ -99,16 +99,7 @@
         this.loginErrors = [];
       },
       resetStoreValues: function() {
-        this.$store.commit('updateWorkerID',  -1);
-        this.$store.commit('updateFirstName', '');
-        this.$store.commit('updateLastName',  '');
-        this.$store.commit('updateRoles',     []);
-        this.$store.commit('updateHasAdministrationRole', false);
-        this.$store.commit('updateHasDataEntryRole', false);
-        this.$store.commit('updateHasDataVerificationRole', false);
-        this.$store.commit('updateHasQualityAssuranceRole', false);
-        this.$store.commit('updateHasReadOnlyRole', false);
-        this.$store.commit('updateIsLoggedIn', false);
+        this.$store.dispatch('resetAuth');
       },
       loginInfoSubmitted : function() {
         var role;

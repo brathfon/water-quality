@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
-                  
+
 
 export default new Vuex.Store({
   state: {
@@ -17,6 +17,7 @@ export default new Vuex.Store({
     isLoggedIn : false
   },
   mutations : {
+    // ************** Authorization mutations *****************
     updateFirstName(state, newFirstName) {
       state.firstName = newFirstName;
     },
@@ -48,4 +49,19 @@ export default new Vuex.Store({
       state.isLoggedIn = status;
     }
   },
+  actions : {
+    // ************** Authorization actions *****************
+    resetAuth(context) {
+      context.commit('updateWorkerID',  -1);
+      context.commit('updateFirstName', '');
+      context.commit('updateLastName',  '');
+      context.commit('updateRoles',     []);
+      context.commit('updateHasAdministrationRole', false);
+      context.commit('updateHasDataEntryRole', false);
+      context.commit('updateHasDataVerificationRole', false);
+      context.commit('updateHasQualityAssuranceRole', false);
+      context.commit('updateHasReadOnlyRole', false);
+      context.commit('updateIsLoggedIn', false);
+    }
+  }
 });

@@ -9,8 +9,13 @@
          <li v-if="showSessions">
            <a href="/#/labSessionsOverview/">Sessions</a>
          </li>
+       </ul>
+       <ul class="nav navbar-nav navbar-right">
          <li v-if="showLogout">
-           <a href="/#/login/">Logout</a>
+           <a href="/#" v-on:click="logout"">Logout {{userFullName}}</a>
+         </li>
+         <li v-if="!showLogout"">
+           <a href="/#/login">Login</a>
          </li>
        </ul>
      </div>
@@ -23,7 +28,15 @@
     computed: {
       showSessions() { return this.$store.state.isLoggedIn; },
       showLogout() { return this.$store.state.isLoggedIn; },
-      testIt() {return true;}
+      userFullName() {
+        return this.$store.state.firstName + " " + this.$store.state.lastName;
+      }
+    },
+    methods: {
+      logout: function() {
+        this.$store.dispatch('resetAuth');
+        this.$router.push('/#');  // redirect to the landing page
+      }
     }
   }
 </script>
