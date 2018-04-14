@@ -187,7 +187,8 @@ module.exports.login = function (req, res) {
     "      w.email     = '" + workerEmail + "'";
 
   //debugLogin("query : " + query);
-
+  query = 'call login(';
+  query += db.connection.escape(workerEmail) + ")";  // can't be blank
   db.connection.query(query, function(err, rows, fields) {
 
   //debugLogin(chalk.green("err : " + util.inspect(err, false, null)));
@@ -214,7 +215,7 @@ module.exports.login = function (req, res) {
         //data['roles'] =  rows;
         // there may be multiple rows for this user, so we are going to need to loop through and
         // get the roles.  All other data in each row will be duplicated
-        userInfo = createUserInfoFromRows(rows);
+        userInfo = createUserInfoFromRows(rows[0]);
 
         //debugLogin(chalk.blue("in api login: " + util.inspect(userInfo, false, null)));
         hashFromInput = recreateHash(userInfo['salt'], password);
@@ -323,16 +324,9 @@ module.exports.createNewWorker = function (req, res) {
   var saltAndHash;
   var query;
 
-
   if (!req.body.first_name )  { sendJsonResponse(res, 404, {"message": "createNewUser(): first_name param not passed"}); return;};
   if (!req.body.last_name  )  { sendJsonResponse(res, 404, {"message": "createNewUser(): last_name param not passed"}); return;};
   if (!req.body.initials  )   { sendJsonResponse(res, 404, {"message": "createNewUser(): initials param not passed"}); return;};
-  if (!req.body.email  )      { sendJsonResponse(res, 404, {"message": "createNewUser(): email param not passed"}); return;};
-  if (!req.body.phone_number) { sendJsonResponse(res, 404, {"message": "createNewUser(): phone_number param not passed"}); return;};
-  if (!req.body.password)     { sendJsonResponse(res, 404, {"message": "createNewUser(): password param not passed"}); return;};
-
-  //debugPassword(chalk.blue("in api setPassord: req.body " + util.inspect(req.body, false, null)));
-  //debugPassword(chalk.blue("in api setPassord: req.payload " + util.inspect(req.payload, false, null)));
 
   first_name   = req.body.first_name;
   last_name    = req.body.last_name;
@@ -341,33 +335,51 @@ module.exports.createNewWorker = function (req, res) {
   phone_number = req.body.phone_number;
   password     = req.body.password;
 
-  saltAndHash = createSaltAndHash(password);
+  query = 'call create_new_worker(';
+  query += db.connection.escape(first_name) + ", ";  // can't be blank
+  query += db.connection.escape(last_name) + ", ";   // can't be blank
+  query += db.connection.escape(initials) + ", ";    // can't be blank
 
-  query = "call create_new_worker (";
-  query += "'" + first_name + "', ";
-  query += "'" + last_name + "', ";
-  query += "'" + initials + "', ";
-  query += "'" + email + "', ";
-  query += "'" + phone_number + "', ";
-  query += "'" + saltAndHash.salt + "', ";
-  query += "'" + saltAndHash.hash + "', ";
-  query +=  1 ;
-  query += ")";
+  if (req.body.email === "") {   // optional
+    query += "NULL, ";
+  }
+  else {
+    query += db.connection.escape(email) + ", ";
+  }
+  if (req.body.phone_number === "") {   // optional
+    query += "NULL, ";
+  }
+  else {
+    query += db.connection.escape(phone_number) + ", ";
+  }
+  if (req.body.password === "") {   // optional
+    query += "NULL, NULL)";
+  }
+  else {
+    saltAndHash = createSaltAndHash(password);
+    query += db.connection.escape(saltAndHash.salt) + ", ";
+    query += db.connection.escape(saltAndHash.hash) + ")";
+  }
 
-  debugPassword(chalk.blue("query : " + util.inspect(query, false, null)));
+  debugLogin("query: ", query);
 
   db.connection.query(query, function(err, rows, fields) {
 
-  //debugPassword(chalk.green("err : " + util.inspect(err, false, null)));
-  //debugPassword(chalk.green("rows : " + util.inspect(rows, false, null)));
-  //debugPassword(chalk.green("fields : " + util.inspect(fields, false, null)));
+    debugPassword(chalk.green("err : " + util.inspect(err, false, null)));
+    debugPassword(chalk.green("rows : " + util.inspect(rows, false, null)));
+    debugPassword(chalk.green("fields : " + util.inspect(fields, false, null)));
 
     var data = {};
+    // calling a procedure returns a 2 element array with first element being the rows
+    // and the second element being the meta data such as "fieldCount".  To get
+    // the new_worker_id, get the first element of the data array which is an
+    // object with the attribute name of 'new_worker_id'.
     data['errors'] = [];
+    data['new_worker_id'] = rows[0][0].new_worker_id;
     var userInfo = null;
 
     if (err) {
-      sendJsonSQLErrorResponse("Error creating new user  " + first_name + " " + last_name,
+      sendJsonSQLErrorResponse("Error creating new user " + first_name + " " + last_name,
                                "Danger",
                                err,
                                data,

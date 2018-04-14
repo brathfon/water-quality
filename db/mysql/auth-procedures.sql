@@ -34,12 +34,28 @@ END//
 
 delimiter ;
 
+DROP PROCEDURE IF EXISTS login;
+delimiter //
+CREATE PROCEDURE login(IN the_email varchar(64))
+BEGIN
+  SELECT
+    w.worker_id,
+    w.first_name,
+    w.last_name,
+    w.salt,
+    w.hash,
+    wr.role_id
+  FROM workers w,
+    worker_roles wr
+    WHERE w.worker_id = wr.worker_id AND
+          w.active    = 1 AND
+          w.email     = the_email;
+END//
+
+delimiter ;
 
 DROP PROCEDURE IF EXISTS create_new_worker;
-
 delimiter //
-
-
 CREATE PROCEDURE create_new_worker(
   IN new_first_name varchar(32),
   IN new_last_name varchar(32),
@@ -47,18 +63,9 @@ CREATE PROCEDURE create_new_worker(
   IN new_email varchar(64),
   IN new_phone_number varchar(32),
   IN new_salt char(32),
-  IN new_hash char(128),
-  IN is_administrator tinyint(1))
+  IN new_hash char(128))
 BEGIN
 
-  DECLARE insert_id INT;
-  DECLARE exit handler FOR sqlexception
-  BEGIN
-    SHOW ERRORS;
-    ROLLBACK;
-  END;
-
-  START TRANSACTION;
   INSERT INTO workers(
     first_name,
     last_name,
@@ -76,9 +83,9 @@ BEGIN
     new_salt,
     new_hash);
 
-    -- SET insert_id = SELECT LAST_INSERT_ID();
-    INSERT INTO worker_roles (worker_id, role_id) VALUES (3, 3);
-COMMIT;
+    -- according to documentation, this is safe because it is the last
+    -- generated id on this connection.
+    SELECT LAST_INSERT_ID() as new_worker_id;
 END//
 
 delimiter ;
