@@ -60,23 +60,30 @@
         errorMsg['text']  = [];
         return errorMsg;
       },
-      createUserFriendlyMessage : function(token, loginSuccessful, errorArray) {
-        console.log("in createUserFriendlyMessage");
-        console.log(this.loginSuccessful, this.loginErrors.length);
-        if (!this.loginSuccessful && (this.loginErrors.length > 0)) {
-          console.log("case 1 and 2");
-          if (this.loginErrors[0].title === "EMAIL_PARAM_NOT_PASSED") {
-            //console.log("detected email param not set");
-            this.loginErrors = [];
-            this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email", "Danger"));
-          }
-          else if (this.loginErrors[0].title === "PASSWORD_PARAM_NOT_PASSED") {
-            //console.log("detected password param not set");
-            this.loginErrors = [];
-            this.loginErrors.push(this.createSimpleErrorMsg("You must enter your password", "Danger"));
-          }
+      allFieldsValid : function() {
+        if ( ((this.email === "")    || (this.email === null)) &&
+             ((this.password === "") || (this.password === null)) )
+        {
+          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email and password", "Danger"));
+          return false;
         }
-        else if (!this.loginSuccessful && (this.loginErrors.length === 0)) {
+        else if ((this.email === "") || (this.email === null)) {
+          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email", "Danger"));
+          return false;
+        }
+        else if ((this.password === "") || (this.password === null)) {
+            this.loginErrors.push(this.createSimpleErrorMsg("You must enter your password", "Danger"));
+          return false;
+        }
+        else {
+          return true;
+        }
+      },
+      // Creates a message from the state of the data and adds a error message
+      // the the login errors
+      createUserFriendlyMessage : function(token, loginSuccessful, errorArray) {
+
+        if (!this.loginSuccessful && (this.loginErrors.length === 0)) {
           if (this.token === "NO_MATCHING_EMAIL_FOUND") {
             this.loginErrors = [];
             this.loginErrors.push(this.createSimpleErrorMsg("Your email, " + this.email + ", was not found.", "Danger"));
@@ -85,13 +92,10 @@
             this.loginErrors = [];
             this.loginErrors.push(this.createSimpleErrorMsg("Your password is incorrect.", "Danger"));
           }
-
-          console.log("case 3 and 5");
         }
       },
       // removes a particular error in case there is more than one error
       resetError : function(id) {
-        console.log("Login:resetError id : " + id);
         this.loginErrors.splice(id, 1);
       },
       // resets all errors by assigning an empty array
@@ -105,11 +109,17 @@
         var role;
         var payload;
         var i;
-        console.log("loginInfoSubmitted called");
+        var errorMsg;
         this.loginResponse = null;
         this.loginErrors = [];
         this.loginSuccessful = false;
         this.token = null;
+
+        // firt check to make sure all fields are filled $router
+
+        if (! this.allFieldsValid()) {
+          return;
+        }
 
         var msg = {
           method: 'post',
@@ -122,11 +132,6 @@
         axios(msg)
         .then( (response) => {
             //console.log("response is " + response);
-            //console.log("response.data", response.data);
-            //console.log("response.status", response.status);
-            //console.log("response.statusText", response.statusText);
-            //console.log("response.headers", response.headers);
-            //console.log("response.config", response.config);
 
             this.loginErrors = response.data.errors;
             this.loginSuccessful = response.data.loginSuccessful;
@@ -134,20 +139,15 @@
             // there are error conditions from the api that do not come back as errors
             this.createUserFriendlyMessage();
             this.password = "";
-            if (this.token) {
+            if (response.data.loginSuccessful && this.token) {   // the login was successful
               payload = JSON.parse(atob(this.token.split('.')[1]));
-              console.log('payload', payload);
               this.$store.commit('updateWorkerID',  payload.workerID);
               this.$store.commit('updateFirstName', payload.firstName);
               this.$store.commit('updateLastName',  payload.lastName);
               this.$store.commit('updateRoles',     payload.roles);
               // roles
-              //this.$store.commit('updateHasAdministrationRole',     payload.roles.find(roles.ADMINISTRATION));
-              console.log("GOT TO HERE, DAMN IT");
-              console.log("PAYLOAD LENGTH ", payload.roles.length);
               for (i = 0; i < payload.roles.length; ++i) {
                 role = payload.roles[i];
-                console.log("testing ", role);
                 if (role === roles.ADMINISTRATION)    {this.$store.commit('updateHasAdministrationRole', true);}
                 if (role === roles.DATA_ENTRY)        {this.$store.commit('updateHasDataEntryRole', true);}
                 if (role === roles.DATA_VERIFICATION) {this.$store.commit('updateHasDataVerificationRole', true);}
@@ -165,35 +165,41 @@
           if (error.response) {
            // The request was made and the server responded with a status code
            // that falls out of the range of 2xx
-           //console.log('error.response.data', error.response.data);
-           //console.log('error.response.data.errors', error.response.data.errors);
-           //console.log('error.response.status', error.response.status);
-           //console.log('error.response.headers', error.response.headers);
-
-           this.loginErrors = error.response.data.errors;
-           this.loginSuccessful = error.response.data.loginSuccessful;
-           this.token = error.response.data.token;
+           errorMsg = '';
+           // is error is known, generated by API
+           if ((error.response.status === 400) && (error.response.data.message)) {
+               errorMsg += error.response.data.message;
+           }
+          else {  // not known from the API
+             errorMsg += "Error";
+             if (error.response.status) {
+               errorMsg += " status = " + error.response.status;
+             }
+             if (error.response.statusText) {
+               errorMsg += " " + error.response.statusText;
+             }
+           }
+           this.loginErrors.push(this.createSimpleErrorMsg(errorMsg, "Danger"));
 
             } else if (error.request) {
            // The request was made but no response was received
            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
            // http.ClientRequest in node.js
-           console.log('error.request', error.request);
+           //console.log('error.request', error.request);
+           this.loginErrors.push(this.createSimpleErrorMsg("The request was made but no response was received", "Danger"));
+
           } else {
            // Something happened in setting up the request that triggered an Error
-           console.log('error.message', error.message);
+           //console.log('error.message', error.message);
+           this.loginErrors.push(this.createSimpleErrorMsg("An error was thrown and caught handling API request", "Danger"));
           }
-          console.log(error.config);
-          this.createUserFriendlyMessage();
           this.password = "";
           this.resetStoreValues();
-
         });
       }  // end of loginInfoSubmitted
     },
     created() {
       this.resetStoreValues();  // if we are at the login page, no user data should be saved
-      console.log("creating logIn page")
   }
 }
 </script>

@@ -138,10 +138,15 @@ var createUserInfoFromRows = function(rows) {
 
 module.exports.login = function (req, res) {
 
+  debugLogin(chalk.green("err : " + util.inspect(req.body, false, null)));
+
+  if (!req.body.email ) { sendJsonResponse(res, 400, {"message": "login(): email param not passed"}); return;};
+  if (!req.body.password ) { sendJsonResponse(res, 400, {"message": "login(): password param not passed"}); return; };
+
   // we expect to return a token and no errors, but will return null for token if there are errors and
   // an empty list if there are not.
-  var workerEmail = null;
-  var password    = null;
+  var workerEmail = req.body.email;
+  var password    = req.body.password;
   var query = null;
   var data = {};
   data['token']           = null;
@@ -149,42 +154,6 @@ module.exports.login = function (req, res) {
   data['errors'] = [];
 
   debugLogin("in api login");
-  debugLogin(chalk.green("err : " + util.inspect(req.body, false, null)));
-
-  if ( !req.body.email ) {
-    danger("no email in req.body");
-    sendJsonSimpleErrorResponse("EMAIL_PARAM_NOT_PASSED", "Danger", "missing req.body.email", data, res);
-    return;
-  }
-  else {
-    workerEmail = req.body.email;
-  }
-
-
-  if ( !req.body.password ) {
-    danger("no password in req.body");
-    data["email"] = workerEmail;  // send this back to refill in the user field when refreshing the page
-    sendJsonSimpleErrorResponse("PASSWORD_PARAM_NOT_PASSED", "Danger", "missing req.body.password", data, res);
-    return;
-   }
-   else {
-     password = req.body.password;
-  }
-
-
-  query =
-    "select " +
-    "  w.worker_id, " +
-    "  w.first_name, " +
-    "  w.last_name, " +
-    "  w.salt, " +
-    "  w.hash, " +
-    "  wr.role_id " +
-    "from workers w, " +
-    "     worker_roles wr " +
-    "where w.worker_id = wr.worker_id and " +
-    "      w.active    = 1 and " +
-    "      w.email     = '" + workerEmail + "'";
 
   //debugLogin("query : " + query);
   query = 'call login(';
@@ -206,7 +175,7 @@ module.exports.login = function (req, res) {
                                res);
     } else {
 
-      if (rows.length === 0) {
+      if (rows[0].length === 0) {
         danger("user input incorrect email for login of %s", workerEmail);
         data['loginSuccessful'] = false;
         data['token'] = "NO_MATCHING_EMAIL_FOUND";
@@ -245,8 +214,8 @@ module.exports.setPassword = function (req, res) {
   var password    = null;
   var saltAndHash = null;
 
-  if (!req.body.worker_id ) { sendJsonResponse(res, 404, {"message": "login(): worker_id param not passed"}); return;};
-  if (!req.body.password )  { sendJsonResponse(res, 404, {"message": "login(): password param not passed"}); return; };
+  if (!req.body.worker_id ) { sendJsonResponse(res, 400, {"message": "login(): worker_id param not passed"}); return;};
+  if (!req.body.password )  { sendJsonResponse(res, 400, {"message": "login(): password param not passed"}); return; };
 
   debugPassword(chalk.blue("in api setPassord: req.body " + util.inspect(req.body, false, null)));
   debugPassword(chalk.blue("in api setPassord: req.payload " + util.inspect(req.payload, false, null)));
@@ -324,9 +293,9 @@ module.exports.createNewWorker = function (req, res) {
   var saltAndHash;
   var query;
 
-  if (!req.body.first_name )  { sendJsonResponse(res, 404, {"message": "createNewUser(): first_name param not passed"}); return;};
-  if (!req.body.last_name  )  { sendJsonResponse(res, 404, {"message": "createNewUser(): last_name param not passed"}); return;};
-  if (!req.body.initials  )   { sendJsonResponse(res, 404, {"message": "createNewUser(): initials param not passed"}); return;};
+  if (!req.body.first_name )  { sendJsonResponse(res, 400, {"message": "createNewUser(): first_name param not passed"}); return;};
+  if (!req.body.last_name  )  { sendJsonResponse(res, 400, {"message": "createNewUser(): last_name param not passed"}); return;};
+  if (!req.body.initials  )   { sendJsonResponse(res, 400, {"message": "createNewUser(): initials param not passed"}); return;};
 
   first_name   = req.body.first_name;
   last_name    = req.body.last_name;
