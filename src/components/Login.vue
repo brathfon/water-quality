@@ -116,11 +116,11 @@
         this.token = null;
 
         // firt check to make sure all fields are filled $router
-
+/*
         if (! this.allFieldsValid()) {
           return;
         }
-
+*/
         var msg = {
           method: 'post',
           url: '/api/login',

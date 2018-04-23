@@ -5,7 +5,8 @@ user=wq_dba
 pw=ntus
 
 
-mysql -v -u $user -p$pw < generated-schema-4.worker-changes.sql
+#mysql -v -u $user -p$pw < generated-schema-4.worker-changes.sql
+mysql -v -u $user -p$pw < generated-schema-5.gui-changes.sql
 mysql -v -u $user -p$pw < insertData.sql
 mysql -v -u $user -p$pw $db < views.sql
 mysql -v -u $user -p$pw $db < auth-procedures.sql

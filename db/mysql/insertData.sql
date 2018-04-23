@@ -65,8 +65,8 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Flo', 'Bahr', 'FB', null, null); -- #40 South Maui, North Kihei
 
 
-INSERT INTO labs (lab_code, long_name, address) values ('LLHS', 'Lahainaluna High School', 'Lahainaluna Road');
-INSERT INTO labs (lab_code, long_name, address) values ('NMS', 'National Marine Sanctuary', 'South Kihei Road');
+INSERT INTO labs (lab_code, long_name, short_name, address) values ('LLHS', 'Lahainaluna High School', 'West Maui', 'Lahainaluna Road');
+INSERT INTO labs (lab_code, long_name, short_name, address) values ('NMS', 'National Marine Sanctuary', 'South Maui',  'South Kihei Road');
 
 INSERT INTO teams (team_code, long_name, lab_id) values ('R2RS', 'Ridge-to-Reef South', 1);
 INSERT INTO teams (team_code, long_name, lab_id) values ('Polanui', 'Polanui', 1);

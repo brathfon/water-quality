@@ -113,7 +113,7 @@ module.exports.createNewSession = function (req, res) {
                             data,
                             res);
     }
-    else if (err) {  
+    else if (err) {
       sendJsonErrorResponse("Error creating new session",
                             "Danger",
                             err,
@@ -264,9 +264,9 @@ module.exports.updateOneSample = function (req, res) {
 
   console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
 
-  var query = "update samples set " + 
+  var query = "update samples set " +
      "date_and_time = '" + req.body.theDate + " " + formatSampleTime(req.body.time) + "', " +
-    // "moon = " + 
+    // "moon = " +
     "temperature = "          + formatSampleWithSigFigs(req.body.temperature, 1) + ", "  +
     "salinity = "             + formatSampleWithSigFigs(req.body.salinity, 1) + ", " +
     "dissolved_oxygen = "     + formatSampleWithSigFigs(req.body.dissolved_oxygen, 2) + ", " +
@@ -307,5 +307,31 @@ module.exports.updateOneSample = function (req, res) {
       sendJsonResponse(res, 201, data);
     }
 
+  });
+};
+
+
+module.exports.getLabs = function (req, res) {
+
+  db.connection.query("call get_labs_duh()", function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['labs'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error retrieving data from database for lab sessions overview",
+                            "Danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      data['labs'] =  rows[0];
+      sendJsonResponse(res, 201, data);
+    }
   });
 };

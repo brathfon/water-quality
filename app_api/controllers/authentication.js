@@ -61,7 +61,7 @@ var sendJsonErrorResponse = function(title, level, errorTextArray, returnData, r
     returnData['errors'].push(errorMsg);
 
     //debugJson("in sendJsonErrorResponse just before send");
-    sendJsonResponse(res, 400, returnData);
+    sendJsonResponse(res, 401, returnData);
 };
 
 
@@ -156,7 +156,7 @@ module.exports.login = function (req, res) {
   debugLogin("in api login");
 
   //debugLogin("query : " + query);
-  query = 'call login(';
+  query = 'call login_duh(';
   query += db.connection.escape(workerEmail) + ")";  // can't be blank
   db.connection.query(query, function(err, rows, fields) {
 

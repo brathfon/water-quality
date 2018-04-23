@@ -9,13 +9,14 @@ var auth = jwt({
 var ctrlWQ = require('../controllers/waterQuality');
 var ctrlAuth = require('../controllers/authentication');
 
-/* location apis */
+/* water quality apis */
 router.post('/createNewSession',                                         ctrlWQ.createNewSession);
 router.get('/getLabSessionsOverview', ctrlWQ.getLabSessionsOverview);
 router.get('/getSamplesForSession/:labId/:sessionNumber',                ctrlWQ.getSamplesForSession);
 router.get('/getSamplesForSessionOnDate/:labId/:sessionNumber/:theDate', ctrlWQ.getSamplesForSessionOnDate);
 router.get('/getMaxSessionNumbersForLabs',                               ctrlWQ.getMaxSessionNumbersForLabs);
 router.get('/getWorkersForSession/:labId/:sessionNumber',                ctrlWQ.getWorkersForSession);
+router.get('/getLabs',                                                   ctrlWQ.getLabs);
 router.put('/updateOneSample',                                           ctrlWQ.updateOneSample);
 
 /* authentication */

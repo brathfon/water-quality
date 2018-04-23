@@ -20,5 +20,8 @@ new Vue({
   data: {},
   router,
   store,
-  components: {Banner}
+  components: {Banner},
+  created() {
+    this.$store.dispatch('getLabs');
+  }
 });

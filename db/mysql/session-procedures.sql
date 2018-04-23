@@ -1,4 +1,16 @@
 
+DROP PROCEDURE IF EXISTS get_labs;
+
+CREATE PROCEDURE get_labs()
+SELECT
+  lab_id,
+  lab_code,
+  long_name,
+  short_name,
+  address  
+FROM labs;
+
+
 DROP PROCEDURE IF EXISTS samples_for_session;
 
 CREATE PROCEDURE samples_for_session(IN curr_lab_id INT,IN curr_session_number INT)
@@ -95,8 +107,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.sample_id = sw.sample_id and
       w.worker_id = sw.worker_id
-order by date, last_name, first_name
-;
+order by date, last_name, first_name;
 
 
 DROP PROCEDURE IF EXISTS create_session;
