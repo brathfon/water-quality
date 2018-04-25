@@ -42,7 +42,7 @@ var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
       errorMsg['text'].push("Please report this error to " + process.env.WEB_MASTER_EMAIL);
     }
     returnData['errors'].push(errorMsg);
-    sendJsonResponse(res, 400, returnData);
+    sendJsonResponse(res, 500, returnData);
 }
 
 
@@ -313,7 +313,7 @@ module.exports.updateOneSample = function (req, res) {
 
 module.exports.getLabs = function (req, res) {
 
-  db.connection.query("call get_labs_duh()", function(err, rows, fields) {
+  db.connection.query("call get_labs()", function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));

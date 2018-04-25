@@ -41,7 +41,7 @@ var atob = function(text) {
 // Note: returnData should be passed with the return objects already set as either
 // empty  arrays or null.,
 
-var sendJsonErrorResponse = function(title, level, errorTextArray, returnData, res) {
+var sendJsonErrorResponse = function(title, level, errorTextArray, status, returnData, res) {
 
     debugJson("Sending JSON of %o", errorTextArray);
     var errorMsg = {};
@@ -61,27 +61,28 @@ var sendJsonErrorResponse = function(title, level, errorTextArray, returnData, r
     returnData['errors'].push(errorMsg);
 
     //debugJson("in sendJsonErrorResponse just before send");
-    sendJsonResponse(res, 401, returnData);
+    sendJsonResponse(res, status, returnData);
 };
 
 
 var sendJsonSQLErrorResponse = function(title, level, sqlError, returnData, res) {
 
   var errorMsgArray = errorObjToArray(sqlError);
-  sendJsonErrorResponse(title, level, errorMsgArray, returnData, res);
+  // send SQL resonses back with the general status of 500 of a server error
+  sendJsonErrorResponse(title, level, errorMsgArray, 500, returnData, res);
 
 };
 
 
 // this is for one line responses, though the text is an array that can have
-// multiple entries.
+// multiple entries.  Currently not used.
 
 var sendJsonSimpleErrorResponse = function(title, level, text, returnData, res) {
 
     var errorMsgArray = [];
     errorMsgArray.push(text);
    // debugJson("sending response");
-    sendJsonErrorResponse(title, level, errorMsgArray, returnData, res);
+    sendJsonErrorResponse(title, level, errorMsgArray, returnData, 400, res);
 };
 
 
@@ -156,7 +157,7 @@ module.exports.login = function (req, res) {
   debugLogin("in api login");
 
   //debugLogin("query : " + query);
-  query = 'call login_duh(';
+  query = 'call login(';
   query += db.connection.escape(workerEmail) + ")";  // can't be blank
   db.connection.query(query, function(err, rows, fields) {
 

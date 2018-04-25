@@ -2,24 +2,17 @@
 <div>
   <form>
     <fieldset class="form-group">
-      <legend>Radio buttons</legend>
-      <div class="form-check">
+        <div class="form-check" v-for="lab in labChoices">
         <label class="form-check-label">
-        <input v-on:click="buttonSelected('south_maui')" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-        South Maui
-      </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-        <input v-on:click="buttonSelected('west_maui')" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
-        West Maui
-      </label>
-      </div>
-      <div class="form-check disabled">
-        <label class="form-check-label">
-        <input  v-on:click="buttonSelected('all')" type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3">
-        All
-      </label>
+        <div v-if=lab.currentChoice>
+          <input v-on:click="buttonSelected(lab.short_name)" type="radio" class="form-check-input" name="optionsRadios" checked="">
+          {{lab.short_name}}
+        </div>
+        <div v-else>
+          <input v-on:click="buttonSelected(lab.short_name)" type="radio" class="form-check-input" name="optionsRadios">
+          {{lab.short_name}}
+        </div>
+        </label>
       </div>
     </fieldset>
   </form>
@@ -33,7 +26,33 @@
     methods: {
       buttonSelected : function(whichButton){
         console.log("button: ", whichButton);
+        this.$store.commit('updateLabSessionFilterChoice', whichButton);
       }
-    }
+    }, // end of methods
+    computed: {
+      labChoices : function(){
+        var i;
+        var choices = [];
+        var obj;
+        for (i = 0; i < this.$store.state.labs.length; ++i){
+          console.log('ADDING', this.$store.state.labs[i]);
+          obj = {};
+          obj['currentChoice'] = false;
+          obj['short_name'] = this.$store.state.labs[i].short_name;
+          if (obj.short_name === this.$store.state.labSessionFilterChoice) {
+            obj['currentChoice'] = true;
+          }
+          choices.push(obj);
+        }
+        obj = {};
+        obj['currentChoice'] = false;
+        obj['short_name'] = "All";
+        if (obj.short_name === this.$store.state.labSessionFilterChoice) {
+          obj['currentChoice'] = true;
+        }
+        choices.push(obj);
+        return choices;
+      }
+    }  // end of computed
   }
 </script>
