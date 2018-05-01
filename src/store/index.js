@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Vue from 'vue';
 import Vuex from 'vuex';
+//var SystemErrorReporting = require('./modules/SystemErrorReporting');
+import systemErrors from './modules/SystemErrorReporting';
 Vue.use(Vuex);
 
 var errorMsgs = require('../util/errorMessages');
@@ -24,6 +26,9 @@ export default new Vuex.Store({
     labs : [],
     // current choices for filters
     labSessionFilterChoice : 'All'
+  },
+  modules : {
+    systemErrors
   },
   mutations : {
     // ************** Authorization mutations *****************
@@ -109,6 +114,7 @@ export default new Vuex.Store({
              if ((error.response.status === 500) && (error.response.data.errors)) {
                  for (i = 0; i < error.response.data.errors.length; ++i) {
                    context.commit('pushlookupInformationErrors', error.response.data.errors[i]);
+                   context.commit('systemErrors/addError', error.response.data.errors[i]);
                  }
              }
              else if ((error.response.status === 400) && (error.response.data.message)) {

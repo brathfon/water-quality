@@ -14,13 +14,15 @@ import routes from './util/routes';
 const router = new VueRouter({ routes });
 
 import Banner from './components/Banner.vue';
+import SystemErrorAlert from './components/SystemErrorAlert.vue';
+
 
 new Vue({
   el: '#app',
   data: {},
   router,
   store,
-  components: {Banner},
+  components: {Banner, SystemErrorAlert},
   created() {
     this.$store.dispatch('getLabs');
   }
