@@ -313,7 +313,7 @@ module.exports.updateOneSample = function (req, res) {
 
 module.exports.getLabs = function (req, res) {
 
-  db.connection.query("call duh_get_labs()", function(err, rows, fields) {
+  db.connection.query("call get_labs()", function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));

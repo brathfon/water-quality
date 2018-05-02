@@ -29,6 +29,23 @@
             </tr>
           </thead>
           <tbody>
+
+            <tr v-for="session in labSessions">
+              <td>{{session.lab_code}}</td>
+              <td>{{session.long_name}}</td>
+              <td class="center-align-table-cell">{{session.session_number}}</td>
+              <td class="center-align-table-cell">{{session.start_date}}</td>
+              <td class="center-align-table-cell">
+                <a href=
+                "/samplesForSession/1/1/Lahainaluna%20High%20School"
+                class="btn btn-sm btn-info">View Site Samples</a>
+              </td>
+            </tr>
+
+
+
+
+
           </tbody>
         </table>
       </div>
