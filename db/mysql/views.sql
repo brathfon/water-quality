@@ -2,6 +2,7 @@
 CREATE OR REPLACE VIEW lab_sessions_overview AS
 SELECT l.lab_id,
        l.lab_code,
+       l.short_name,
        l.long_name,
        s.session_number,
        s.start_date

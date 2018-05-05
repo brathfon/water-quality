@@ -26,15 +26,15 @@
 <script>
   export default {
     computed: {
-      showSessions() { return this.$store.state.isLoggedIn; },
-      showLogout() { return this.$store.state.isLoggedIn; },
+      showSessions() { return this.$store.state.auth.isLoggedIn; },
+      showLogout() { return this.$store.state.auth.isLoggedIn; },
       userFullName() {
-        return this.$store.state.firstName + " " + this.$store.state.lastName;
+        return this.$store.state.auth.firstName + " " + this.$store.state.auth.lastName;
       }
     },
     methods: {
       logout: function() {
-        this.$store.dispatch('resetAuth');
+        this.$store.dispatch('auth/resetAuth');
         this.$router.push('/#');  // redirect to the landing page
       }
     }

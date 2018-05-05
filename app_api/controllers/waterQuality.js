@@ -131,7 +131,7 @@ module.exports.createNewSession = function (req, res) {
 
 module.exports.getLabSessionsOverview = function (req, res) {
 
-  db.connection.query("select * from lab_sessions_overview", function(err, rows, fields) {
+  db.connection.query("call get_lab_sessions_overview()", function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
@@ -148,7 +148,7 @@ module.exports.getLabSessionsOverview = function (req, res) {
                             data,
                             res);
     } else {
-      data['labSessions'] =  rows;
+      data['labSessions'] =  rows[0];
       sendJsonResponse(res, 201, data);
     }
   });
@@ -157,7 +157,7 @@ module.exports.getLabSessionsOverview = function (req, res) {
 
 module.exports.getMaxSessionNumbersForLabs = function (req, res) {
 
-  db.connection.query("select * from max_session_numbers_for_labs", function(err, rows, fields) {
+  db.connection.query("call get_max_session_numbers_for_labs()", function(err, rows, fields) {
 
     var data = {};
     data['maxSessionNumbers'] = [];
@@ -170,7 +170,7 @@ module.exports.getMaxSessionNumbersForLabs = function (req, res) {
                             data,
                             res);
     } else {
-      data['maxSessionNumbers'] =  rows;
+      data['maxSessionNumbers'] =  rows[0];
       sendJsonResponse(res, 201, data);
     }
   });

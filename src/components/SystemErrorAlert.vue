@@ -1,6 +1,7 @@
 <template>
   <div>
     <div v-if="haveErrors">
+    <h3>System Error</h3>
     <error-alerts v-bind:errors="systemErrors" v-on:reset-error="resetError"></error-alerts>
   </div>
  </div>

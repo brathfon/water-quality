@@ -25,8 +25,8 @@
   export default {
     methods: {
       buttonSelected : function(whichButton){
-        console.log("button: ", whichButton);
-        this.$store.commit('updateLabSessionFilterChoice', whichButton);
+        //console.log("button: ", whichButton);
+        this.$store.commit('userChoices/updateLabSessionFilterChoice', whichButton);
       }
     }, // end of methods
     computed: {
@@ -34,12 +34,12 @@
         var i;
         var choices = [];
         var obj;
-        for (i = 0; i < this.$store.state.labs.length; ++i){
-          console.log('ADDING', this.$store.state.labs[i]);
+        for (i = 0; i < this.$store.state.lookupInfo.labs.length; ++i){
+          //console.log('ADDING', this.$store.state.lookupInfo.labs[i]);
           obj = {};
           obj['currentChoice'] = false;
-          obj['short_name'] = this.$store.state.labs[i].short_name;
-          if (obj.short_name === this.$store.state.labSessionFilterChoice) {
+          obj['short_name'] = this.$store.state.lookupInfo.labs[i].short_name;
+          if (obj.short_name === this.$store.state.userChoices.labSessionFilterChoice) {
             obj['currentChoice'] = true;
           }
           choices.push(obj);
@@ -47,7 +47,7 @@
         obj = {};
         obj['currentChoice'] = false;
         obj['short_name'] = "All";
-        if (obj.short_name === this.$store.state.labSessionFilterChoice) {
+        if (obj.short_name === this.$store.state.userChoices.labSessionFilterChoice) {
           obj['currentChoice'] = true;
         }
         choices.push(obj);

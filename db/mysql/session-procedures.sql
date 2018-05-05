@@ -11,6 +11,29 @@ SELECT
 FROM labs;
 
 
+DROP PROCEDURE IF EXISTS get_max_session_numbers_for_labs;
+
+CREATE PROCEDURE get_max_session_numbers_for_labs()
+SELECT
+  lab_id,
+  lab_code,
+  long_name,
+  max_session_number
+FROM max_session_numbers_for_labs;
+
+
+DROP PROCEDURE IF EXISTS get_lab_sessions_overview;
+
+CREATE PROCEDURE get_lab_sessions_overview()
+SELECT
+  lab_id,
+  lab_code,
+  short_name,
+  long_name,
+  session_number,
+  start_date
+FROM lab_sessions_overview;
+
 DROP PROCEDURE IF EXISTS samples_for_session;
 
 CREATE PROCEDURE samples_for_session(IN curr_lab_id INT,IN curr_session_number INT)
@@ -147,3 +170,6 @@ BEGIN
 END//
 
 delimiter ;
+
+
+
