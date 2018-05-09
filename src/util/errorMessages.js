@@ -1,9 +1,18 @@
+var logging = require('./logging');
+
 var createSimpleErrorMsg = function(title, level) {
   var errorMsg = {};
   errorMsg['title'] = title;
   errorMsg['level'] = level;
   errorMsg['text'] = [];
   return errorMsg;
+};
+
+var commitMsgAndLogIt = function(error) {
+  this.$store.commit('systemErrors/addError', error, {
+    root: true
+  });
+  logging.sendLogMessage.call(this, error);
 };
 
 var handleHttpErrors = function(error) {
@@ -18,13 +27,11 @@ var handleHttpErrors = function(error) {
     // could come with an array of errors, but usually only one.
     if ((error.response.status === 500) && (error.response.data.errors)) {
       for (i = 0; i < error.response.data.errors.length; ++i) {
-        this.$store.commit('systemErrors/addError', error.response.data.errors[i], {
-          root: true
-        });
+        commitMsgAndLogIt.call(this, error.response.data.errors[i]);
       }
     } else if ((error.response.status === 400) && (error.response.data.message)) {
       errorMsgText += error.response.data.message;
-      errorMsgObj = createSimpleErrorMsg(errorMsgText, "Danger");
+      errorMsgObj = createSimpleErrorMsg(errorMsgText, "danger");
       this.$store.commit('systemErrors/addError', errorMsgObj, {
         root: true
       });
@@ -36,26 +43,20 @@ var handleHttpErrors = function(error) {
       if (error.response.statusText) {
         errorMsgText += " " + error.response.statusText;
       }
-      errorMsgObj = createSimpleErrorMsg(errorMsgText, "Danger");
-      this.$store.commit('systemErrors/addError', errorMsgObj, {
-        root: true
-      });
+      errorMsgObj = createSimpleErrorMsg(errorMsgText, "danger");
+      commitMsgAndLogIt.call(this, errorMsgObj);
     }
   } else if (error.request) {
     // The request was made but no response was received
     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
     // http.ClientRequest in node.js
-    errorMsgObj = createSimpleErrorMsg("The request was made but no response was received", "Danger");
-    this.$store.commit('systemErrors/addError', errorMsgObj, {
-      root: true
-    });
+    errorMsgObj = createSimpleErrorMsg("The request was made but no response was received", "danger");
+    commitMsgAndLogIt.call(this, errorMsgObj);
   } else {
     // Something happened in setting up the request that triggered an Error
     console.log('error.message', error.message);
-    errorMsgObj = createSimpleErrorMsg("An error was thrown and caught handling API request", "Danger");
-    this.$store.commit('systemErrors/addError', errorMsgObj, {
-      root: true
-    });
+    errorMsgObj = createSimpleErrorMsg("An error was thrown and caught handling API request", "danger");
+    commitMsgAndLogIt.call(this, errorMsgObj);
 
   }
 

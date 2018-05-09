@@ -33,7 +33,7 @@ var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
     console.log(chalk.red(title + ": " + util.inspect(sqlError, false, null)));
     // set up error to be returned for possible display
     errorMsg['title'] = title;
-    errorMsg['level'] = "Danger";
+    errorMsg['level'] = "danger";
     errorMsg['text']  = [];
     if (env() === 'dev') {   // show the full error
       errorMsg['text'] = errorObjToArray(sqlError);
@@ -108,14 +108,14 @@ module.exports.createNewSession = function (req, res) {
     //     fieldCount: 0,
     if ((err === null) && (rows !== null) && (rows !== undefined) && (rows.length > 1 )) {
       sendJsonErrorResponse("Error creating new session",
-                            "Danger",
+                            "danger",
                             rows[0][0],  // this is the array of errors
                             data,
                             res);
     }
     else if (err) {
       sendJsonErrorResponse("Error creating new session",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -143,7 +143,7 @@ module.exports.getLabSessionsOverview = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error retrieving data from database for lab sessions overview",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -165,7 +165,7 @@ module.exports.getMaxSessionNumbersForLabs = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error retrieving data from database for max session numbers for labs",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -190,7 +190,7 @@ module.exports.getSamplesForSession = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error retrieving samples for session",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -218,7 +218,7 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error retrieving samples for session and date",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -246,7 +246,7 @@ module.exports.getWorkersForSession = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error retrieving workers for session",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -291,14 +291,14 @@ module.exports.updateOneSample = function (req, res) {
 
     if (err) {
       sendJsonErrorResponse("Error updating sample with id of " + req.body.sampleId,
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
     }
     else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
       sendJsonErrorResponse("Expecting 1 row affected in database.  " + rows.affectedRows + " reported",
-                            "Danger",
+                            "danger",
                             err,
                             data,
                             res);
@@ -324,8 +324,8 @@ module.exports.getLabs = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving data from database for lab sessions overview",
-                            "Danger",
+      sendJsonErrorResponse("Error retrieving data from database for labs",
+                            "danger",
                             err,
                             data,
                             res);

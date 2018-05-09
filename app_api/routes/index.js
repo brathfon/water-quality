@@ -8,6 +8,7 @@ var auth = jwt({
 
 var ctrlWQ = require('../controllers/waterQuality');
 var ctrlAuth = require('../controllers/authentication');
+var logging = require('../controllers/logging');
 
 /* water quality apis */
 router.post('/createNewSession',                                         ctrlWQ.createNewSession);
@@ -25,6 +26,10 @@ router.post('/setPassword', auth, ctrlAuth.setPassword);
 //router.post('/createNewWorker', auth, ctrlAuth.createNewWorker);
 router.post('/createNewWorker', ctrlAuth.createNewWorker);
 //router.get('/isValidPassword/:worker_id/:password', ctrlAuth.isValidPassword);
+
+// logging
+router.post('/insertLogMessage', logging.insertLogMessage);
+
 
 
 module.exports = router;

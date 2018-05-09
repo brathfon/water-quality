@@ -33,6 +33,8 @@
   import ErrorAlerts from './ErrorAlerts.vue';
   import roles from '../util/roles';
   var errorMsgs = require('../util/errorMessages');
+  var logging = require('../util/logging');
+
 
   export default {
     data() {
@@ -86,6 +88,7 @@
           if (this.token === "NO_MATCHING_EMAIL_FOUND") {
             this.loginErrors = [];
             this.loginErrors.push(this.createSimpleErrorMsg("Your email, " + this.email + ", was not found.", "Danger"));
+            logging.sendSimpleLogMessage.call(this, "Login attempt with unknown email " + this.email, "warning");
           }
           else if (this.token === "PASSWORD_DOES_NOT_MATCH") {
             this.loginErrors = [];
@@ -151,6 +154,7 @@
                 if (role === roles.READ_ONLY)         {this.$store.commit('auth/updateHasReadOnlyRole', true);}
               }
               this.$store.commit('auth/updateIsLoggedIn', true); // finally set the overall status that there is some logged in.
+              logging.sendSimpleLogMessage.call(this, payload.firstName + " " + payload.lastName + " logged in successfully", "success");
               this.$router.push('/labSessionsOverview');  // redirect to the labSessionsOverview page
             }
             else {

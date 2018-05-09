@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row page-header">
+    <div class="row">
       <div class="col-lg-12">
         <h3>Lab Sessions</h3>
       </div>
@@ -75,7 +75,7 @@ export default {
       }
     },
     createURL: function(session) {
-      return "/samplesForSession/" + session.lab_id + "/" + session.session_number + "/" + session.long_name;
+      return "/#/samplesForSession/" + session.lab_id + "/" + session.session_number + "/" + session.long_name;
     },
     dateOnly: function(dateAndTime){
       return dateAndTime.split('T')[0];
