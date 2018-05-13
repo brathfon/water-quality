@@ -1,22 +1,39 @@
 <template>
-<div class="row">
-  <div class="col-md-2">
-    <h3>{{dayObj.date}}</h3>
-  </div>
-  <div class="col-md-4">
-    <a v-bind:href="createURL()" class="btn btn-sm btn-info">Edit This Day</a>
+<div>
+  <div class="row">
+    <div class="col-md-2">
+      <h3>{{dayObj.date}}</h3>
+    </div>
+    <div class="col-md-2">
+      <a v-bind:href="createInSituURL()" class="btn btn-sm btn-info">Edit InSitu For This Day</a>
+    </div>
+    <div class="col-md-2">
+      <a v-bind:href="createNutrientURL()" class="btn btn-sm btn-info">Edit Nutrient For This Day</a>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <SessionDayTable v-bind:samples="dayObj.samples"></SessionDayTable>
+      </div>
+    </div>
   </div>
 </div>
 </template>
 
 <script>
+import SessionDayTable from './SessionDayTable.vue';
+
 export default {
   props: ['dayObj', 'lab_id', 'session_number', 'lab_long_name'],
   methods: {
-    createURL: function(date) {
-      //return "/#/samplesForSession/" + session.lab_id + "/" + session.session_number + "/" + session.long_name + "/" + dayObj.date;
-      return "/#/editSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.dayObj.date;
+    createInSituURL: function(date) {
+      return "/#/editInSituSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.dayObj.date;
+    },
+    createNutrientURL: function(date) {
+      return "/#/editNutrientSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.dayObj.date;
     }
-  } // end of methods
+  }, // end of methods
+  components: {
+    SessionDayTable
+  }
 }
 </script>

@@ -413,3 +413,21 @@ INSERT INTO qa_codes ( qa_code, category, description, action )
   values(161, 'Site Sample', 'Awaiting approval', 'flag');
 INSERT INTO qa_codes ( qa_code, category, description, action )
   values(162, 'Site Sample', 'Awaiting Review',   'flag');
+
+--  measurement precision for display
+
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('temperature', 1);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('salinity', 1);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen_pct', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('ph', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_1', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_2', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_3', 2);
+-- nutrient data
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('total_nitrogen', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('total_phosphorus', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('phosphate', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('silicate', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('nitrates', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('ammonia', 2);

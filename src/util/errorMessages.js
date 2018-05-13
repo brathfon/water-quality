@@ -15,6 +15,11 @@ var commitMsgAndLogIt = function(error) {
   logging.sendLogMessage.call(this, error);
 };
 
+var displayAndLogSimpleErrorMessage = function(title, level) {
+  var msgObj = createSimpleErrorMsg(title, level);
+  commitMsgAndLogIt.call(this, msgObj);
+}
+
 var handleHttpErrors = function(error) {
   var errorMsgText;
   var errorMsgObj;
@@ -32,9 +37,7 @@ var handleHttpErrors = function(error) {
     } else if ((error.response.status === 400) && (error.response.data.message)) {
       errorMsgText += error.response.data.message;
       errorMsgObj = createSimpleErrorMsg(errorMsgText, "danger");
-      this.$store.commit('systemErrors/addError', errorMsgObj, {
-        root: true
-      });
+      commitMsgAndLogIt.call(this, errorMsgObj);
     } else { // not known from the API
       errorMsgText += "Error";
       if (error.response.status) {
@@ -55,7 +58,7 @@ var handleHttpErrors = function(error) {
   } else {
     // Something happened in setting up the request that triggered an Error
     console.log('error.message', error.message);
-    errorMsgObj = createSimpleErrorMsg("An error was thrown and caught handling API request", "danger");
+    errorMsgObj = createSimpleErrorMsg("Error handling API request: " + error.message, "danger");
     commitMsgAndLogIt.call(this, errorMsgObj);
 
   }
@@ -64,5 +67,6 @@ var handleHttpErrors = function(error) {
 
 export {
   createSimpleErrorMsg,
-  handleHttpErrors
+  handleHttpErrors,
+  displayAndLogSimpleErrorMessage
 };

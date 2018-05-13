@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+
   <div class="row">
     <div class="col-lg-12">
       <h3>Samples for {{lab_long_name}}, Session {{session_number}}</h3>

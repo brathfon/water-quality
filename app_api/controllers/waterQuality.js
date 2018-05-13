@@ -210,7 +210,34 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
   var sessionNumber = req.params.sessionNumber;
   var theDate       = req.params.theDate;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+  db.connection.query("call get_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+
+    var data = {};
+    data['samples'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error retrieving samples for session and date",
+                            "danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount.
+      data['samples'] = rows[0];
+      sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+module.exports.getInSituSamplesForSessionOnDate = function (req, res) {
+
+  var labId         = req.params.labId;
+  var sessionNumber = req.params.sessionNumber;
+  var theDate       = req.params.theDate;
+  //console.log("sessionNumber " + sessionNumber);
+  db.connection.query("call get_in_situ_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -232,6 +259,32 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
 };
 
 
+module.exports.getNutrientSamplesForSessionOnDate = function (req, res) {
+
+  var labId         = req.params.labId;
+  var sessionNumber = req.params.sessionNumber;
+  var theDate       = req.params.theDate;
+  //console.log("sessionNumber " + sessionNumber);
+  db.connection.query("call get_nutrient_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+
+    var data = {};
+    data['samples'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error retrieving samples for session and date",
+                            "danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount.
+      data['samples'] = rows[0];
+      sendJsonResponse(res, 201, data);
+    }
+  });
+};
 
 module.exports.getWorkersForSession = function (req, res) {
 

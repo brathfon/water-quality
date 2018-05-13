@@ -1,13 +1,17 @@
 const namespaced = true;
 
 const state = {
-  labs: []
+  labs: [],
+  measurementPrecision: []
 }
 
 
 const mutations = {
   updateLabs(state, status) {
     state.labs = status;
+  },
+  updateMeasurementPrecision(state, status) {
+    state.measurementPrecision = status;
   }
 }; // end of mutations
 

@@ -9,6 +9,8 @@
 
 .in-situ-inner-table { margin: auto }
 
+.wq-input { text-align: center}
+
 .table-with-border { border: 1px solid black }
 
 .login-container {
@@ -29,8 +31,8 @@
 }
 
 
-.login-header { 
- border:0 solid #fff; 
+.login-header {
+ border:0 solid #fff;
  border-bottom-width:1px;
  padding-bottom:10px;
  text-align: center;
@@ -39,4 +41,3 @@
 .login-wrapper {
     text-align: center;
 }
-
