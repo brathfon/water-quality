@@ -55,3 +55,11 @@ Made some changes to the database to handle a duplicate user in the insert-data.
 No differences in the data reports output.  diffs in sql were expected.
 
 diff water_quality.2018-04-06_13-02-01.sql water_quality.2018-04-07_15-26-49.sql
+
+5/15/2018
+checking before adding sessions through 38 and 13, respectively. 
+report.2018-04-07_15-26-49.txt report.2018-05-15_08-10-13.txt  no diffs
+Saw some differences due to some problems found in the data sheets from the SOET lab.
+
+After adding in sessions 37-38 west and 11-12-13 south.  No diffs in earlier sessions.
+diff report.2018-05-15_08-10-13.txt report.2018-05-15_09-24-59.txt
