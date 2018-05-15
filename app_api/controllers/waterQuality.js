@@ -2,6 +2,8 @@ var db = require('../models/db');
 var env = require('get-env');
 var chalk = require('chalk');
 var util = require('util');
+var helpers = require('./helpers');
+
 
 
 
@@ -318,7 +320,7 @@ module.exports.updateOneSample = function (req, res) {
   console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
 
   var query = "update samples set " +
-     "date_and_time = '" + req.body.theDate + " " + formatSampleTime(req.body.time) + "', " +
+     "date_and_time = '" + req.body.date + " " + formatSampleTime(req.body.time) + "', " +
     // "moon = " +
     "temperature = "          + formatSampleWithSigFigs(req.body.temperature, 1) + ", "  +
     "salinity = "             + formatSampleWithSigFigs(req.body.salinity, 1) + ", " +
@@ -343,48 +345,22 @@ module.exports.updateOneSample = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error updating sample with id of " + req.body.sampleId,
+      helpers.sendJsonSQLErrorResponse("Error updating sample with id of " + req.body.sampleId,
                             "danger",
                             err,
                             data,
                             res);
     }
     else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
-      sendJsonErrorResponse("Expecting 1 row affected in database.  " + rows.affectedRows + " reported",
+      helpers.sendJsonSQLErrorResponse("Expecting 1 row affected in database.  " + rows.affectedRows + " reported",
                             "danger",
                             err,
                             data,
                             res);
     }
     else {
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
 
-  });
-};
-
-
-module.exports.getLabs = function (req, res) {
-
-  db.connection.query("call get_labs()", function(err, rows, fields) {
-
-  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
-  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
-  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
-
-    var data = {};
-    data['labs'] = [];
-    data['errors'] = [];
-
-    if (err) {
-      sendJsonErrorResponse("Error retrieving data from database for labs",
-                            "danger",
-                            err,
-                            data,
-                            res);
-    } else {
-      data['labs'] =  rows[0];
-      sendJsonResponse(res, 201, data);
-    }
   });
 };

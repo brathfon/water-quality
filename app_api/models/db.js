@@ -18,6 +18,14 @@ var connection = mysql.createConnection({
     database: 'water_quality'
 });
 
+var pool = mysql.createPool({
+  connectionLimit : 10,
+  host : 'localhost',
+  user : 'wq_dba',
+  password: 'ntus',
+  database: 'water_quality'
+})
+
 
 connection.connect(function(err) {
   if (!err) {
@@ -44,6 +52,7 @@ mongoose.connection.on('disconnected', function () {
 
 gracefulShutdown = function (msg, callback) {
   connection.end();
+  pool.end();
   console.log('mysql connection ended through ' + msg);
   callback();
 };
@@ -70,3 +79,4 @@ process.once('SIGTERM', function () {
 });
 
 module.exports.connection = connection;
+module.exports.pool = pool;

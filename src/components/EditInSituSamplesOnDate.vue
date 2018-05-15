@@ -1,5 +1,13 @@
 <template>
 <div class="container">
+
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
+      <error-alerts v-if="haveErrors" v-bind:errors="entryErrors" v-on:reset-error="resetError"></error-alerts>
+    </div>
+  </div>
+
+
   <div class="row">
     <div class="col-lg-12">
       <h3>Edit day {{the_date}} (session {{session_number}}, {{lab_long_name}})</h3>
@@ -47,7 +55,7 @@
               <td>{{sample.long_name}}</td>
               <td>{{sample.hui_abv}}</td>
               <td><input v-on:blur="onBlur('time', index)" type="text" autocomplete="off" v-model="samples[index].time" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('temperature', index)" type="text" autocomplete="off" v-model="samples[index].temperature" class="form-control wq-input" ></td>
+              <td><input v-on:blur="onBlur('temperature', index)" type="text" autocomplete="off" v-model="samples[index].temperature" class="form-control wq-input"></td>
               <td><input v-on:blur="onBlur('salinity', index)" type="text" autocomplete="off" v-model="samples[index].salinity" class="form-control wq-input"></td>
               <td><input v-on:blur="onBlur('dissolved_oxygen', index)" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="form-control wq-input"></td>
               <td><input v-on:blur="onBlur('dissolved_oxygen_pct', index)" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="form-control wq-input"></td>
@@ -58,7 +66,9 @@
             </tr>
 
           </tbody>
-        </table><button v-on:click="doUpdate" type="submit" class="btn btn-primary">Update</button>
+        </table>
+        <button v-on:click="doUpdate" type="submit" class="btn btn-primary">Update</button>
+        <button v-if="isUpdating" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Updating...</button>
       </form>
     </div>
   </div>
@@ -70,6 +80,8 @@ var errorMsgs = require('../util/errorMessages');
 var lookupHelper = require('../util/lookupInformationHelper');
 
 import MeasurementInputField from './MeasurementInputField.vue';
+import ErrorAlerts from './ErrorAlerts.vue';
+
 
 export default {
   data() {
@@ -78,9 +90,23 @@ export default {
       session_number: -1,
       lab_long_name: "",
       samples: {},
-      the_date: ""
+      the_date: "",
+      entryErrors: [],
+      updating: false
     }
   },
+
+  components: {ErrorAlerts},
+
+  computed: {
+    haveErrors : function() {
+      return this.entryErrors.length > 0;
+    },
+    isUpdating : function() {
+      return this.updating
+    }
+  },  // end of computed
+
   methods: {
 
     onBlur: function(attribute, index) {
@@ -89,13 +115,100 @@ export default {
       console.log("WAS BLURRED attribute: " + attribute + " index: " + index + " precision " + precision );
     },
 
+    resetError : function(id) {
+      this.entryErrors.splice(id, 1);
+    },
+
+    // resets all errors by assigning an empty array
+    resetErrors : function() {
+      this.entryErrors = [];
+    },
+
+    sleep: function(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+
+    updateComplete : function() {
+      this.sleep(1000).then(() => {
+        this.updating = false;
+      });
+      console.log("UPDATE COMPLETE");
+    },
+
+    updateOneSample: function(index){
+
+      this.$http.put('/api/updateOneSample/', this.samples[index])
+        .then((response) => {
+          //console.log("INITIAL response ->  for " + index, response);
+          if (index > 0) { // continue the recursion
+            this.updateOneSample(--index);
+          }
+          else {
+            this.updateComplete();
+          }
+        })
+        .catch((error) => {
+          //console.log("ERROR updating -> ", this.samples[index].long_name);
+          errorMsgs.handleHttpErrors.call(this, error);
+          if (index > 0) { // continue the recursion
+            this.updateOneSample(--index);
+          }
+          else {
+            this.updateComplete();
+          }
+        });
+      },
+
     doUpdate: function(e) {
-      console.log("DO UPDATE");
-      //e.preventDefault();
+      var i;
+      
+      e.preventDefault();
+
+      this.resetErrors();  // don't want to see old errors
+
+      if ( ! this.validateSamples()) {
+        console.log("UPDATE CANCELLED");
+        return;
+      }
+      this.updating = true;
+
+      this.updateOneSample(this.samples.length - 1);
     },
 
     backToHereURL: function(date) {
       return "/#/editInSituSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.the_date;
+    },
+
+    validateSample : function(index, attribute) {
+      var isGood = true;
+      var value = this.samples[index][attribute];
+      if (! lookupHelper.isFloat(value)) {
+        this.entryErrors.push(errorMsgs.createSimpleErrorMsg(attribute + " for " + this.samples[index].long_name + " must be a number", "danger"));
+        isGood = false;
+      }
+      return isGood;
+    },
+
+    validateSamples : function() {
+
+      var i;
+      var sample = null;
+      var allGood = true;
+
+      for (i = 0; i < this.samples.length; ++i) {
+        sample = this.samples[i];
+        //sample.time                 = lookupHelper.formatSampleTime(sample.time);
+        allGood &= this.validateSample(i, "temperature");
+        allGood &= this.validateSample(i, "salinity");
+        allGood &= this.validateSample(i, "dissolved_oxygen");
+        allGood &= this.validateSample(i, "dissolved_oxygen_pct");
+        allGood &= this.validateSample(i, "ph");
+        allGood &= this.validateSample(i, "turbidity_1");
+        allGood &= this.validateSample(i, "turbidity_2");
+        allGood &= this.validateSample(i, "turbidity_3");
+      }
+      console.log("All GOOD ", allGood);
+      return allGood;
     },
 
     formatData: function() {
@@ -114,6 +227,7 @@ export default {
         sample.turbidity_3          = lookupHelper.setPrecision.call(this, "turbidity_3",          sample.turbidity_3);
       }
     },
+
     getSamplesForSession: function() {
       var msg = {
         method: 'get',
@@ -133,7 +247,7 @@ export default {
     }
   },
   components: {
-    MeasurementInputField
+    MeasurementInputField, ErrorAlerts
   },
 
   created() {

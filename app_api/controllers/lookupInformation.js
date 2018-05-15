@@ -8,7 +8,7 @@ var helpers = require('./helpers');
 
 module.exports.getLabs = function (req, res) {
 
-  db.connection.query("call get_labs()", function(err, rows, fields) {
+  db.pool.query("call get_labs()", function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
@@ -34,7 +34,7 @@ module.exports.getLabs = function (req, res) {
 
 module.exports.getMeasurementPrecision = function (req, res) {
 
-  db.connection.query("call get_measurement_precision()", function(err, rows, fields) {
+  db.pool.query("call get_measurement_precision()", function(err, rows, fields) {
 
     var data = {};
     data['measurement_precision'] = [];

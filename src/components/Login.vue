@@ -29,12 +29,10 @@
 </template>
 <script>
 
-
   import ErrorAlerts from './ErrorAlerts.vue';
   import roles from '../util/roles';
   var errorMsgs = require('../util/errorMessages');
   var logging = require('../util/logging');
-
 
   export default {
     data() {
@@ -65,15 +63,15 @@
         if ( ((this.email === "")    || (this.email === null)) &&
              ((this.password === "") || (this.password === null)) )
         {
-          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email and password", "Danger"));
+          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email and password", "danger"));
           return false;
         }
         else if ((this.email === "") || (this.email === null)) {
-          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email", "Danger"));
+          this.loginErrors.push(this.createSimpleErrorMsg("You must enter your email", "danger"));
           return false;
         }
         else if ((this.password === "") || (this.password === null)) {
-            this.loginErrors.push(this.createSimpleErrorMsg("You must enter your password", "Danger"));
+            this.loginErrors.push(this.createSimpleErrorMsg("You must enter your password", "danger"));
           return false;
         }
         else {
@@ -87,12 +85,12 @@
         if (!this.loginSuccessful && (this.loginErrors.length === 0)) {
           if (this.token === "NO_MATCHING_EMAIL_FOUND") {
             this.loginErrors = [];
-            this.loginErrors.push(this.createSimpleErrorMsg("Your email, " + this.email + ", was not found.", "Danger"));
+            this.loginErrors.push(this.createSimpleErrorMsg("Your email, " + this.email + ", was not found.", "danger"));
             logging.sendSimpleLogMessage.call(this, "Login attempt with unknown email " + this.email, "warning");
           }
           else if (this.token === "PASSWORD_DOES_NOT_MATCH") {
             this.loginErrors = [];
-            this.loginErrors.push(this.createSimpleErrorMsg("Your password is incorrect.", "Danger"));
+            this.loginErrors.push(this.createSimpleErrorMsg("Your password is incorrect.", "danger"));
           }
         }
       },

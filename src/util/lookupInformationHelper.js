@@ -24,9 +24,11 @@ var formatSampleTime = function(theTime) {
 };
 
 var formatSampleWithSigFigs = function(theSample, numSigFigs) {
+
   var newSample = "";
-  if ((theSample !== null) && (theSample !== undefined)) {
-    newSample = theSample.toFixed(numSigFigs);
+  if ((theSample !== null) && (theSample !== undefined) && theSample !== "") {
+    //newSample = parseFloat(parseFloat(theSample).toFixed(numSigFigs));
+    newSample = parseFloat(theSample).toFixed(numSigFigs);
   } else {
     newSample = "";
   }
@@ -37,8 +39,14 @@ var setPrecision = function(attribute, value) {
   return formatSampleWithSigFigs(value, getPrecisionForMeasurement.call(this, attribute));
 };
 
+var isFloat = function(value) {
+  var val = parseFloat(value);
+  return (! isNaN(val));
+};
+
 export {
   getPrecisionForMeasurement,
   setPrecision,
-  formatSampleTime
+  formatSampleTime,
+  isFloat
 };
