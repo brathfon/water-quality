@@ -45,7 +45,7 @@ export default {
       return dateAndTime.split('T')[0];
     },
     // get the samples for the session, and if successful, get the works, too (may not have any in old data)
-    getSamplesForSession: function() {
+    getSamplesForSession: function(callback) {
 
       var msg = {
         method: 'get',
@@ -56,14 +56,17 @@ export default {
         .then((response) => {
           if ( response.data.samples ){
             this.samples = response.data.samples;
-            this.getWorkersForSession();
+            if (callback){
+              callback();
+            }
           }
         })
         .catch((error) => {
           errorMsgs.handleHttpErrors.call(this, error);
         });
     },
-    getWorkersForSession: function() {
+
+    getWorkersForSession: function(callback) {
 
       var msg = {
         method: 'get',
@@ -74,21 +77,34 @@ export default {
         .then((response) => {
           if ( response.data.workers ){
             this.workers = response.data.workers;
-            this.samplesByDate = dfHelper.organizeSamplesAndWorkersByDate(this.samples, this.workers);
+            if (callback){
+              callback();
+            }
           }
         })
         .catch((error) => {
           errorMsgs.handleHttpErrors.call(this, error);
         });
+    },
+
+    dataLoaded: function() {
+      this.samplesByDate = dfHelper.organizeSamplesAndWorkersByDate(this.samples, this.workers);
+    },
+
+    getData: function() {
+      var that = this;
+      this.getSamplesForSession(function() {
+        that.getWorkersForSession(function() {
+          that.dataLoaded();
+        })
+      })
     }
   },
   created() {
     this.lab_id = this.$route.params.lab_id;
     this.session_number = this.$route.params.session_number;
     this.lab_long_name = this.$route.params.lab_long_name;
-    this.getSamplesForSession();
-    //this.getWorkersForSession();
-
+    this.getData();
   }
 }
 </script>

@@ -10,10 +10,17 @@
     <div class="col-md-2">
       <a v-bind:href="createNutrientURL()" class="btn btn-sm btn-info">Edit Nutrient For This Day</a>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <SessionDayTable v-bind:samples="dayObj.samples"></SessionDayTable>
-      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <WorkersForSession v-bind:workers="dayObj.workers"></WorkersForSession>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <SessionDayTable v-bind:samples="dayObj.samples"></SessionDayTable>
     </div>
   </div>
 </div>
@@ -21,6 +28,8 @@
 
 <script>
 import SessionDayTable from './SessionDayTable.vue';
+import WorkersForSession from './WorkersForSession.vue';
+
 
 export default {
   props: ['dayObj', 'lab_id', 'session_number', 'lab_long_name'],
@@ -33,7 +42,8 @@ export default {
     }
   }, // end of methods
   components: {
-    SessionDayTable
+    SessionDayTable,
+    WorkersForSession
   }
 }
 </script>

@@ -59,7 +59,12 @@ diff water_quality.2018-04-06_13-02-01.sql water_quality.2018-04-07_15-26-49.sql
 5/15/2018
 checking before adding sessions through 38 and 13, respectively. 
 report.2018-04-07_15-26-49.txt report.2018-05-15_08-10-13.txt  no diffs
-Saw some differences due to some problems found in the data sheets from the SOET lab.
 
 After adding in sessions 37-38 west and 11-12-13 south.  No diffs in earlier sessions.
 diff report.2018-05-15_08-10-13.txt report.2018-05-15_09-24-59.txt
+
+add comments to the inserts from the gdrive spread sheets.
+diff report.2018-05-15_09-24-59.txt sample-report.2018-05-15_12-27-56.comments-added.txt  no diffs
+also created two reports, one for samples, one for comments, since the comments are so long and
+would make diffing hard.
+Also, eliminated the tab separated files being generated and added a tag to the names for better descriptions

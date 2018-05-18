@@ -1,17 +1,31 @@
-#!/bin/sh
+#!/bin/bash
 
 [ -z $DB_DATABASE ] && { echo "Need to set DB_DATABASE"; exit 1; }
 
+
+scriptName=`basename $0`
 scriptDir=`dirname $0`
 
+if [[ "$#" != "1" ]]
+then
+  echo "Usage: $scriptName <tag, no spaces>"
+  exit 1
+fi
+
+tag=$1
+
+
 theDate=`date '+%Y-%m-%d_%H-%M-%S'`
+dateTag=$theDate.$tag
+echo "dateTag is $dateTag"
 
 reportsDir=$scriptDir/reports
 dbDumpsDir=$scriptDir/database-dumps
 
-#mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -e "SELECT * FROM diff_report INTO OUTFILE '/tmp/diff_report.tsv';"
-mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -B -e "SELECT * FROM diff_report;" > $reportsDir/report.$theDate.tsv
-mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM diff_report;" > $reportsDir/report.$theDate.txt
-mysqldump --extended-insert=FALSE -u $DB_USER -p$DB_PASSWORD $DB_DATABASE > $dbDumpsDir/$DB_DATABASE.$theDate.sql
+# not needing tab separated report
+#mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE -B -e "SELECT * FROM diff_report;" > $reportsDir/sample-report.$dateTag.tsv
+mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM diff_report;" > $reportsDir/sample-report.$dateTag.txt
+mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM comments_diff_report;" > $reportsDir/comments-report.$dateTag.txt
+mysqldump --extended-insert=FALSE -u $DB_USER -p$DB_PASSWORD $DB_DATABASE > $dbDumpsDir/$DB_DATABASE.$dateTag.sql
 
 exit 0

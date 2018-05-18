@@ -16,8 +16,6 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <form v-bind:action="backToHereURL()" method="get" role="form" class="col-lg-12">
-        <input type="hidden" name="labId" value="1"><input type="hidden" name="sessionNumber" value="28"><input type="hidden" name="labLongName" value="Lahainaluna High School"><input type="hidden" name="theDate" value="2017-10-03">
         <table class="table table-striped table-hover">
           <thead>
             <tr>
@@ -54,22 +52,21 @@
             <tr v-for="(sample, index) in samples">
               <td>{{sample.long_name}}</td>
               <td>{{sample.hui_abv}}</td>
-              <td><input v-on:blur="onBlur('time', index)" type="text" autocomplete="off" v-model="samples[index].time" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('temperature', index)" type="text" autocomplete="off" v-model="samples[index].temperature" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('salinity', index)" type="text" autocomplete="off" v-model="samples[index].salinity" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('dissolved_oxygen', index)" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('dissolved_oxygen_pct', index)" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('ph', index)" type="text" autocomplete="off" v-model="samples[index].ph" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('turbidity_1', index)" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('turbidity_2', index)" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="form-control wq-input"></td>
-              <td><input v-on:blur="onBlur('turbidity_3', index)" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="form-control wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'time')" v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'temperature')" v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'salinity')" v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'dissolved_oxygen')" v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'dissolved_oxygen_pct')" v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'ph')" v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'turbidity_1')" v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'turbidity_2')" v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
+              <td><input v-on:blur="onBlur(index, 'turbidity_3')" v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
             </tr>
 
           </tbody>
         </table>
         <button v-on:click="doUpdate" type="submit" class="btn btn-primary">Update</button>
         <button v-if="isUpdating" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Updating...</button>
-      </form>
     </div>
   </div>
 </div>
@@ -92,6 +89,7 @@ export default {
       samples: {},
       the_date: "",
       entryErrors: [],
+      alerts: [],
       updating: false
     }
   },
@@ -109,10 +107,16 @@ export default {
 
   methods: {
 
-    onBlur: function(attribute, index) {
+    alertLevel : function(index, attribute) {
+      return this.alerts[index][attribute].alertClass;
+    },
+
+
+    onBlur: function(index, attribute) {
       var precision = 1;
       precision = lookupHelper.getPrecisionForMeasurement.call(this, attribute);
       console.log("WAS BLURRED attribute: " + attribute + " index: " + index + " precision " + precision );
+      this.validateSample(index, attribute);
     },
 
     resetError : function(id) {
@@ -129,6 +133,7 @@ export default {
     },
 
     updateComplete : function() {
+      this.getSamplesForSession();  // reload from database
       this.sleep(1000).then(() => {
         this.updating = false;
       });
@@ -161,10 +166,11 @@ export default {
 
     doUpdate: function(e) {
       var i;
-      
+
       e.preventDefault();
 
       this.resetErrors();  // don't want to see old errors
+      this.initializeAlerts();
 
       if ( ! this.validateSamples()) {
         console.log("UPDATE CANCELLED");
@@ -179,12 +185,39 @@ export default {
       return "/#/editInSituSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.the_date;
     },
 
+    addEntryError: function(index, attribute, msg) {
+      if (this.alerts[index][attribute].entryErrorId < 0){  // there is no error now, so display it
+        this.entryErrors.push(errorMsgs.createSimpleErrorMsg(msg, "danger"));
+        this.alerts[index][attribute].entryErrorId = this.entryErrors.length - 1;
+      }
+    },
+
     validateSample : function(index, attribute) {
       var isGood = true;
+      var numSigFigs = null;
+
       var value = this.samples[index][attribute];
-      if (! lookupHelper.isFloat(value)) {
-        this.entryErrors.push(errorMsgs.createSimpleErrorMsg(attribute + " for " + this.samples[index].long_name + " must be a number", "danger"));
+
+      if (! lookupHelper.newIsFloat(value)) {
+        this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " must be a number");
         isGood = false;
+      }
+      if (lookupHelper.hasTooManySigFigs.call(this, attribute, value)) {
+        numSigFigs = lookupHelper.getPrecisionForMeasurement.call(this, attribute);
+        this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " can have at most " + numSigFigs + " significate digit(s)");
+        isGood = false;
+      }
+      if (! isGood) {
+        this.alerts[index][attribute].alertClass = "validation-error";
+      } else {  // its good
+        if (this.alerts[index][attribute].alertClass !== ""){
+          this.alerts[index][attribute].alertClass = "";
+        }
+        if (this.alerts[index][attribute].entryErrorId >= 0){
+          this.resetError(this.alerts[index][attribute].entryErrorId);
+          this.alerts[index][attribute].entryErrorId = -1;
+        }
+        this.samples[index][attribute] = lookupHelper.setPrecision.call(this, attribute, this.samples[index][attribute]);
       }
       return isGood;
     },
@@ -209,6 +242,25 @@ export default {
       }
       console.log("All GOOD ", allGood);
       return allGood;
+    },
+
+    initializeAlerts: function() {
+      var i;
+      var obj = null;
+      var sample = null;
+      var sampleAttribute;
+      this.alerts = [];
+      for (i = 0; i < this.samples.length; ++i){
+        sample = this.samples[i];
+        obj = {};
+        for (sampleAttribute in sample){
+          obj[sampleAttribute] = {};
+          obj[sampleAttribute]['alertClass'] = "";
+          obj[sampleAttribute]['entryErrorId'] = -1;  // index into entry errors
+        }
+        this.alerts.push(obj);
+      }
+
     },
 
     formatData: function() {
@@ -239,6 +291,7 @@ export default {
           if (response.data.samples) {
             this.samples = response.data.samples;
             this.formatData();
+            this.initializeAlerts();
           }
         })
         .catch((error) => {

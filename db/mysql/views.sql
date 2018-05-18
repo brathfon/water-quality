@@ -49,7 +49,8 @@ SELECT
   REPLACE(FORMAT(sam.nitrates, 2), ',', '')     AS nitrates,
   REPLACE(FORMAT(sam.ammonia,          2), ' ', '')     AS ammonia,
   REPLACE(FORMAT(site.lat,             6), ' ', '')     AS lat,
-  REPLACE(FORMAT(site.lon,             6), ' ', '')     AS lon
+  REPLACE(FORMAT(site.lon,             6), ' ', '')     AS lon,
+  sam.comments
 FROM samples AS sam,
       sites AS site,
      sessions AS sess
@@ -107,3 +108,18 @@ SELECT
   lon
 FROM base_sample_report
 ORDER BY lab_id, session_number, day, time;
+
+CREATE OR REPLACE VIEW comments_diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  comments
+FROM base_sample_report
+WHERE comments IS NOT NULL
+ORDER BY lab_id, session_number, day, time;
+
