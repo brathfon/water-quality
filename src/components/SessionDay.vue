@@ -5,10 +5,10 @@
       <h3>{{dayObj.date}}</h3>
     </div>
     <div class="col-md-2">
-      <a v-bind:href="createInSituURL()" class="btn btn-sm btn-info">Edit InSitu For This Day</a>
+      <button v-on:click="goToEditInSitu()" class="btn btn-sm btn-info">Edit InSitu For This Day</button>
     </div>
     <div class="col-md-2">
-      <a v-bind:href="createNutrientURL()" class="btn btn-sm btn-info">Edit Nutrient For This Day</a>
+      <button v-on:click="goToEditNutrient()" class="btn btn-sm btn-info">Edit Nutrient For This Day</button>
     </div>
   </div>
 
@@ -29,17 +29,36 @@
 <script>
 import SessionDayTable from './SessionDayTable.vue';
 import WorkersForSession from './WorkersForSession.vue';
-
+var errorMsgs = require('../util/errorMessages');
 
 export default {
   props: ['dayObj', 'lab_id', 'session_number', 'lab_long_name'],
   methods: {
-    createInSituURL: function(date) {
-      return "/#/editInSituSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.dayObj.date;
+
+    goToEditInSitu: function (session){
+      var params = {};
+      params["lab_id"] = this.lab_id;
+      params["session_number"] = this.session_number;
+      params["lab_long_name"] = this.lab_long_name;
+      params["the_date"] = this.dayObj.date;
+
+      this.$router.push({name: 'editInSituSamplesOnDate', params: params});
     },
-    createNutrientURL: function(date) {
-      return "/#/editNutrientSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.dayObj.date;
+
+    goToEditNutrient: function (session){
+      var errorMsgs = require('../util/errorMessages');
+      errorMsgs.displayAndLogSimpleErrorMessage.call(this, "Edit Nutrient Data not implemented yet", 'warning');
+      /*
+      var params = {};
+      params["lab_id"] = this.lab_id;
+      params["session_number"] = this.session_number;
+      params["lab_long_name"] = this.lab_long_name;
+      params["the_date"] = this.dayObj.date;
+
+      this.$router.push({name: 'editInSituSamplesOnDate', params: params});
+      */
     }
+
   }, // end of methods
   components: {
     SessionDayTable,

@@ -7,8 +7,7 @@
     </div>
     <div class="row">
       <div class="col-md-6">
-        <a href="/createNewSession" class=
-        "btn btn-sm btn-info">Add Session</a>
+        <button v-on:click="goToCreateNewSession()" class="btn btn-sm btn-info">Add Session</button>
       </div>
       <div class="col-md-6">
         <lab-filter></lab-filter>
@@ -34,10 +33,9 @@
               <td>{{session.lab_code}}</td>
               <td>{{session.long_name}}</td>
               <td class="center-align-table-cell">{{session.session_number}}</td>
-              <td class="center-align-table-cell">{{dateOnly(session.start_date)}}</td>
+              <td class="center-align-table-cell">{{dateOnly(session.first_sample_day)}}</td>
               <td class="center-align-table-cell">
-                <a v-bind:href="createURL(session)"
-                class="btn btn-sm btn-info">View Site Samples</a>
+                <button v-on:click="goToSamplesForSession(session)" class="btn btn-sm btn-info">View Site Samples</button>
               </td>
             </tr>
 
@@ -74,14 +72,14 @@ export default {
         return (labSession.short_name === this.$store.state.userChoices.labSessionFilterChoice);
       }
     },
-    createURL: function(session) {
-      return "/#/samplesForSession/" + session.lab_id + "/" + session.session_number + "/" + session.long_name;
-    },
+
     dateOnly: function(dateAndTime){
       return dateAndTime.split('T')[0];
     },
+
     getLabSessions: function() {
 
+      console.log("LOADING LAB SESSIONS");
       var msg = {
         method: 'get',
         url: '/api/getLabSessionsOverview',
@@ -97,8 +95,21 @@ export default {
         .catch((error) => {
           errorMsgs.handleHttpErrors.call(this, error);
         });
+    },
+
+    goToSamplesForSession: function (session){
+      var params = {};
+      params["lab_id"] = session.lab_id;
+      params["session_number"] = session.session_number;
+      params["lab_long_name"] = session.long_name;
+
+      this.$router.push({name: 'samplesForSession', params: params});
+    },
+
+    goToCreateNewSession: function (session){
+      this.$router.push({name: 'createNewSession'});
     }
-  },
+  },  // end of methods
   created() {
     console.log("CHOICE: ", this.$store.state.userChoices.labSessionFilterChoice);
     this.getLabSessions();

@@ -4,11 +4,6 @@ var chalk = require('chalk');
 var util = require('util');
 var helpers = require('./helpers');
 
-
-
-
-
-
 var sendJsonResponse = function(res, status, content) {
   res.status(status);
   res.json(content);
@@ -85,12 +80,14 @@ var formatSampleWithSigFigs = function(theSample, numSigFigs) {
 module.exports.createNewSession = function (req, res) {
 
   //console.log(chalk.blue(util.inspect(req.body, false, null)));
-  var lab_id         = req.body.lab_id;
-  var session_number = req.body.session_number;
-  var start_date     = req.body.start_date;
+
+
+  var lab_id           = req.body.lab_id;
+  var session_number   = req.body.session_number;
+  var first_sample_day = req.body.first_sample_day;
   //console.log("sessionNumber " + sessionNumber);
 
-  db.connection.query("call create_session(" + lab_id + ", " + session_number + ", '" + start_date + "')", function(err, rows, fields) {
+  db.connection.query("call create_session(" + lab_id + ", " + session_number + ", '" + first_sample_day + "')", function(err, rows, fields) {
 
   //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
   //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));

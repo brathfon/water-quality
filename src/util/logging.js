@@ -47,7 +47,7 @@ var sendLogMessage = function(error) {
       'json_text': jsonText // error.text converted to JSON
     }
   }
-  console.log("msg", msg);
+  //console.log("msg", msg);
   this.$http(msg)
     .then((response) => {})
     .catch((error) => {

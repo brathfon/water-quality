@@ -198,6 +198,11 @@ export default {
 
       var value = this.samples[index][attribute];
 
+      if (value === "") {  // no need to validate blanks
+        return true;
+      }
+      //console.log("VALUE TO VALIDATE ", value);
+
       if (! lookupHelper.newIsFloat(value)) {
         this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " must be a number");
         isGood = false;

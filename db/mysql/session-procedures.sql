@@ -19,7 +19,7 @@ SELECT
   short_name,
   long_name,
   session_number,
-  start_date
+  first_sample_day
 FROM lab_sessions_overview;
 
 DROP PROCEDURE IF EXISTS samples_for_session;
@@ -205,7 +205,7 @@ BEGIN
   INSERT INTO sessions (
     lab_id,
     session_number,
-    start_date)
+    first_sample_day)
    VALUES (curr_lab_id, curr_session_number, curr_session_date);
 
   INSERT INTO samples (
@@ -219,6 +219,7 @@ BEGIN
       FROM sites AS si,
            sessions AS se
       WHERE si.lab_id = curr_lab_id
+      AND   si.lab_id = se.lab_id
       AND   si.active = 1
       AND   se.session_number = curr_session_number;
   COMMIT;

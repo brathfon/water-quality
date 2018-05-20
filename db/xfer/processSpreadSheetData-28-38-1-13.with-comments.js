@@ -372,7 +372,7 @@ var createSqlStatements = function (data, callback) {
     */
     console.log(""); 
     console.log("-- insert this session"); 
-    console.log("insert into sessions (lab_id, session_number, start_date) values (" + lab_id + ", " + session_number + ", '" + start_date + "');");
+    console.log("insert into sessions (lab_id, session_number, first_sample_day) values (" + lab_id + ", " + session_number + ", '" + start_date + "');");
 
     // now lets insert the sample information.  It is in an array associated with the session
     samples = data.sessions[session_number];

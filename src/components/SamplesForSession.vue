@@ -38,9 +38,7 @@ export default {
   computed: {
   },
   methods: {
-    createURL: function(session) {
-      return "/samplesForSession/" + session.lab_id + "/" + session.session_number + "/" + session.long_name;
-    },
+    
     dateOnly: function(dateAndTime){
       return dateAndTime.split('T')[0];
     },

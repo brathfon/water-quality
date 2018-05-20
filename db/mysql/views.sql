@@ -5,7 +5,7 @@ SELECT l.lab_id,
        l.short_name,
        l.long_name,
        s.session_number,
-       s.start_date
+       s.first_sample_day
   FROM labs AS l, sessions AS s
   WHERE l.lab_id = s.lab_id
   ORDER BY l.lab_code, s.session_number;
