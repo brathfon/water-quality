@@ -9,14 +9,22 @@ if (process.env.NODE_ENV === 'production') {
 }
 */
 
+
 console.log("Attempting to connect to mysql db");
 
+if (! process.env.DB_HOST )     { console.error("env var DB_HOST must be defined"); process.exit(1); }
+if (! process.env.DB_USER )     { console.error("env var DB_USER must be defined"); process.exit(1); }
+if (! process.env.DB_PASSWORD ) { console.error("env var DB_PASSWORD must be defined"); process.exit(1); }
+if (! process.env.DB_DATABASE ) { console.error("env var DB_DATABASE must be defined"); process.exit(1); }
+
+
 var connection = mysql.createConnection({
-    host : 'localhost',
-    user : 'wq_dba',
-    password: 'ntus',
-    database: 'water_quality'
+    host : process.env.DB_HOST,
+    user : process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
 });
+
 
 var pool = mysql.createPool({
   connectionLimit : 10,
@@ -24,7 +32,10 @@ var pool = mysql.createPool({
   user : 'wq_dba',
   password: 'ntus',
   database: 'water_quality'
-})
+});
+
+
+
 
 
 connection.connect(function(err) {
@@ -49,6 +60,7 @@ mongoose.connection.on('disconnected', function () {
   console.log('Mongoose disconnected');
 });
 */
+
 
 gracefulShutdown = function (msg, callback) {
   connection.end();

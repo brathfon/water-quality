@@ -5,8 +5,8 @@ USE water_quality;
 -- email will be used as the login
 INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('root', 'root', '99', 'root@root.com', null,
-   '1cde9aa1d680a208887e359a300f0205',
-   'd58ef56cba0559ee822b2b385458eb51dabd372b16822dc15a5a9a00df3a940a7fdbaa176563bf55c837a280d78041bfd9d06c376962244de325a8bde33915bf');
+   '014f8f5784eaeee325fbaf29b8170871',
+   'bed6ea8f4cae38603163ef5f7fa320a85bc07382c73066de935de1b8f29cd6c5e9e8d0473a657789f3f8ad2e95b2a083d258cb436176078b09e7797751ae58e3');
 
 -- these users will not have an initial pw at least for now
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');  -- 2
@@ -63,6 +63,11 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Renee', 'Riley', 'RR', null, null); -- #38  South Maui, North Kihei
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', null, null); -- #39 West Maui, R2RN
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Flo', 'Bahr', 'FB', null, null); -- #40 South Maui, North Kihei
+
+INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values -- #41
+   ('The', 'Guest', 'G', "guest", null,
+   '969b6a075f1b27ff7e63187f3ca93d4d',
+   '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
 
 
 INSERT INTO labs (lab_code, long_name, short_name, address) values ('LLHS', 'Lahainaluna High School', 'West Maui', 'Lahainaluna Road');
@@ -138,6 +143,7 @@ INSERT INTO roles (abrv, long_name) VALUES ( 'RO', 'Read Only');   -- in case we
 
 INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 1);  -- initial root worker who has admin privileges
 INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 2);  -- this value is more for testing, giving root DE privs
+INSERT INTO worker_roles (worker_id, role_id) VALUES ( 41, 5);  -- this value is more for testing, giving root DE privs
 
 
 -- R2RS
