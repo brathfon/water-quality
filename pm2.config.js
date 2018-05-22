@@ -2,13 +2,14 @@ module.exports = {
   /**
    * Application configuration section
    * http://pm2.keymetrics.io/docs/usage/application-declaration/
+      script    : './bin/www',
    */
   apps : [
 
     // First application
     {
       name      : 'wq',
-      script    : './bin/www',
+      script    : 'node ./server.js --ignore src/ -e js,html,css',
       log_date_format : 'YYYY-MM-DD HH:mm:ss',
       env: {
         NODE_ENV: 'development',
