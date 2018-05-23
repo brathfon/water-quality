@@ -55,7 +55,6 @@ app.get('/offline_api', function(req, res) {
   }
   res.json(data);
 });
-*/
 
 app.listen(process.env.PORT, function () {
   console.log(`Example app listening on port ${process.env.PORT}!`);
@@ -63,3 +62,7 @@ app.listen(process.env.PORT, function () {
     require('open')(`http://localhost:${process.env.PORT}`);
   }
 });
+*/
+
+module.exports = app;
+
