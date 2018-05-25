@@ -1,4 +1,12 @@
-require('dotenv').config({ silent: true });
+
+if ((process.env.JWT_SECRET === null) || (process.env.JWT_SECRET === undefined)) {
+  console.log("ERROR: JWT_SECRET not defined");
+  // might want a sleep here for production
+  process.exit(1);
+}
+else {
+  console.log("JWT secret is defined");
+}
 
 const express = require('express');
 const app = express();
