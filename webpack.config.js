@@ -2,8 +2,19 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+
+var theMode = "development";
+
+if (process.env.NODE_ENV === 'production') {
+  theMode = "production";
+}
+
 
 module.exports = {
+  mode: theMode,
   entry: [
     './src/main.js'
   ],
@@ -62,6 +73,7 @@ module.exports = {
 
 if (process.env.NODE_ENV === 'development') {
   module.exports.plugins = [
+    new VueLoaderPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -71,18 +83,26 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 if (process.env.NODE_ENV === 'production') {
+
+
+ module.exports.optimization = {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+    ]
+  };
+
   module.exports.devtool = '#source-map';
+
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
+    new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
       }
     }),
     new webpack.LoaderOptionsPlugin({
