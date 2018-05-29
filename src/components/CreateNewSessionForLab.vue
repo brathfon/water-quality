@@ -6,14 +6,14 @@
         <div class="form-group">
           <label for="session_number" class="col-md-2 control-label">Session Number</label>
           <div class="col-md-2">
-            <input type="text" name="session_number" v-model="newSessionNumber" class="form-control text-right">
+            <input type="text" name="session_number" v-model="newSessionNumber" v-bind:class="newSessionNumberClass" class="form-control text-right">
           </div>
           <label for="session_number" class="col-md-3 float-left control-label">last session was {{labInfo.max_session_number}}</label>
         </div>
         <div class="form-group">
           <label for="start_date" class="col-md-2 control-label">Start Date</label>
           <div class="col-md-2">
-            <input type="text" name="start_date" v-model="newSessionDay" class="form-control text-right">
+            <input type="text" name="start_date" v-model="newFirstSampleDay" v-bind:class="newFirstSampleDayClass" class="form-control text-right">
           </div>
           <label for="start_date" class="col-md-4 control-label">Date of First Sample Day (YYYY-MM-DD)</label>
         </div>
@@ -39,9 +39,11 @@ var lookupHelper = require('../util/lookupInformationHelper');
 export default {
   data() {
     return {
-      newSessionDay: this.todaysDate(),
+      newFirstSampleDay: this.todaysDate(),
       newSessionNumber: this.labInfo.max_session_number + 1,
-      saving : false
+      saving : false,
+      newFirstSampleDayHasError : false,
+      newSessionNumberHasError : false
     }
   },
   props: ['labInfo'],
@@ -49,6 +51,12 @@ export default {
   computed: {
     isSaving : function(){
       return this.saving;
+    },
+    newFirstSampleDayClass : function() {
+      return this.newFirstSampleDayHasError ? "validation-error" : "";
+    },
+    newSessionNumberClass : function() {
+      return this.newSessionNumberHasError ? "validation-error" : "";
     }
   },
 
@@ -66,7 +74,7 @@ export default {
         this.saving = false;
         this.goToLabSessionsOverview();
       });
-      console.log("SAVE COMPLETE");
+      //console.log("SAVE COMPLETE");
     },
 
     goToLabSessionsOverview: function (session){
@@ -75,8 +83,9 @@ export default {
 
     validateSessionNumber : function (callback) {
       var theMsg = null;
-      console.log("in validateSessionNumber");
+      //console.log("in validateSessionNumber");
       if (! lookupHelper.isInt(this.newSessionNumber)) {
+        this.newSessionNumberHasError = true;
         theMsg = "\"Session Number\" must be an integer";
         this.$emit('add-error', errorMsgs.createSimpleErrorMsg(theMsg, "danger"));
       }
@@ -89,7 +98,7 @@ export default {
 
     isSessionNumberInUseForLab : function (callback) {
 
-      console.log("in isSessionNumberInUseForLab");
+      //console.log("in isSessionNumberInUseForLab");
 
       var theMsg = null;
       var inUse = null;
@@ -97,12 +106,13 @@ export default {
         method: 'get',
         url: '/api/isSessionNumberInUseForLab/' + this.labInfo.lab_id + "/" + this.newSessionNumber,
       };
-      console.log("isSessionNumberInUseForLab ", msg);
+      //console.log("isSessionNumberInUseForLab ", msg);
       this.$http(msg)
         .then((response) => {
           inUse = response.data.isSessionNumberInUseForLab;
-          console.log("inUse RESPONSE: ", inUse,  response.data,);
+          //console.log("inUse RESPONSE: ", inUse,  response.data,);
           if (inUse) {
+            this.newSessionNumberHasError = true;
             theMsg = "\"Session Number\" " + this.newSessionNumber + " is already be in use";
             this.$emit('add-error', errorMsgs.createSimpleErrorMsg(theMsg, "danger"));
           }
@@ -115,14 +125,45 @@ export default {
         .catch((error) => {
           errorMsgs.handleHttpErrors.call(this, error);
         });
+    },
 
+    isFirstSampleDayInUseForLab : function (callback) {
+
+      //console.log("in isFirstSampleDayInUseForLab");
+
+      var theMsg = null;
+      var inUse = null;
+      var msg = {
+        method: 'get',
+        url: '/api/isFirstSampleDayInUseForLab/' + this.labInfo.lab_id + "/" + this.newFirstSampleDay,
+      };
+      //console.log("isFirstSampleDayInUseForLab ", msg);
+      this.$http(msg)
+        .then((response) => {
+          inUse = response.data.isFirstSampleDayInUseForLab;
+          //console.log("inUse RESPONSE: ", inUse,  response.data);
+          if (inUse) {
+            this.newFirstSampleDayHasError = true;
+            theMsg = "\"Session Number\" " + this.newFirstSampleDay + " is already be in use";
+            this.$emit('add-error', errorMsgs.createSimpleErrorMsg(theMsg, "danger"));
+          }
+          else {
+            if (callback) {
+              callback();
+            }
+          }
+        })
+        .catch((error) => {
+          errorMsgs.handleHttpErrors.call(this, error);
+        });
     },
 
     validateDate : function (callback) {
       var theMsg = null;
-      console.log("in validateDate");
-      if ( ! lookupHelper.isDate(this.newSessionDay)) {
-        console.log("DATE is not correct format");
+      //console.log("in validateDate");
+      if ( ! lookupHelper.isDate(this.newFirstSampleDay)) {
+        //console.log("DATE is not correct format");
+        this.newFirstSampleDayHasError = true;
         theMsg = "\"Start Date\" must be a valid date of the form YYYY-MM-DD";
         this.$emit('add-error', errorMsgs.createSimpleErrorMsg(theMsg, "danger"));
       }
@@ -136,6 +177,8 @@ export default {
     validateInputsAndCreateSession: function () {
 
       this.$emit('reset-errors');
+      this.newSessionNumberHasError = false;
+      this.newFirstSampleDayHasError = false;
 
       var that = this;
 
@@ -143,7 +186,9 @@ export default {
       this.validateSessionNumber(function() {
         that.isSessionNumberInUseForLab(function() {
           that.validateDate(function() {
-            that.createSession();
+            that.isFirstSampleDayInUseForLab(function() {
+              that.createSession();
+            });
           });
         });
       });
@@ -163,10 +208,10 @@ export default {
         data: {
           'lab_id'           : this.labInfo.lab_id,
           'session_number'   : this.newSessionNumber,
-          'first_sample_day' : this.newSessionDay,
+          'first_sample_day' : this.newFirstSampleDay,
         }
       };
-      console.log("CREATE SESSION MSG ", msg);
+      //console.log("CREATE SESSION MSG ", msg);
       this.$http(msg)
         .then((response) => {
           this.saveComplete();

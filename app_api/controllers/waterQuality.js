@@ -386,3 +386,49 @@ module.exports.isSessionNumberInUseForLab = function (req, res) {
     }
   });
 };
+
+module.exports.isFirstSampleDayInUseForLab = function (req, res) {
+
+  if (!req.params.lab_id ) { sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): lab_id param not passed"}); return;};
+  if (!req.params.first_sample_day ) { sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): first_sample_day param not passed"}); return;};
+
+
+  var lab_id = req.params.lab_id;
+  var first_sample_day = req.params.first_sample_day;
+  //console.log("sessionNumber " + sessionNumber);
+  db.pool.query("call is_first_sample_day_in_use_for_lab(?, ?)", [lab_id, first_sample_day], function(err, rows, fields) {
+
+    var data = {};
+
+    data['isFirstSampleDayInUseForLab'] = null;
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error calling is_first_sample_day_in_use_for_lab()",
+                            "danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount.
+      //data['workers'] = rows[0];
+      if (rows[0].length === 1) {
+        data["isFirstSampleDayInUseForLab"] = true;
+        sendJsonResponse(res, 201, data);
+      }
+      else if (rows[0].length === 0) {
+        data["isFirstSampleDayInUseForLab"] = false;
+        sendJsonResponse(res, 201, data);
+      }
+      else {
+        helpers.sendJsonSQLErrorResponse("Expecting 0 or 1 row return. " + rows.length + " returned.",
+                              "danger",
+                              err,
+                              data,
+                              res);
+      }
+
+    }
+  });
+};

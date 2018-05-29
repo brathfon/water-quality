@@ -20,6 +20,16 @@ FROM sessions
 WHERE lab_id = in_lab_id and session_number = in_session_number;
       
 
+-- just return a row if this first_sample_day is already in use for this lab
+DROP PROCEDURE IF EXISTS is_first_sample_day_in_use_for_lab;
+
+CREATE PROCEDURE is_first_sample_day_in_use_for_lab(in in_lab_id INT, in in_first_sample_day DATE)
+SELECT
+  session_id
+FROM sessions
+WHERE lab_id = in_lab_id and first_sample_day = in_first_sample_day;
+      
+
 DROP PROCEDURE IF EXISTS get_lab_sessions_overview;
 
 CREATE PROCEDURE get_lab_sessions_overview()

@@ -114,7 +114,7 @@ var isDate = function(value) {
 var isInt = function(value) {
     // now check to see if this parses to an int
   var testInt = parseInt(value);
-    console.log("testInt ", value, testInt, typeof value);
+    //console.log("testInt ", value, testInt, typeof value);
     return (! isNaN(testInt));
 };
 
