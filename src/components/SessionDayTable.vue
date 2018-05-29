@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      <SessionDayTableRow v-for="sample in samples" v-bind:sample="sample"></SessionDayTableRow>
+      <SessionDayTableRow v-for="sample in samples" :key="sample.sample_id" v-bind:sample="sample"></SessionDayTableRow>
     </tbody>
   </table>
 </div>

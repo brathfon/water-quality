@@ -1,6 +1,6 @@
 <template>
   <div>
-  <error-alert v-for="(error, index) in errors" v-bind:id="index" v-bind:error="error" v-on:reset-error="resetError"></error-alert>
+  <error-alert v-for="(error, index, id) in errors" :key="id" v-bind:id="index" v-bind:error="error" v-on:reset-error="resetError"></error-alert>
   </div>
 </template>
 

@@ -10,6 +10,16 @@ SELECT
 FROM max_session_numbers_for_labs;
 
 
+-- just return a row if this session number is already in use for this lab
+DROP PROCEDURE IF EXISTS is_session_number_in_use_for_lab;
+
+CREATE PROCEDURE is_session_number_in_use_for_lab(in in_lab_id INT, in in_session_number INT)
+SELECT
+  session_id
+FROM sessions
+WHERE lab_id = in_lab_id and session_number = in_session_number;
+      
+
 DROP PROCEDURE IF EXISTS get_lab_sessions_overview;
 
 CREATE PROCEDURE get_lab_sessions_overview()
@@ -30,8 +40,7 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  date(sam.date_and_time) as date,
-  cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
+  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,
   sess.lab_id,
   sess.session_number,
@@ -69,8 +78,7 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  date(sam.date_and_time) as date,
-  cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
+  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,
   sess.lab_id,
   sess.session_number,
@@ -109,8 +117,7 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  date(sam.date_and_time) as date,
-  cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
+  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,
   sess.lab_id,
   sess.session_number,
@@ -142,8 +149,7 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  date(sam.date_and_time) as date,
-  cast(date(sam.date_and_time) as char) as date, -- this is to fix UTC conversion by mySQL node package
+  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
   time(sam.date_and_time) as time,
   sess.lab_id,
   sess.session_number,
@@ -175,7 +181,7 @@ CREATE PROCEDURE workers_for_session(IN curr_lab_id INT,IN curr_session_number I
 select distinct
   w.first_name,
   w.last_name,
-  cast(date(sam.date_and_time) as char) as date
+  cast(date(sam.date_and_time) as char) as the_date
 from samples as sam,
      sample_workers as sw,
      workers as w,
@@ -185,7 +191,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.sample_id = sw.sample_id and
       w.worker_id = sw.worker_id
-order by date, last_name, first_name;
+order by the_date, last_name, first_name;
 
 
 DROP PROCEDURE IF EXISTS create_session;

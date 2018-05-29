@@ -53,7 +53,7 @@
               <td>{{sample.long_name}}</td>
               <td>{{sample.hui_abv}}</td>
               <td><input v-on:blur="onBlur(index, 'time')" v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'temperature')" v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
+              <td><input v-on:change="onBlur(index, 'temperature')" v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
               <td><input v-on:blur="onBlur(index, 'salinity')" v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
               <td><input v-on:blur="onBlur(index, 'dissolved_oxygen')" v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
               <td><input v-on:blur="onBlur(index, 'dissolved_oxygen_pct')" v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
@@ -65,7 +65,7 @@
 
           </tbody>
         </table>
-        <button v-on:click="doUpdate" type="submit" class="btn btn-primary">Update</button>
+        <button v-on:click="doUpdate" class="btn btn-primary">Update</button>
         <button v-if="isUpdating" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Updating...</button>
     </div>
   </div>
@@ -88,8 +88,8 @@ export default {
       lab_long_name: "",
       samples: {},
       the_date: "",
-      entryErrors: [],
-      alerts: [],
+      entryErrors: [],  // list of entry errors
+      alerts: [],       // list of samples that have an issue but not corrected
       updating: false
     }
   },
@@ -111,12 +111,18 @@ export default {
       return this.alerts[index][attribute].alertClass;
     },
 
-
+    // this was cool but it is blocking the "update button" when there is invalid data
     onBlur: function(index, attribute) {
+      return;
+
       var precision = 1;
-      precision = lookupHelper.getPrecisionForMeasurement.call(this, attribute);
       console.log("WAS BLURRED attribute: " + attribute + " index: " + index + " precision " + precision );
-      this.validateSample(index, attribute);
+      if (attribute === "time") {
+        this.validateTime(index, attribute);
+      }
+      else {
+        this.validateSample(index, attribute);
+      }
     },
 
     resetError : function(id) {
@@ -136,8 +142,8 @@ export default {
       this.getSamplesForSession();  // reload from database
       this.sleep(1000).then(() => {
         this.updating = false;
+        console.log("UPDATE COMPLETE");
       });
-      console.log("UPDATE COMPLETE");
     },
 
     updateOneSample: function(index){
@@ -164,10 +170,11 @@ export default {
         });
       },
 
-    doUpdate: function(e) {
+    doUpdate: function() {
       var i;
 
-      e.preventDefault();
+      //e.preventDefault();
+      console.log("DO UPDATE");
 
       this.resetErrors();  // don't want to see old errors
       this.initializeAlerts();
@@ -181,15 +188,48 @@ export default {
       this.updateOneSample(this.samples.length - 1);
     },
 
-    backToHereURL: function(date) {
-      return "/#/editInSituSamplesOnDate/" + this.lab_id + "/" + this.session_number + "/" + this.lab_long_name + "/" + this.the_date;
-    },
 
     addEntryError: function(index, attribute, msg) {
       if (this.alerts[index][attribute].entryErrorId < 0){  // there is no error now, so display it
         this.entryErrors.push(errorMsgs.createSimpleErrorMsg(msg, "danger"));
         this.alerts[index][attribute].entryErrorId = this.entryErrors.length - 1;
       }
+    },
+
+    resetErrorAndAlert : function(index, attribute) {
+      // its good, so un-highlight the box
+      if (this.alerts[index][attribute].alertClass !== ""){
+        this.alerts[index][attribute].alertClass = "";
+      }
+      // if the alert box is still displayed above, close it
+      if (this.alerts[index][attribute].entryErrorId >= 0){
+        this.resetError(this.alerts[index][attribute].entryErrorId);
+        this.alerts[index][attribute].entryErrorId = -1;
+      }
+    },
+
+    validateTime : function(index, attribute) {
+      var isGood = true;
+      var numSigFigs = null;
+
+      var value = this.samples[index][attribute];
+
+      if (value === "") {  // no need to validate blanks
+        return true;
+      }
+      //console.log("VALUE TO VALIDATE ", value);
+
+      if (! lookupHelper.isHourMinute(value)) {
+        this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " must be \"HH:MM\", 00-23 hours");
+        isGood = false;
+      }
+
+      if (! isGood) {
+        this.alerts[index][attribute].alertClass = "validation-error";
+      } else {  // its good, so un-highlight the box and close alert box, if open
+        this.resetErrorAndAlert(index, attribute);
+      }
+      return isGood;
     },
 
     validateSample : function(index, attribute) {
@@ -203,7 +243,7 @@ export default {
       }
       //console.log("VALUE TO VALIDATE ", value);
 
-      if (! lookupHelper.newIsFloat(value)) {
+      if (! lookupHelper.isFloat(value)) {
         this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " must be a number");
         isGood = false;
       }
@@ -214,14 +254,8 @@ export default {
       }
       if (! isGood) {
         this.alerts[index][attribute].alertClass = "validation-error";
-      } else {  // its good
-        if (this.alerts[index][attribute].alertClass !== ""){
-          this.alerts[index][attribute].alertClass = "";
-        }
-        if (this.alerts[index][attribute].entryErrorId >= 0){
-          this.resetError(this.alerts[index][attribute].entryErrorId);
-          this.alerts[index][attribute].entryErrorId = -1;
-        }
+      } else {  // its good, so un-highlight the box and close alert box, if open
+        this.resetErrorAndAlert(index, attribute);
         this.samples[index][attribute] = lookupHelper.setPrecision.call(this, attribute, this.samples[index][attribute]);
       }
       return isGood;
@@ -235,7 +269,7 @@ export default {
 
       for (i = 0; i < this.samples.length; ++i) {
         sample = this.samples[i];
-        //sample.time                 = lookupHelper.formatSampleTime(sample.time);
+        allGood &= this.validateTime(i, "time");
         allGood &= this.validateSample(i, "temperature");
         allGood &= this.validateSample(i, "salinity");
         allGood &= this.validateSample(i, "dissolved_oxygen");
@@ -249,6 +283,12 @@ export default {
       return allGood;
     },
 
+    // There is an array of objects, one for each site and sample type
+    // that contains a class for changing the color of the cell for the_date
+    // sample and an index into the array of entryErrors.  If the user dismisses
+    // the alert but doesn't fix the value, it remains highlighted.  If the
+    // user fixes the value and doesn't explicitly close the alert, the
+    // alert will go away, too.
     initializeAlerts: function() {
       var i;
       var obj = null;

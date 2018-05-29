@@ -21,7 +21,7 @@ module.exports.organizeSamplesAndWorkersByDate = function (samples, workers) {
 
   // loop through
   for (ssi = 0; ssi < samples.length; ++ssi) {
-    theDate = samples[ssi].date;
+    theDate = samples[ssi].the_date;
     //console.log("date: " + theDate + " dateIndexLookup: " + util.inspect(dateIndexLookup, false, null));
     if (dateIndexLookup[theDate] == null) {
       //console.log("first time seeing |" + theDate + "|");
@@ -29,7 +29,7 @@ module.exports.organizeSamplesAndWorkersByDate = function (samples, workers) {
       dateIndexLookup[theDate] = dateIndex;
       //console.log("dateIndex " + dateIndex);
       obj = {};
-      obj['date'] = theDate;
+      obj['the_date'] = theDate;
       obj['samples'] = [];
       obj['workers']     = [];
       obj['samples'].push(samples[ssi]);
@@ -46,7 +46,7 @@ module.exports.organizeSamplesAndWorkersByDate = function (samples, workers) {
   // looking through the samples, but will include logic of finding a date for the first time in
   // case there is something amiss in the database.
   for (wi = 0; wi < workers.length; ++wi) {
-    theDate = workers[wi].date;
+    theDate = workers[wi].the_date;
     //console.log("date: " + theDate + " dateIndexLookup: " + util.inspect(dateIndexLookup, false, null));
     if (dateIndexLookup[theDate] == null) {
       //console.log("first time seeing |" + theDate + "|");
@@ -54,7 +54,7 @@ module.exports.organizeSamplesAndWorkersByDate = function (samples, workers) {
       dateIndexLookup[theDate] = dateIndex;
       //console.log("dateIndex " + dateIndex);
       obj = {};
-      obj['date'] = theDate;
+      obj['the_date'] = theDate;
       obj['samples'] = [];
       obj['workers']     = [];
       obj['workers'].push(workers[wi]);
@@ -91,7 +91,7 @@ req.body: { labId: '1',
 
 and returns it in this structure:
 
-{ '41': 
+{ '41':
    { time: '08:14:00',
      temperature: '27',
      salinity: '33.7',
@@ -101,7 +101,7 @@ and returns it in this structure:
      turbidity_1: '2.33',
      turbidity_2: '2.48',
      turbidity_3: '2.51' },
-  '42': 
+  '42':
    { time: '08:40:00',
      temperature: '26.8',
 */

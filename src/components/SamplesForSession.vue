@@ -8,7 +8,8 @@
   </div>
   <div class="row">
     <div class="col-lg-12">
-      <SessionDay v-for="dayObj in samplesByDate" v-bind:lab_id="lab_id"
+      <SessionDay v-for="dayObj in samplesByDate" :key="dayObj.date"
+                                                  v-bind:lab_id="lab_id"
                                                   v-bind:session_number="session_number"
                                                   v-bind:lab_long_name="lab_long_name"
                                                   v-bind:dayObj="dayObj"></SessionDay>
@@ -38,7 +39,7 @@ export default {
   computed: {
   },
   methods: {
-    
+
     dateOnly: function(dateAndTime){
       return dateAndTime.split('T')[0];
     },

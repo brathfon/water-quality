@@ -21,6 +21,7 @@ router.get('/getInSituSamplesForSessionOnDate/:labId/:sessionNumber/:theDate',  
 router.get('/getNutrientSamplesForSessionOnDate/:labId/:sessionNumber/:theDate', ctrlWQ.getNutrientSamplesForSessionOnDate);
 router.get('/getMaxSessionNumbersForLabs',                                       ctrlWQ.getMaxSessionNumbersForLabs);
 router.get('/getWorkersForSession/:labId/:sessionNumber',                        ctrlWQ.getWorkersForSession);
+router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                ctrlWQ.isSessionNumberInUseForLab);
 router.put('/updateOneSample',                                                   ctrlWQ.updateOneSample);
 
 /* authentication */

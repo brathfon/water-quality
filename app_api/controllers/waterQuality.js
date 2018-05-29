@@ -43,39 +43,6 @@ var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
 }
 
 
-// make sure that the time is on HH:MM.  If someone adds seconds, truncate them.
-
-var formatSampleTime = function(theTime) {
-  var newTime = theTime;
-  if ((theTime !== null) && (theTime !== undefined)) {
-    newTime = theTime.slice(0,5);
-  }
-  return newTime;
-};
-
-
-var formatSampleWithSigFigs = function(theSample, numSigFigs) {
-
-  var newSample = null;
-
-  //console.log("Formatting : " + theSample);
-
-  if ((theSample !== null) && (theSample !== undefined)) {
-    if (theSample === "") {
-      newSample = null;
-    }
-    else {
-      newSample = parseFloat(theSample).toFixed(numSigFigs);
-    }
-  }
-  else {
-    newSample = null;
-  }
-  return newSample;
-};
-
-
-
 
 module.exports.createNewSession = function (req, res) {
 
@@ -87,7 +54,7 @@ module.exports.createNewSession = function (req, res) {
   var first_sample_day = req.body.first_sample_day;
   //console.log("sessionNumber " + sessionNumber);
 
-  db.connection.query("call create_session(" + lab_id + ", " + session_number + ", '" + first_sample_day + "')", function(err, rows, fields) {
+  db.pool.query("call create_session(" + lab_id + ", " + session_number + ", '" + first_sample_day + "')", function(err, rows, fields) {
 
   //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
   //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
@@ -130,7 +97,7 @@ module.exports.createNewSession = function (req, res) {
 
 module.exports.getLabSessionsOverview = function (req, res) {
 
-  db.connection.query("call get_lab_sessions_overview()", function(err, rows, fields) {
+  db.pool.query("call get_lab_sessions_overview()", function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
@@ -156,7 +123,7 @@ module.exports.getLabSessionsOverview = function (req, res) {
 
 module.exports.getMaxSessionNumbersForLabs = function (req, res) {
 
-  db.connection.query("call get_max_session_numbers_for_labs()", function(err, rows, fields) {
+  db.pool.query("call get_max_session_numbers_for_labs()", function(err, rows, fields) {
 
     var data = {};
     data['maxSessionNumbers'] = [];
@@ -181,7 +148,7 @@ module.exports.getSamplesForSession = function (req, res) {
   var labId = req.params.labId;
   var sessionNumber = req.params.sessionNumber;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call samples_for_session(" + labId + ", " + sessionNumber + ")", function(err, rows, fields) {
+  db.pool.query("call samples_for_session(" + labId + ", " + sessionNumber + ")", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -209,7 +176,7 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
   var sessionNumber = req.params.sessionNumber;
   var theDate       = req.params.theDate;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call get_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+  db.pool.query("call get_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -236,7 +203,7 @@ module.exports.getInSituSamplesForSessionOnDate = function (req, res) {
   var sessionNumber = req.params.sessionNumber;
   var theDate       = req.params.theDate;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call get_in_situ_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+  db.pool.query("call get_in_situ_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -264,7 +231,7 @@ module.exports.getNutrientSamplesForSessionOnDate = function (req, res) {
   var sessionNumber = req.params.sessionNumber;
   var theDate       = req.params.theDate;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call get_nutrient_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
+  db.pool.query("call get_nutrient_samples_for_session_on_date(" + labId + ", " + sessionNumber + ",'" + theDate + "')", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -290,7 +257,7 @@ module.exports.getWorkersForSession = function (req, res) {
   var labId = req.params.labId;
   var sessionNumber = req.params.sessionNumber;
   //console.log("sessionNumber " + sessionNumber);
-  db.connection.query("call workers_for_session(" + labId + ", " + sessionNumber + ")", function(err, rows, fields) {
+  db.pool.query("call workers_for_session(" + labId + ", " + sessionNumber + ")", function(err, rows, fields) {
 
     var data = {};
     data['workers'] = [];
@@ -316,22 +283,34 @@ module.exports.updateOneSample = function (req, res) {
 
   console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
 
-  var query = "update samples set " +
-     "date_and_time = '" + req.body.date + " " + formatSampleTime(req.body.time) + "', " +
-    // "moon = " +
-    "temperature = "          + formatSampleWithSigFigs(req.body.temperature, 1) + ", "  +
-    "salinity = "             + formatSampleWithSigFigs(req.body.salinity, 1) + ", " +
-    "dissolved_oxygen = "     + formatSampleWithSigFigs(req.body.dissolved_oxygen, 2) + ", " +
-    "dissolved_oxygen_pct = " + formatSampleWithSigFigs(req.body.dissolved_oxygen_pct, 1) + ", " +
-    "ph = "                   + formatSampleWithSigFigs(req.body.ph, 2)     + ", " +
-    "turbidity_1 = "          + formatSampleWithSigFigs(req.body.turbidity_1, 2) + ", " +
-    "turbidity_2 = "          + formatSampleWithSigFigs(req.body.turbidity_2, 2) + ", " +
-    "turbidity_3 = "          + formatSampleWithSigFigs(req.body.turbidity_3, 2) + " " +
-    "where sample_id = " + req.body.sample_id;
+  var query = null;
+  var date_and_time = req.body.the_date + " " + req.body.time;
+  var inputData = [date_and_time,
+                   req.body.temperature,
+                   req.body.salinity,
+                   req.body.dissolved_oxygen,
+                   req.body.dissolved_oxygen_pct,
+                   req.body.ph,
+                   req.body.turbidity_1,
+                   req.body.turbidity_2,
+                   req.body.turbidity_3,
+                   req.body.sample_id];
 
+  var query = "update samples set " +
+     "date_and_time = ?, " +
+    "temperature = ?, " +
+    "salinity = ?, " +
+    "dissolved_oxygen = ?, " +
+    "dissolved_oxygen_pct = ?, " +
+    "ph = ?, " +
+    "turbidity_1 = ?, " +
+    "turbidity_2 = ?, " +
+    "turbidity_3 = ? " +
+    "where sample_id = ?";
+    console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
     console.log(chalk.blue("query : " + util.inspect(query, false, null)));
 
-  db.connection.query(query, function(err, rows, fields) {
+  db.pool.query(query, inputData, function(err, rows, fields) {
 
     //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
     //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
@@ -359,5 +338,51 @@ module.exports.updateOneSample = function (req, res) {
       helpers.sendJsonResponse(res, 201, data);
     }
 
+  });
+};
+
+module.exports.isSessionNumberInUseForLab = function (req, res) {
+
+  if (!req.params.lab_id ) { sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): lab_id param not passed"}); return;};
+  if (!req.params.session_number ) { sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): session_number param not passed"}); return;};
+
+
+  var lab_id = req.params.lab_id;
+  var session_number = req.params.session_number;
+  //console.log("sessionNumber " + sessionNumber);
+  db.pool.query("call is_session_number_in_use_for_lab(?, ?)", [lab_id, session_number], function(err, rows, fields) {
+
+    var data = {};
+
+    data['isSessionNumberInUseForLab'] = null;
+    data['errors'] = [];
+
+    if (err) {
+      sendJsonErrorResponse("Error calling is_session_number_in_use_for_lab()",
+                            "danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      // calling a procedure returns a 2 element array with first element being the rows
+      // and the second element being the meta data such as "fieldCount.
+      //data['workers'] = rows[0];
+      if (rows[0].length === 1) {
+        data["isSessionNumberInUseForLab"] = true;
+        sendJsonResponse(res, 201, data);
+      }
+      else if (rows[0].length === 0) {
+        data["isSessionNumberInUseForLab"] = false;
+        sendJsonResponse(res, 201, data);
+      }
+      else {
+        helpers.sendJsonSQLErrorResponse("Expecting 0 or 1 row return. " + rows.length + " returned.",
+                              "danger",
+                              err,
+                              data,
+                              res);
+      }
+
+    }
   });
 };
