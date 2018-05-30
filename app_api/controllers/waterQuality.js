@@ -4,45 +4,6 @@ var chalk = require('chalk');
 var util = require('util');
 var helpers = require('./helpers');
 
-var sendJsonResponse = function(res, status, content) {
-  res.status(status);
-  res.json(content);
-};
-
-
-var errorObjToArray = function(obj) {
-  var array = [];
-  for (err in obj) {
-    array.push(err + ": " + obj[err]);
-  }
-  return array;
-}
-
-
-// Note: returnData should be passed with two attributes already set as arrays,
-// either empty or having additional errors in them, for example.
-
-var sendJsonErrorResponse = function(title, level, sqlError, returnData, res) {
-
-    var errorMsg = {};
-
-    // send this to the console, for sure, if dev or prod
-    console.log(chalk.red(title + ": " + util.inspect(sqlError, false, null)));
-    // set up error to be returned for possible display
-    errorMsg['title'] = title;
-    errorMsg['level'] = "danger";
-    errorMsg['text']  = [];
-    if (env() === 'dev') {   // show the full error
-      errorMsg['text'] = errorObjToArray(sqlError);
-    }
-    else {
-      errorMsg['text'].push("Please report this error to " + process.env.WEB_MASTER_EMAIL);
-    }
-    returnData['errors'].push(errorMsg);
-    sendJsonResponse(res, 500, returnData);
-}
-
-
 
 module.exports.createNewSession = function (req, res) {
 
@@ -73,14 +34,14 @@ module.exports.createNewSession = function (req, res) {
     //   OkPacket {
     //     fieldCount: 0,
     if ((err === null) && (rows !== null) && (rows !== undefined) && (rows.length > 1 )) {
-      sendJsonErrorResponse("Error creating new session",
+      helpers.sendJsonSQLErrorResponse("Error creating new session",
                             "danger",
                             rows[0][0],  // this is the array of errors
                             data,
                             res);
     }
     else if (err) {
-      sendJsonErrorResponse("Error creating new session",
+      helpers.sendJsonSQLErrorResponse("Error creating new session",
                             "danger",
                             err,
                             data,
@@ -89,7 +50,7 @@ module.exports.createNewSession = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount".
       data['create_results'] = rows[0];  // this will be empty when successful
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -108,14 +69,14 @@ module.exports.getLabSessionsOverview = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving data from database for lab sessions overview",
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for lab sessions overview",
                             "danger",
                             err,
                             data,
                             res);
     } else {
       data['labSessions'] =  rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -130,14 +91,14 @@ module.exports.getMaxSessionNumbersForLabs = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving data from database for max session numbers for labs",
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for max session numbers for labs",
                             "danger",
                             err,
                             data,
                             res);
     } else {
       data['maxSessionNumbers'] =  rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -155,7 +116,7 @@ module.exports.getSamplesForSession = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving samples for session",
+      helpers.sendJsonSQLErrorResponse("Error retrieving samples for session",
                             "danger",
                             err,
                             data,
@@ -164,7 +125,7 @@ module.exports.getSamplesForSession = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
       data['samples'] = rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -183,7 +144,7 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving samples for session and date",
+      helpers.sendJsonSQLErrorResponse("Error retrieving samples for session and date",
                             "danger",
                             err,
                             data,
@@ -192,7 +153,7 @@ module.exports.getSamplesForSessionOnDate = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
       data['samples'] = rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -210,7 +171,7 @@ module.exports.getInSituSamplesForSessionOnDate = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving samples for session and date",
+      helpers.sendJsonSQLErrorResponse("Error retrieving samples for session and date",
                             "danger",
                             err,
                             data,
@@ -219,7 +180,7 @@ module.exports.getInSituSamplesForSessionOnDate = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
       data['samples'] = rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -238,7 +199,7 @@ module.exports.getNutrientSamplesForSessionOnDate = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving samples for session and date",
+      helpers.sendJsonSQLErrorResponse("Error retrieving samples for session and date",
                             "danger",
                             err,
                             data,
@@ -247,7 +208,7 @@ module.exports.getNutrientSamplesForSessionOnDate = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
       data['samples'] = rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -264,7 +225,7 @@ module.exports.getWorkersForSession = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error retrieving workers for session",
+      helpers.sendJsonSQLErrorResponse("Error retrieving workers for session",
                             "danger",
                             err,
                             data,
@@ -273,7 +234,7 @@ module.exports.getWorkersForSession = function (req, res) {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
       data['workers'] = rows[0];
-      sendJsonResponse(res, 201, data);
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };
@@ -310,7 +271,7 @@ module.exports.updateOneSample = function (req, res) {
     console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
     console.log(chalk.blue("query : " + util.inspect(query, false, null)));
 
-  db.pool.query(query, inputData, function(err, rows, fields) {
+    db.pool.query(query, inputData, function(err, rows, fields) {
 
     //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
     //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
@@ -343,8 +304,8 @@ module.exports.updateOneSample = function (req, res) {
 
 module.exports.isSessionNumberInUseForLab = function (req, res) {
 
-  if (!req.params.lab_id ) { sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): lab_id param not passed"}); return;};
-  if (!req.params.session_number ) { sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): session_number param not passed"}); return;};
+  if (!req.params.lab_id ) { helpers.sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): lab_id param not passed"}); return;};
+  if (!req.params.session_number ) { helpers.sendJsonResponse(res, 400, {"message": "isSessionNumberInUseForLab(): session_number param not passed"}); return;};
 
 
   var lab_id = req.params.lab_id;
@@ -358,7 +319,7 @@ module.exports.isSessionNumberInUseForLab = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error calling is_session_number_in_use_for_lab()",
+      helpers.sendJsonSQLErrorResponse("Error calling is_session_number_in_use_for_lab()",
                             "danger",
                             err,
                             data,
@@ -369,11 +330,11 @@ module.exports.isSessionNumberInUseForLab = function (req, res) {
       //data['workers'] = rows[0];
       if (rows[0].length === 1) {
         data["isSessionNumberInUseForLab"] = true;
-        sendJsonResponse(res, 201, data);
+        helpers.sendJsonResponse(res, 201, data);
       }
       else if (rows[0].length === 0) {
         data["isSessionNumberInUseForLab"] = false;
-        sendJsonResponse(res, 201, data);
+        helpers.sendJsonResponse(res, 201, data);
       }
       else {
         helpers.sendJsonSQLErrorResponse("Expecting 0 or 1 row return. " + rows.length + " returned.",
@@ -389,14 +350,14 @@ module.exports.isSessionNumberInUseForLab = function (req, res) {
 
 module.exports.isFirstSampleDayInUseForLab = function (req, res) {
 
-  if (!req.params.lab_id ) { sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): lab_id param not passed"}); return;};
-  if (!req.params.first_sample_day ) { sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): first_sample_day param not passed"}); return;};
+  if (!req.params.lab_id ) { helpers.sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): lab_id param not passed"}); return;};
+  if (!req.params.first_sample_day ) { helpers.sendJsonResponse(res, 400, {"message": "isFirstSampleDayInUseForLab(): first_sample_day param not passed"}); return;};
 
 
   var lab_id = req.params.lab_id;
   var first_sample_day = req.params.first_sample_day;
   //console.log("sessionNumber " + sessionNumber);
-  db.pool.query("call is_first_sample_day_in_use_for_lab(?, ?)", [lab_id, first_sample_day], function(err, rows, fields) {
+  db.pool.query("call duh_is_first_sample_day_in_use_for_lab(?, ?)", [lab_id, first_sample_day], function(err, rows, fields) {
 
     var data = {};
 
@@ -404,7 +365,7 @@ module.exports.isFirstSampleDayInUseForLab = function (req, res) {
     data['errors'] = [];
 
     if (err) {
-      sendJsonErrorResponse("Error calling is_first_sample_day_in_use_for_lab()",
+      helpers.sendJsonSQLErrorResponse("Error calling is_first_sample_day_in_use_for_lab()",
                             "danger",
                             err,
                             data,
@@ -415,11 +376,11 @@ module.exports.isFirstSampleDayInUseForLab = function (req, res) {
       //data['workers'] = rows[0];
       if (rows[0].length === 1) {
         data["isFirstSampleDayInUseForLab"] = true;
-        sendJsonResponse(res, 201, data);
+        helpers.sendJsonResponse(res, 201, data);
       }
       else if (rows[0].length === 0) {
         data["isFirstSampleDayInUseForLab"] = false;
-        sendJsonResponse(res, 201, data);
+        helpers.sendJsonResponse(res, 201, data);
       }
       else {
         helpers.sendJsonSQLErrorResponse("Expecting 0 or 1 row return. " + rows.length + " returned.",
