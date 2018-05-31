@@ -25,7 +25,7 @@ module.exports.insertLogMessage = function (req, res) {
   args.push(req.body.title);
   args.push(req.body.json_text);
 
-  db.connection.query("call insert_log_message(?,?,?,?)", args, function(err, rows, fields) {
+  db.pool.query("call insert_log_message(?,?,?,?)", args, function(err, rows, fields) {
 
   //console.log(chalk.green("err : " + util.inspect(err, false, null)));
   //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
