@@ -5,8 +5,8 @@ USE water_quality;
 -- email will be used as the login
 INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('root', 'root', '99', 'root@root.com', null,
-   '1cde9aa1d680a208887e359a300f0205',
-   'd58ef56cba0559ee822b2b385458eb51dabd372b16822dc15a5a9a00df3a940a7fdbaa176563bf55c837a280d78041bfd9d06c376962244de325a8bde33915bf');
+   '014f8f5784eaeee325fbaf29b8170871',
+   'bed6ea8f4cae38603163ef5f7fa320a85bc07382c73066de935de1b8f29cd6c5e9e8d0473a657789f3f8ad2e95b2a083d258cb436176078b09e7797751ae58e3');
 
 -- these users will not have an initial pw at least for now
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');  -- 2
@@ -64,9 +64,14 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number) value
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', null, null); -- #39 West Maui, R2RN
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Flo', 'Bahr', 'FB', null, null); -- #40 South Maui, North Kihei
 
+INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values -- #41
+   ('The', 'Guest', 'G', "guest", null,
+   '969b6a075f1b27ff7e63187f3ca93d4d',
+   '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
 
-INSERT INTO labs (lab_code, long_name, address) values ('LLHS', 'Lahainaluna High School', 'Lahainaluna Road');
-INSERT INTO labs (lab_code, long_name, address) values ('NMS', 'National Marine Sanctuary', 'South Kihei Road');
+
+INSERT INTO labs (lab_code, long_name, short_name, address) values ('LLHS', 'Lahainaluna High School', 'West Maui', 'Lahainaluna Road');
+INSERT INTO labs (lab_code, long_name, short_name, address) values ('NMS', 'National Marine Sanctuary', 'South Maui',  'South Kihei Road');
 
 INSERT INTO teams (team_code, long_name, lab_id) values ('R2RS', 'Ridge-to-Reef South', 1);
 INSERT INTO teams (team_code, long_name, lab_id) values ('Polanui', 'Polanui', 1);
@@ -138,66 +143,67 @@ INSERT INTO roles (abrv, long_name) VALUES ( 'RO', 'Read Only');   -- in case we
 
 INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 1);  -- initial root worker who has admin privileges
 INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 2);  -- this value is more for testing, giving root DE privs
+INSERT INTO worker_roles (worker_id, role_id) VALUES ( 41, 5);  -- this value is more for testing, giving root DE privs
 
 
 -- R2RS
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2006, 'RNS', '000723', 'Napili',           1, 1, 2, 1, 20.994222, -156.667417, 1, null);
+  values (2006, 'RNS', '000723', 'Napili',           1, 1, 1, 1, 20.994222, -156.667417, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2010, 'RPO', '000724', 'Pohaku',           1, 1, 2, 2, 20.967083, -156.68139,  1, null);
+  values (2010, 'RPO', '000724', 'Pohaku',           1, 1, 1, 2, 20.967083, -156.68139,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2071, 'RKS', null,     'Kaanapali Shores', 1, 1, 2, 3, 20.949331, -156.691124, 1, null);
+  values (2071, 'RKS', null,     'Kaanapali Shores', 1, 1, 1, 3, 20.949331, -156.691124, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2017, 'RAB', '000695', 'Airport Beach',    1, 1, 2, 4, 20.936669, -156.69278,  1, null);
+  values (2017, 'RAB', '000695', 'Airport Beach',    1, 1, 1, 4, 20.936669, -156.69278,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2020, 'RCB', '000693', 'Canoe Beach',      1, 1, 2, 5, 20.910347, -156.689382, 1, null);
+  values (2020, 'RCB', '000693', 'Canoe Beach',      1, 1, 1, 5, 20.910347, -156.689382, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2021, 'RWA', '000678', 'Wahikuli',         1, 1, 2, 6, 20.904476, -156.685931, 1, null);
+  values (2021, 'RWA', '000678', 'Wahikuli',         1, 1, 1, 6, 20.904476, -156.685931, 1, null);
 
 -- Polanui
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2022, 'PFF', null,     '505 Front Street',    1, 2, 3, 7,  20.86732,  -156.67605,  1, null);
+  values (2022, 'PFF', null,     '505 Front Street',    1, 2, 2, 7,  20.86732,  -156.67605,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2023 ,'PLH', null,     'Lindsey Hale',        1, 2, 3, 8,  20.86485,  -156.67374,  1, null);
+  values (2023 ,'PLH', null,     'Lindsey Hale',        1, 2, 2, 8,  20.86485,  -156.67374,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2024 ,'PLT', '000726', 'Lahaina Town',        1, 2, 3, 9,  20.86356,  -156.67297,  1, null);
+  values (2024 ,'PLT', '000726', 'Lahaina Town',        1, 2, 2, 9,  20.86356,  -156.67297,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2025 ,'PPU', null,     'Makila Point',        1, 2, 3, 10, 20.859233, -156.669442, 1, null);
+  values (2025 ,'PPU', null,     'Makila Point',        1, 2, 2, 10, 20.859233, -156.669442, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2072 ,'OLP', null,     'Launiupoko',          1, 2, 3, 11, 20.84236,  -156.653035, 1, null);
+  values (2072 ,'OLP', null,     'Launiupoko',          1, 2, 2, 11, 20.84236,  -156.653035, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2027 ,'OSF', '000663', 'Olowalu Shore Front', 1, 2, 3, 12, 20.80916,  -156.62289,  1, null);
+  values (2027 ,'OSF', '000663', 'Olowalu Shore Front', 1, 2, 2, 12, 20.80916,  -156.62289,  1, null);
 
 -- Olowalu
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2073, 'OPM', null,     'Peter Martin Hale', 1, 3, 4, 13, 20.808444, -156.619697, 1, null);
+ values (2073, 'OPM', null,     'Peter Martin Hale', 1, 3, 3, 13, 20.808444, -156.619697, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2028, 'OCO', null,     'Camp Olowalu',      1, 3, 4, 14, 20.80986,  -156.61369,  1, null);
+ values (2028, 'OCO', null,     'Camp Olowalu',      1, 3, 3, 14, 20.80986,  -156.61369,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2029, 'OMM', null,     'Mile Marker 14',    1, 3, 4, 15, 20.80915,  -156.60661,  1, null);
+ values (2029, 'OMM', null,     'Mile Marker 14',    1, 3, 3, 15, 20.80915,  -156.60661,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2032, 'OUB', '000698', 'Ukumehame Beach',   1, 3, 4, 16, 20.79448,  -156.58142,  1, null);
+ values (2032, 'OUB', '000698', 'Ukumehame Beach',   1, 3, 3, 16, 20.79448,  -156.58142,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2033, 'OPB', '000728', 'Papalaua',          1, 3, 4, 17, 20.793809, -156.575211, 1, null);
+ values (2033, 'OPB', '000728', 'Papalaua',          1, 3, 3, 17, 20.793809, -156.575211, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
- values (2034, 'OPP', null,     'Papalaua Pali',     1, 3, 4, 18, 20.792747,-156.567326,  1, null);
+ values (2034, 'OPP', null,     'Papalaua Pali',     1, 3, 3, 18, 20.792747,-156.567326,  1, null);
 
 -- NR2R
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2001, 'RHL', '000707', 'Honolua',        1, 4, 5, 19, 21.013058, -156.63834,  1, null);
+  values (2001, 'RHL', '000707', 'Honolua',        1, 4, 4, 19, 21.013058, -156.63834,  1, null);
 -- Mokuleia was only sampled once on 6/23/17, so is currently inactive.  If reactivated, default_session_order will need to shift
  INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-    values (2002, 'RMO', '000721', 'Mokuleia',     1, 4, 5, 19, 21.011352, -156.64227, 0, null);
+    values (2002, 'RMO', '000721', 'Mokuleia',     1, 4, 4, 19, 21.011352, -156.64227, 0, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2003, 'RFN', '000674', 'DT Beach (Fleming N)',      1, 4, 5, 20, 21.005,    -156.65084,  1, null);
+  values (2003, 'RFN', '000674', 'DT Beach (Fleming N)',      1, 4, 4, 20, 21.005,    -156.65084,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2004, 'RON', '000722', 'Oneloa',         1, 4, 5, 21, 21.004056, -156.65894,  1, null);
+  values (2004, 'RON', '000722', 'Oneloa',         1, 4, 4, 21, 21.004056, -156.65894,  1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2005, 'RFS', '000650', 'Kapalua Bay (Fleming S)',    1, 4, 5, 22, 20.998924, -156.666746, 1, null);
+  values (2005, 'RFS', '000650', 'Kapalua Bay (Fleming S)',    1, 4, 4, 22, 20.998924, -156.666746, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2008, 'RKO', '000692', 'Ka\'opala',      1, 4, 5, 23, 20.982074, -156.673398, 1, null);
+  values (2008, 'RKO', '000692', 'Ka\'opala',      1, 4, 4, 23, 20.982074, -156.673398, 1, null);
 INSERT INTO sites (hui_code, hui_abv , storet_code, long_name, lab_id, team_id, default_sample_day, default_session_order, lat, lon, active,  description)
-  values (2074, 'RKV',  null,    'Kahana Village', 1, 4, 5, 24, 20.976561, -156.678,    1, null);
+  values (2074, 'RKV',  null,    'Kahana Village', 1, 4, 4, 24, 20.976561, -156.678,    1, null);
 
 -- NMS lab
 -- Kamaole
@@ -413,3 +419,21 @@ INSERT INTO qa_codes ( qa_code, category, description, action )
   values(161, 'Site Sample', 'Awaiting approval', 'flag');
 INSERT INTO qa_codes ( qa_code, category, description, action )
   values(162, 'Site Sample', 'Awaiting Review',   'flag');
+
+--  measurement precision for display
+
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('temperature', 1);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('salinity', 1);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen_pct', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('ph', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_1', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_2', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_3', 2);
+-- nutrient data
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('total_nitrogen', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('total_phosphorus', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('phosphate', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('silicate', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('nitrates', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('ammonia', 2);

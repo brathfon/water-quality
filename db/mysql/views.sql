@@ -2,9 +2,10 @@
 CREATE OR REPLACE VIEW lab_sessions_overview AS
 SELECT l.lab_id,
        l.lab_code,
+       l.short_name,
        l.long_name,
        s.session_number,
-       s.start_date
+       s.first_sample_day
   FROM labs AS l, sessions AS s
   WHERE l.lab_id = s.lab_id
   ORDER BY l.lab_code, s.session_number;
