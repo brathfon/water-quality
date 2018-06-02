@@ -9,6 +9,10 @@
 
 .in-situ-inner-table { margin: auto }
 
+.even-table-row {
+    background-color: #F9F9F9;
+  }
+
 .wq-input {
 
   text-align: center;

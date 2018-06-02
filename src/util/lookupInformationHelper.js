@@ -23,6 +23,20 @@ var formatSampleTime = function(theTime) {
   return newTime;
 };
 
+var formatCommentsSubstring = function (comments) {
+
+  var substr = comments;
+  if (comments != null) {
+    if (comments.length > 32) {
+      substr = comments.substring(0,28) + " ...";
+    }
+    else {
+      substr = comments;
+    }
+  }
+  return substr;
+};
+
 var formatSampleWithSigFigs = function(theSample, numSigFigs) {
 
   var newSample = "";
@@ -141,6 +155,7 @@ export {
   getPrecisionForMeasurement,
   setPrecision,
   formatSampleTime,
+  formatCommentsSubstring,
   isFloat,
   isInt,
   hasTooManySigFigs,

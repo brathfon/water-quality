@@ -10,7 +10,6 @@
 </template>
 
 <script>
-//<div v-bind:class="{'alert': true, 'alert-dismissible': true,  'alert-danger': true}">
 
 export default {
   data: function() {
