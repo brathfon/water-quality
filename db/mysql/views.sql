@@ -123,3 +123,45 @@ FROM base_sample_report
 WHERE comments IS NOT NULL
 ORDER BY lab_id, session_number, day, time;
 
+
+CREATE OR REPLACE VIEW insitu_diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  temperature,
+  salinity,
+  dissolved_oxygen,
+  dissolved_oxygen_pct,
+  ph,
+  turbidity_1,
+  turbidity_2,
+  turbidity_3,
+  avg_turbidity
+FROM base_sample_report
+ORDER BY lab_id, session_number, day, time;
+
+
+CREATE OR REPLACE VIEW nutrient_diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  total_nitrogen,
+  total_phosphorus,
+  phosphate,
+  silicate,
+  nitrates,
+  ammonia,
+  lat,
+  lon
+FROM base_sample_report
+ORDER BY lab_id, session_number, day, time;

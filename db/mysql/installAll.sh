@@ -1,8 +1,8 @@
 #!/bin/bash
 
-db=water_quality
-user=wq_dba
-pw=ntus
+db=$DB_DATABASE
+user=$DB_USER
+pw=$DB_PASSWORD
 
 
 #mysql -v -u $user -p$pw < generated-schema-4.worker-changes.sql
