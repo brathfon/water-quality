@@ -28,6 +28,7 @@ mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM diff_rep
 mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM insitu_diff_report;" > $reportsDir/insitu-report.$dateTag.txt
 mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM nutrient_diff_report;" > $reportsDir/nutrient-report.$dateTag.txt
 mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM comments_diff_report;" > $reportsDir/comments-report.$dateTag.txt
+mysql -u $DB_USER -p$DB_PASSWORD $DB_DATABASE --table -e "SELECT * FROM qa_issues_report;" > $reportsDir/qa_issues.$dateTag.txt
 mysqldump --extended-insert=FALSE -u $DB_USER -p$DB_PASSWORD $DB_DATABASE > $dbDumpsDir/$DB_DATABASE.$dateTag.sql
 
 exit 0

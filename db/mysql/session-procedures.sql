@@ -50,8 +50,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) as time,
+  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
+  time(sam.date_and_time) AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -70,9 +70,9 @@ select
   sam.ammonia,
   sam.nitrate_last_run_date,
   sam.comments
-from samples as sam,
-     sites as site,
-     sessions as sess
+from samples AS sam,
+     sites AS site,
+     sessions AS sess
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
@@ -88,8 +88,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) as time,
+  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
+  time(sam.date_and_time) AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -108,9 +108,9 @@ select
   sam.ammonia,
   sam.nitrate_last_run_date,
   sam.comments
-from samples as sam,
-     sites as site,
-     sessions as sess
+from samples AS sam,
+     sites AS site,
+     sessions AS sess
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
@@ -127,8 +127,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) as time,
+  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
+  time(sam.date_and_time) AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -140,9 +140,9 @@ select
   sam.turbidity_2,
   sam.turbidity_3,
   sam.comments
-from samples as sam,
-     sites as site,
-     sessions as sess
+from samples AS sam,
+     sites AS site,
+     sessions AS sess
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
@@ -159,8 +159,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) as char) as the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) as time,
+  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
+  time(sam.date_and_time) AS time,
   sess.lab_id,
   sess.session_number,
   sam.total_nitrogen,
@@ -171,9 +171,9 @@ select
   sam.ammonia,
   sam.nitrate_last_run_date,
   sam.comments
-from samples as sam,
-     sites as site,
-     sessions as sess
+from samples AS sam,
+     sites AS site,
+     sessions AS sess
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
@@ -191,11 +191,11 @@ CREATE PROCEDURE workers_for_session(IN curr_lab_id INT,IN curr_session_number I
 select distinct
   w.first_name,
   w.last_name,
-  cast(date(sam.date_and_time) as char) as the_date
-from samples as sam,
-     sample_workers as sw,
-     workers as w,
-     sessions as sess
+  cast(date(sam.date_and_time) AS char) AS the_date
+from samples AS sam,
+     sample_workers AS sw,
+     workers AS w,
+     sessions AS sess
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
@@ -243,5 +243,48 @@ END//
 
 delimiter ;
 
+DROP PROCEDURE IF EXISTS get_active_workers_for_site;
+CREATE PROCEDURE get_active_workers_for_site(IN in_site_id INT)
+SELECT
+  w.first_name,
+  w.initials,
+  w.last_name,
+  w.worker_id
+FROM teams AS t,
+     team_members AS tm,
+     workers AS w,
+     sites AS s
+WHERE w.worker_id = tm.worker_id AND
+      t.team_id = tm.team_id AND
+      s.team_id = tm.team_id AND
+      s.site_id = in_site_id AND
+      w.active = 1
+ORDER BY w.last_name, w.first_name, w.initials;
 
 
+DROP PROCEDURE IF EXISTS get_active_workers_for_lab;
+CREATE PROCEDURE get_active_workers_for_lab(IN in_lab_id INT)
+SELECT DISTINCT  -- distinct needed for workers on multiple teams
+  w.first_name,
+  w.initials,
+  w.last_name,
+  w.worker_id
+FROM teams AS t,
+     team_members AS tm,
+     workers AS w
+WHERE w.worker_id = tm.worker_id AND
+      t.team_id = tm.team_id AND
+      t.lab_id = in_lab_id AND
+      w.active = 1
+ORDER BY w.last_name, w.first_name, w.initials;
+
+DROP PROCEDURE IF EXISTS get_active_workers;
+CREATE PROCEDURE get_active_workers()
+SELECT
+  w.first_name,
+  w.initials,
+  w.last_name,
+  w.worker_id
+FROM workers AS w
+WHERE w.active = 1
+ORDER BY w.last_name, w.first_name, w.initials;
