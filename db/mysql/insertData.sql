@@ -10,8 +10,8 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt,
 
 -- these users will not have an initial pw at least for now
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Ty', 'Freiberg', 'TF', 'tf@gmail.com', '808-523-4567');  -- 2
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Marie', 'Shroeder', 'MS', 'ms@yahoo.com', '808-345-6789');  -- 3
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Terry', 'Shroeder', 'TS', 'ts@yahoo.com', '808-345-6789');  -- 4
+INSERT INTO workers (first_name, last_name, initials, active, email, phone_number) values ('Marie', 'Shroeder', 'MS', 0, 'ms@yahoo.com', '808-345-6789');  -- 3
+INSERT INTO workers (first_name, last_name, initials, active, email, phone_number) values ('Terry', 'Shroeder', 'TS', 0, 'ts@yahoo.com', '808-345-6789');  -- 4
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Rich', 'Bailey', 'RB', null, null);  -- 5
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'cathy@ubermax.com', '808-456-1234'); -- 6
 INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Jim', 'Maxwell', 'JM', 'jim@ubermax.com', '808-456-1234'); -- 7
@@ -69,6 +69,11 @@ INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt,
    '969b6a075f1b27ff7e63187f3ca93d4d',
    '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
 
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Maile', 'Sharpe', 'NMS', null, null); -- #42 South Maui, Makena, second MS so NMS (Nancy)
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Holly', 'Rindge', 'HR', null, null); -- #43 South Maui, Wailea
+INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Scott', 'Splean', 'SS', null, null); -- #44 South Maui, North Kihei
+
+-- labs
 
 INSERT INTO labs (lab_code, long_name, short_name, address) values ('LLHS', 'Lahainaluna High School', 'West Maui', 'Lahainaluna Road');
 INSERT INTO labs (lab_code, long_name, short_name, address) values ('NMS', 'National Marine Sanctuary', 'South Maui',  'South Kihei Road');
@@ -122,16 +127,19 @@ INSERT INTO team_members (team_id, worker_id) values ( 6, 25);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 26);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 35);
 INSERT INTO team_members (team_id, worker_id) values ( 6, 36);
+INSERT INTO team_members (team_id, worker_id) values ( 6, 42);
 -- North Kihei
 INSERT INTO team_members (team_id, worker_id) values ( 7, 29);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 30);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 31);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 38);
 INSERT INTO team_members (team_id, worker_id) values ( 7, 40);
--- Makena
+INSERT INTO team_members (team_id, worker_id) values ( 7, 44); -- Scott Splean
+-- Wailea
 INSERT INTO team_members (team_id, worker_id) values ( 8, 32);
 INSERT INTO team_members (team_id, worker_id) values ( 8, 33);
 INSERT INTO team_members (team_id, worker_id) values ( 8, 34);
+INSERT INTO team_members (team_id, worker_id) values ( 8, 43);
 
 -- Roles information
 INSERT INTO roles (abrv, long_name) VALUES ( 'ADM', 'Administration');
@@ -425,7 +433,7 @@ INSERT INTO qa_codes ( qa_code, category, description, action )
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('temperature', 1);
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('salinity', 1);
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen', 2);
-INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen_pct', 2);
+INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('dissolved_oxygen_pct', 1);
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('ph', 2);
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_1', 2);
 INSERT INTO measurement_precision ( measurement_name, number_of_decimals ) values('turbidity_2', 2);

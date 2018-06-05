@@ -123,3 +123,79 @@ FROM base_sample_report
 WHERE comments IS NOT NULL
 ORDER BY lab_id, session_number, day, time;
 
+
+CREATE OR REPLACE VIEW insitu_diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  temperature,
+  salinity,
+  dissolved_oxygen,
+  dissolved_oxygen_pct,
+  ph,
+  turbidity_1,
+  turbidity_2,
+  turbidity_3,
+  avg_turbidity
+FROM base_sample_report
+ORDER BY lab_id, session_number, day, time;
+
+
+CREATE OR REPLACE VIEW nutrient_diff_report AS
+SELECT
+  lab_id,
+  sampleID,
+  long_name,
+  hui_abv,
+  session_number,
+  day,
+  time,
+  total_nitrogen,
+  total_phosphorus,
+  phosphate,
+  silicate,
+  nitrates,
+  ammonia,
+  lat,
+  lon
+FROM base_sample_report
+ORDER BY lab_id, session_number, day, time;
+
+
+-- a report to show qa entries
+CREATE OR REPLACE VIEW qa_issues_base_report AS
+SELECT
+  sess.lab_id,
+  sam.sample_id,
+  site.long_name,
+  CONCAT(site.hui_abv, DATE_FORMAT(sam.date_and_time, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  sess.session_number,
+  DATE_FORMAT(sam.date_and_time, '%m/%d/%y') as day, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
+  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (mm:ss) 08:58, 10:10
+  qis.sample_column_name,
+  qis.description
+FROM samples AS sam,
+      sites AS site,
+     sessions AS sess,
+     qa_issue_samples AS qis
+WHERE sess.session_id = sam.session_id and
+      sam.site_id = site.site_id AND
+      sam.sample_id = qis.sample_id
+ORDER BY sess.lab_id, sess.session_number, sam.date_and_time; -- by lab, session, then time
+
+
+CREATE OR REPLACE VIEW qa_issues_report AS
+SELECT
+  lab_id,
+  session_number,
+  long_name,
+  day,
+  time,
+  sample_column_name,
+  description 
+FROM qa_issues_base_report

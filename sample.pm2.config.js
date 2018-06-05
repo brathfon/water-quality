@@ -16,7 +16,14 @@ module.exports = {
       },
       env_production : {
         NODE_ENV: 'production',
-        PORT: '3010'
+        PORT: '3010' ,
+        DB_HOST: 'localhost',
+        DB_USER: 'user',
+        DB_PASSWORD: 'pw',
+        DB_DATABASE: 'something',
+        DB_POOL_SIZE: 50,
+        JWT_SECRET: '',
+        WEB_MASTER_EMAIL: 'someone@gmail.com'
       }
     },
   ],

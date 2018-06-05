@@ -68,3 +68,23 @@ diff report.2018-05-15_09-24-59.txt sample-report.2018-05-15_12-27-56.comments-a
 also created two reports, one for samples, one for comments, since the comments are so long and
 would make diffing hard.
 Also, eliminated the tab separated files being generated and added a tag to the names for better descriptions
+
+
+6/2/2018 making sure no diffs after major merge of vue app into non-vue and before getting new data
+sample-report.2018-05-15_12-27-56.comments-added.txt sample-report.2018-06-02_06-48-14.after-merge-check.txt
+
+added in these reports to handle the big delays from SOEST lab so can diff the two kinds of data
+insitu-report.2018-06-02_07-14-07.add-insitu-nutrient-reports.txt
+nutrient-report.2018-06-02_07-14-07.add-insitu-nutrient-reports.txt
+
+
+6/3/2018
+preparing for gdrive load
+sample-report.2018-06-02_06-48-14.after-merge-check.txt sample-report.2018-06-04_15-56-57.pre-addition-of-39-15.txt
+
+
+after the loading of the data, the only diffs on all these reports was seeing the new sessions: 39 for west and 14 and 15 for south
+diff insitu-report.2018-06-04_15-56-57.pre-addition-of-39-15.txt insitu-report.2018-06-04_19-55-54.post-addition-of-39-15.txt
+diff nutrient-report.2018-06-04_15-56-57.pre-addition-of-39-15.txt nutrient-report.2018-06-04_19-55-54.post-addition-of-39-15.txt
+diff comments-report.2018-06-04_15-56-57.pre-addition-of-39-15.txt comments-report.2018-06-04_19-55-54.post-addition-of-39-15.txt
+
