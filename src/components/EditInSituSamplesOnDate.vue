@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="container wq-container">
 
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
@@ -9,8 +9,24 @@
 
 
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
       <h3>Edit day {{the_date}} (session {{session_number}}, {{lab_long_name}})</h3>
+    </div>
+    <div class="col-lg-4 wq-edit-choices">
+      <fieldset class="form-group">
+          <div class="form-check">
+            <label class="form-check-label">
+              <input  v-on:click="toggleEditDates" v-model="editDates" value="editDates" type="radio" class="form-check-input" name="editDates">
+              Edit Dates
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input v-on:click="toggleEditComments" v-model="editComments" value="editComments" type="radio" class="form-check-input"  name="editComments">
+            Edit Comments
+        </label>
+      </div>
+      </fieldset>
     </div>
   </div>
 
@@ -21,6 +37,7 @@
             <tr>
               <th>Location Name</th>
               <th>Location Code</th>
+              <th class="in-situ-header-cell">Date</th>
               <th class="in-situ-header-cell">Time</th>
               <th class="in-situ-header-cell">Temp</th>
               <th class="in-situ-header-cell">Sal</th>
@@ -35,6 +52,7 @@
           </thead>
           <thead>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th class="in-situ-header-cell"></th>
@@ -52,15 +70,16 @@
             <tr v-for="(sample, index) in samples">
               <td>{{sample.long_name}}</td>
               <td>{{sample.hui_abv}}</td>
-              <td><input v-on:blur="onBlur(index, 'time')" v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
-              <td><input v-on:change="onBlur(index, 'temperature')" v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'salinity')" v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'dissolved_oxygen')" v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'dissolved_oxygen_pct')" v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'ph')" v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'turbidity_1')" v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'turbidity_2')" v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
-              <td><input v-on:blur="onBlur(index, 'turbidity_3')" v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
+              <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
             </tr>
 
           </tbody>
@@ -90,7 +109,9 @@ export default {
       the_date: "",
       entryErrors: [],  // list of entry errors
       alerts: [],       // list of samples that have an issue but not corrected
-      updating: false
+      updating: false,
+      editDates: null,  // these independent buttons seem to toggle between null and "value"
+      editComments: null
     }
   },
 
@@ -107,11 +128,20 @@ export default {
 
   methods: {
 
+    toggleEditDates: function () {
+      this.editDates ? this.editDates = null : this.editDates = "editDates";
+    },
+
+    toggleEditComments: function () {
+      this.editComments ? this.editComments = null : this.editComments = "editComments";
+    },
+
     alertLevel : function(index, attribute) {
       return this.alerts[index][attribute].alertClass;
     },
 
     // this was cool but it is blocking the "update button" when there is invalid data
+    // was added by <input v-on:blur="onBlur(index, 'temperature')"
     onBlur: function(index, attribute) {
       return;
 

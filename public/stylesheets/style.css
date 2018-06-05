@@ -13,6 +13,14 @@
     background-color: #F9F9F9;
   }
 
+.wq-container {
+  padding-top: 15px;
+}
+
+.wq-edit-choices {
+  padding-top: 15px;
+}
+
 .wq-input {
 
   text-align: center;
