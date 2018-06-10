@@ -14,12 +14,6 @@
 
   <div class="row">
     <div class="col-md-12">
-      <WorkersForSession v-bind:workers="dayObj.workers"></WorkersForSession>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
       <SessionDayTable v-bind:samples="dayObj.samples"></SessionDayTable>
     </div>
   </div>
@@ -28,7 +22,6 @@
 
 <script>
 import SessionDayTable from './SessionDayTable.vue';
-import WorkersForSession from './WorkersForSession.vue';
 var errorMsgs = require('../util/errorMessages');
 
 export default {
@@ -61,8 +54,7 @@ export default {
 
   }, // end of methods
   components: {
-    SessionDayTable,
-    WorkersForSession
+    SessionDayTable
   }
 }
 </script>

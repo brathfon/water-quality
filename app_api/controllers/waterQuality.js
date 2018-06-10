@@ -213,38 +213,27 @@ module.exports.getNutrientSamplesForSessionOnDate = function (req, res) {
   });
 };
 
-module.exports.getWorkersForSession = function (req, res) {
-
-  var lab_id = req.params.lab_id;
-  var session_number = req.params.session_number;
-  //console.log("session_number " + session_number);
-  db.pool.query("call workers_for_session(" + lab_id + ", " + session_number + ")", function(err, rows, fields) {
-
-    var data = {};
-    data['workers'] = [];
-    data['errors'] = [];
-
-    if (err) {
-      helpers.sendJsonSQLErrorResponse("Error retrieving workers for session",
-                            "danger",
-                            err,
-                            data,
-                            res);
-    } else {
-      // calling a procedure returns a 2 element array with first element being the rows
-      // and the second element being the meta data such as "fieldCount.
-      data['workers'] = rows[0];
-      helpers.sendJsonResponse(res, 201, data);
-    }
-  });
-};
 
 var checkForNull = function (value){
   return (value === '' ? null : value);
 };
+
+
 module.exports.updateOneSample = function (req, res) {
 
   console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
+  if (!req.body.temperature )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): temperature param not passed"}); return;};
+  if (!req.body.salinity )             { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): salinity param not passed"}); return;};
+  if (!req.body.dissolved_oxygen )     { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): dissolved_oxygen param not passed"}); return;};
+  if (!req.body.dissolved_oxygen_pct ) { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): dissolved_oxygen param not passed"}); return;};
+  if (!req.body.ph )                   { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): ph param not passed"}); return;};
+  if (!req.body.turbidity_1 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_1 param not passed"}); return;};
+  if (!req.body.turbidity_2 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_2 param not passed"}); return;};
+  if (!req.body.turbidity_3 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_3 param not passed"}); return;};
+  if (!req.body.sample_id )            { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): sample_id param not passed"}); return;};
+
+  if (req.body.comments === undefined ) { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): comments param not passed"}); return;};
+
 
   var query = null;
   var date_and_time = req.body.the_date + " " + req.body.time;
@@ -257,6 +246,7 @@ module.exports.updateOneSample = function (req, res) {
                    checkForNull(req.body.turbidity_1),
                    checkForNull(req.body.turbidity_2),
                    checkForNull(req.body.turbidity_3),
+                   checkForNull(req.body.comments),
                    checkForNull(req.body.sample_id)];
 
   var query = "update samples set " +
@@ -268,7 +258,8 @@ module.exports.updateOneSample = function (req, res) {
     "ph = ?, " +
     "turbidity_1 = ?, " +
     "turbidity_2 = ?, " +
-    "turbidity_3 = ? " +
+    "turbidity_3 = ?, " +
+    "comments = ? " +
     "where sample_id = ?";
     console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
     console.log(chalk.blue("query : " + util.inspect(query, false, null)));
@@ -329,7 +320,6 @@ module.exports.isSessionNumberInUseForLab = function (req, res) {
     } else {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
-      //data['workers'] = rows[0];
       if (rows[0].length === 1) {
         data["isSessionNumberInUseForLab"] = true;
         helpers.sendJsonResponse(res, 201, data);
@@ -375,7 +365,7 @@ module.exports.isFirstSampleDayInUseForLab = function (req, res) {
     } else {
       // calling a procedure returns a 2 element array with first element being the rows
       // and the second element being the meta data such as "fieldCount.
-      //data['workers'] = rows[0];
+      //data['samples'] = rows[0];
       if (rows[0].length === 1) {
         data["isFirstSampleDayInUseForLab"] = true;
         helpers.sendJsonResponse(res, 201, data);

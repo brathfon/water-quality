@@ -9,9 +9,35 @@
 
 .in-situ-inner-table { margin: auto }
 
+.in-situ-location-table {
+  margin: auto;
+  text-align:left;
+  margin-left:5px
+}
+
+.user-notes-section {
+  padding-top: 10px;
+}
+
+.location-cell {
+  width: 12%;
+}
+
+.date-input {
+  width: 10%;
+}
+
 .even-table-row {
     background-color: #F9F9F9;
   }
+
+.wq-container {
+  padding-top: 15px;
+}
+
+.wq-edit-choices {
+  padding-top: 15px;
+}
 
 .wq-input {
 

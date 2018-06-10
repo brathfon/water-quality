@@ -30,7 +30,7 @@
     </thead>
     <tbody>
       <template v-for="(sample, index) in samples">
-        <tr v-bind:class="stripColor(index)">
+        <tr v-bind:class="stripeColor(index)">
           <td>{{sample.long_name}}</td>
           <td>{{sample.hui_abv}}</td>
           <td class="in-situ-table-cell">{{formatSampleTime(sample.time)}}</td>
@@ -78,6 +78,8 @@
 <script>
 import CommentsTableRow from './CommentsTableRow.vue';
 var lookupHelper = require('../util/lookupInformationHelper');
+var presHelper = require('../util/dataPresentationHelper');
+
 
 
 export default {
@@ -110,8 +112,8 @@ export default {
         this.showFullComments[i] = false;
       }
     },
-    stripColor: function(index) {
-      return (index % 2) === 0  ? "even-table-row" : "";
+    stripeColor: function(index) {
+      return presHelper.stripeColor(index);
     }
   }, // end of methods
   computed: {

@@ -145,10 +145,11 @@ var hasTooManySigFigs = function(attribute, value){
       returnValue = true;
     }
     else{
-      returnValue = false
+      returnValue = false;
     }
-    return returnValue;
   }
+  return returnValue;
+
 };
 
 export {
@@ -160,5 +161,5 @@ export {
   isInt,
   hasTooManySigFigs,
   isHourMinute,
-  isDate,
+  isDate  
 };
