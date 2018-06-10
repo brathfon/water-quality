@@ -183,27 +183,6 @@ order by site.default_session_order; -- ignore time, just order by the usual ord
 
 
 
-
-
-DROP PROCEDURE IF EXISTS workers_for_session;
-
-CREATE PROCEDURE workers_for_session(IN curr_lab_id INT,IN curr_session_number INT)
-select distinct
-  w.first_name,
-  w.last_name,
-  cast(date(sam.date_and_time) AS char) AS the_date
-from samples AS sam,
-     sample_workers AS sw,
-     workers AS w,
-     sessions AS sess
-where sess.lab_id = curr_lab_id and
-      sess.session_number = curr_session_number and
-      sess.session_id = sam.session_id and
-      sam.sample_id = sw.sample_id and
-      w.worker_id = sw.worker_id
-order by the_date, last_name, first_name;
-
-
 DROP PROCEDURE IF EXISTS create_session;
 
 delimiter //
@@ -242,49 +221,3 @@ BEGIN
 END//
 
 delimiter ;
-
-DROP PROCEDURE IF EXISTS get_active_workers_for_site;
-CREATE PROCEDURE get_active_workers_for_site(IN in_site_id INT)
-SELECT
-  w.first_name,
-  w.initials,
-  w.last_name,
-  w.worker_id
-FROM teams AS t,
-     team_members AS tm,
-     workers AS w,
-     sites AS s
-WHERE w.worker_id = tm.worker_id AND
-      t.team_id = tm.team_id AND
-      s.team_id = tm.team_id AND
-      s.site_id = in_site_id AND
-      w.active = 1
-ORDER BY w.last_name, w.first_name, w.initials;
-
-
-DROP PROCEDURE IF EXISTS get_active_workers_for_lab;
-CREATE PROCEDURE get_active_workers_for_lab(IN in_lab_id INT)
-SELECT DISTINCT  -- distinct needed for workers on multiple teams
-  w.first_name,
-  w.initials,
-  w.last_name,
-  w.worker_id
-FROM teams AS t,
-     team_members AS tm,
-     workers AS w
-WHERE w.worker_id = tm.worker_id AND
-      t.team_id = tm.team_id AND
-      t.lab_id = in_lab_id AND
-      w.active = 1
-ORDER BY w.last_name, w.first_name, w.initials;
-
-DROP PROCEDURE IF EXISTS get_active_workers;
-CREATE PROCEDURE get_active_workers()
-SELECT
-  w.first_name,
-  w.initials,
-  w.last_name,
-  w.worker_id
-FROM workers AS w
-WHERE w.active = 1
-ORDER BY w.last_name, w.first_name, w.initials;

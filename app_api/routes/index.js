@@ -20,10 +20,10 @@ router.get('/getSamplesForSessionOnDate/:lab_id/:session_number/:the_date',     
 router.get('/getInSituSamplesForSessionOnDate/:lab_id/:session_number/:the_date',   ctrlWQ.getInSituSamplesForSessionOnDate);
 router.get('/getNutrientSamplesForSessionOnDate/:lab_id/:session_number/:the_date', ctrlWQ.getNutrientSamplesForSessionOnDate);
 router.get('/getMaxSessionNumbersForLabs',                                       ctrlWQ.getMaxSessionNumbersForLabs);
-router.get('/getWorkersForSession/:lab_id/:session_number',                        ctrlWQ.getWorkersForSession);
 router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                ctrlWQ.isSessionNumberInUseForLab);
 router.get('/isFirstSampleDayInUseForLab/:lab_id/:first_sample_day',             ctrlWQ.isFirstSampleDayInUseForLab);
 router.put('/updateOneSample',                                                   ctrlWQ.updateOneSample);
+
 
 /* authentication */
 router.post('/login', ctrlAuth.login);

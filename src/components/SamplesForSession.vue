@@ -29,8 +29,7 @@ export default {
       session_number : -1,
       lab_long_name: "",
       samples : {},
-      samplesByDate : {},
-      workers : {}
+      samplesByDate : {}
     }
   },
   components: {
@@ -65,37 +64,14 @@ export default {
         });
     },
 
-    getWorkersForSession: function(callback) {
-
-      var msg = {
-        method: 'get',
-        url: '/api/getWorkersForSession/' + this.lab_id + '/' + this.session_number
-      }
-
-      this.$http(msg)
-        .then((response) => {
-          if ( response.data.workers ){
-            this.workers = response.data.workers;
-            if (callback){
-              callback();
-            }
-          }
-        })
-        .catch((error) => {
-          errorMsgs.handleHttpErrors.call(this, error);
-        });
-    },
-
     dataLoaded: function() {
-      this.samplesByDate = dfHelper.organizeSamplesAndWorkersByDate(this.samples, this.workers);
+      this.samplesByDate = dfHelper.organizeSamplesAndWorkersByDate(this.samples, []);  // no workers
     },
 
     getData: function() {
       var that = this;
       this.getSamplesForSession(function() {
-        that.getWorkersForSession(function() {
-          that.dataLoaded();
-        })
+        that.dataLoaded();
       })
     }
   },

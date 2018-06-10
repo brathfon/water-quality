@@ -3,7 +3,9 @@
 
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
-      <error-alerts v-if="haveErrors" v-bind:errors="entryErrors" v-on:reset-error="resetError"></error-alerts>
+      <error-alerts v-if="haveErrors"
+                    v-bind:errors="entryErrors"
+                    v-on:reset-error="resetError"></error-alerts>
     </div>
   </div>
 
@@ -17,7 +19,7 @@
           <div class="form-check">
             <label class="form-check-label">
               <input  v-on:click="toggleEditDates" v-model="editDates" value="editDates" type="radio" class="form-check-input" name="editDates">
-              Edit Dates
+              Edit Dates *
           </label>
         </div>
         <div class="form-check">
@@ -32,12 +34,11 @@
 
   <div class="row">
     <div class="col-lg-12">
-        <table class="table table-striped table-hover">
+        <table class="table table-hover">
           <thead>
             <tr>
-              <th>Location Name</th>
-              <th>Location Code</th>
-              <th class="in-situ-header-cell">Date</th>
+              <th>Location</th>
+              <th v-if="doEditDates()" class="in-situ-header-cell">Date</th>
               <th class="in-situ-header-cell">Time</th>
               <th class="in-situ-header-cell">Temp</th>
               <th class="in-situ-header-cell">Sal</th>
@@ -47,14 +48,14 @@
               <th class="in-situ-header-cell"></th>
               <th class="in-situ-header-cell">Turbidity (NTU)
               </th>
-              <th class="in-situ-header-cell"></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <thead>
             <tr>
               <th></th>
-              <th></th>
-              <th></th>
+              <th v-if="doEditDates()"></th>
               <th class="in-situ-header-cell"></th>
               <th class="in-situ-header-cell">(C)</th>
               <th class="in-situ-header-cell">(ppt)</th>
@@ -64,28 +65,53 @@
               <th class="in-situ-header-cell">1</th>
               <th class="in-situ-header-cell">2</th>
               <th class="in-situ-header-cell">3</th>
+              <th class="in-situ-header-cell">Comments</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(sample, index) in samples">
-              <td>{{sample.long_name}}</td>
-              <td>{{sample.hui_abv}}</td>
-              <td><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
-              <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
-            </tr>
+            <template v-for="(sample, index) in samples">
+              <tr v-bind:class="stripeColor(index)">
+                <td class="location-cell">
+                  <table class="in-situ-location-table">
+                    <tr>
+                      <td>{{sample.long_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>{{huiAbvDateCode(sample.hui_abv, sample.the_date)}}</td>
+                    </tr>
+                  </table>
+                </td>
+                <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input" ></td>
+                <td><input v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
+                <td class="in-situ-table-cell">{{commentsSubStr(samples[index].comments)}}</td>
+              </tr>
+              <tr v-if="doEditComments()" v-bind:class="stripeColor(index)">
+                <td><b>{{sample.hui_abv}} comments:</b></td>
+                <td colspan="12"><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].comments" class="wq-input"></td>
+              </tr>
+
+          </template>
 
           </tbody>
         </table>
         <button v-on:click="doUpdate" class="btn btn-primary">Update</button>
         <button v-if="isUpdating" class="btn btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Updating...</button>
+    </div>
+  </div>
+
+  <div class="row user-notes-section">
+    <div class="col-lg-12">
+      <p>
+        * Editing the date would be unusual unless when creating a new session the original start date was incorrect, etc.
+      </p>
     </div>
   </div>
 </div>
@@ -94,9 +120,11 @@
 <script>
 var errorMsgs = require('../util/errorMessages');
 var lookupHelper = require('../util/lookupInformationHelper');
+var presHelper = require('../util/dataPresentationHelper');
 
 import MeasurementInputField from './MeasurementInputField.vue';
 import ErrorAlerts from './ErrorAlerts.vue';
+
 
 
 export default {
@@ -105,7 +133,7 @@ export default {
       lab_id: -1,
       session_number: -1,
       lab_long_name: "",
-      samples: {},
+      samples: [],
       the_date: "",
       entryErrors: [],  // list of entry errors
       alerts: [],       // list of samples that have an issue but not corrected
@@ -115,7 +143,9 @@ export default {
     }
   },
 
-  components: {ErrorAlerts},
+  components: {
+    MeasurementInputField, ErrorAlerts
+  },
 
   computed: {
     haveErrors : function() {
@@ -128,16 +158,36 @@ export default {
 
   methods: {
 
+    huiAbvDateCode: function (hui_abv, the_date) {
+      return presHelper.createHuiAbvDateCode(hui_abv, the_date);
+    },
+
     toggleEditDates: function () {
       this.editDates ? this.editDates = null : this.editDates = "editDates";
+    },
+
+    doEditDates: function () {
+      return this.editDates === "editDates";
+    },
+
+    doEditComments: function () {
+      return this.editComments === "editComments";
     },
 
     toggleEditComments: function () {
       this.editComments ? this.editComments = null : this.editComments = "editComments";
     },
 
+    stripeColor: function(index) {
+      return presHelper.stripeColor(index);
+    },
+
     alertLevel : function(index, attribute) {
       return this.alerts[index][attribute].alertClass;
+    },
+
+    commentsSubStr : function (comments) {
+      return lookupHelper.formatCommentsSubstring(comments);
     },
 
     // this was cool but it is blocking the "update button" when there is invalid data
@@ -240,7 +290,6 @@ export default {
 
     validateTime : function(index, attribute) {
       var isGood = true;
-      var numSigFigs = null;
 
       var value = this.samples[index][attribute];
 
@@ -261,6 +310,51 @@ export default {
       }
       return isGood;
     },
+
+    validateDate : function(index, attribute) {
+      var isGood = true;
+
+      var value = this.samples[index][attribute];
+
+      //console.log("DATE VALUE TO VALIDATE ", value);
+
+      if (! lookupHelper.isDate(value)) {
+        this.addEntryError(index, attribute, attribute + " for " + this.samples[index].long_name + " must be \"YYY-MM-DD\"");
+        isGood = false;
+      }
+
+      if (! isGood) {
+        this.alerts[index][attribute].alertClass = "validation-error";
+      } else {  // its good, so un-highlight the box and close alert box, if open
+        this.resetErrorAndAlert(index, attribute);
+      }
+      return isGood;
+    },
+
+    validateComments : function(index, attribute) {
+      var isGood = true;
+
+      var value = this.samples[index][attribute];
+
+      if (value === "" || value === null) {  // no need to validate blanks
+        return true;
+      }
+
+      console.log("COMMENT VALUE TO VALIDATE ", value);
+
+      if (value.length > 1024) {
+        this.addEntryError(index, attribute, "A little too verbose: " + attribute + " for " + this.samples[index].long_name + " must be less than 1024 characters");
+        isGood = false;
+      }
+
+      if (! isGood) {
+        this.alerts[index][attribute].alertClass = "validation-error";
+      } else {  // its good, so un-highlight the box and close alert box, if open
+        this.resetErrorAndAlert(index, attribute);
+      }
+      return isGood;
+    },
+
 
     validateSample : function(index, attribute) {
       var isGood = true;
@@ -298,7 +392,7 @@ export default {
       var allGood = true;
 
       for (i = 0; i < this.samples.length; ++i) {
-        sample = this.samples[i];
+        allGood &= this.validateDate(i, "the_date");
         allGood &= this.validateTime(i, "time");
         allGood &= this.validateSample(i, "temperature");
         allGood &= this.validateSample(i, "salinity");
@@ -308,6 +402,7 @@ export default {
         allGood &= this.validateSample(i, "turbidity_1");
         allGood &= this.validateSample(i, "turbidity_2");
         allGood &= this.validateSample(i, "turbidity_3");
+        allGood &= this.validateComments(i, "comments");
       }
       console.log("All GOOD ", allGood);
       return allGood;
@@ -355,7 +450,7 @@ export default {
       }
     },
 
-    getSamplesForSession: function() {
+    getSamplesForSession: function(callback) {
       var msg = {
         method: 'get',
         url: '/api/getInSituSamplesForSessionOnDate/' + this.lab_id + '/' + this.session_number + '/' + this.the_date
@@ -364,18 +459,19 @@ export default {
       this.$http(msg)
         .then((response) => {
           if (response.data.samples) {
+            console.log("FINISHED GETTING SAMPLES");
             this.samples = response.data.samples;
             this.formatData();
             this.initializeAlerts();
+            if (callback) {
+              callback();
+            }
           }
         })
         .catch((error) => {
           errorMsgs.handleHttpErrors.call(this, error);
         });
-    }
-  },
-  components: {
-    MeasurementInputField, ErrorAlerts
+    },
   },
 
   created() {
