@@ -94,3 +94,9 @@ removed tables for recording workers for all samples
 34384293 241395 insitu-report.2018-06-04_19-55-54.post-addition-of-39-15.txt
 34384293 241395 insitu-report.2018-06-09_13-56-44.after-worker-removal.txt
 
+6/10/2018
+Added in nutrient data from SOEST lab, sessions 34-36 West and 7-11 South
+No differences found with insitu and comments
+Difference found here, but expected
+ diff nutrient-report.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt nutrient-report.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt
+ diff -b qa_issues.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt qa_issues.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt 
