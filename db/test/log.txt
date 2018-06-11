@@ -100,3 +100,6 @@ No differences found with insitu and comments
 Difference found here, but expected
  diff nutrient-report.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt nutrient-report.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt
  diff -b qa_issues.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt qa_issues.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt 
+
+6/11/2018
+Did a check after fixing a double dash in some of the date data for team Wailea on 2018-04-06  No diffs
