@@ -2,7 +2,7 @@ DROP PROCEDURE IF EXISTS set_password;
 
 delimiter //
 
-CREATE PROCEDURE set_password(IN curr_worker_id INT,IN curr_salt CHAR(32),IN curr_hash CHAR(128))
+CREATE PROCEDURE set_password(IN curr_user_id INT,IN curr_salt CHAR(32),IN curr_hash CHAR(128))
 BEGIN
 
   DECLARE exit handler FOR sqlexception
@@ -12,22 +12,22 @@ BEGIN
   END;
 
   START TRANSACTION;
-  UPDATE workers SET
+  UPDATE users SET
     salt = curr_salt,
     hash = curr_hash
-  WHERE worker_id = curr_worker_id;
+  WHERE user_id = curr_user_id;
 
   SELECT
-    w.worker_id,
+    w.user_id,
     w.first_name,
     w.last_name,
     w.salt,
     w.hash,
     wr.role_id
-  FROM workers w,
-       worker_roles wr
-  WHERE w.worker_id = curr_worker_id and
-        w.worker_id = wr.worker_id and
+  FROM users w,
+       user_roles wr
+  WHERE w.user_id = curr_user_id and
+        w.user_id = wr.user_id and
         w.active    = 1;
   COMMIT;
 END//
@@ -39,24 +39,24 @@ delimiter //
 CREATE PROCEDURE login(IN the_email varchar(64))
 BEGIN
   SELECT
-    w.worker_id,
+    w.user_id,
     w.first_name,
     w.last_name,
     w.salt,
     w.hash,
     wr.role_id
-  FROM workers w,
-    worker_roles wr
-    WHERE w.worker_id = wr.worker_id AND
+  FROM users w,
+    user_roles wr
+    WHERE w.user_id = wr.user_id AND
           w.active    = 1 AND
           w.email     = the_email;
 END//
 
 delimiter ;
 
-DROP PROCEDURE IF EXISTS create_new_worker;
+DROP PROCEDURE IF EXISTS create_new_user;
 delimiter //
-CREATE PROCEDURE create_new_worker(
+CREATE PROCEDURE create_new_user(
   IN new_first_name varchar(32),
   IN new_last_name varchar(32),
   IN new_initials varchar(3),
@@ -66,7 +66,7 @@ CREATE PROCEDURE create_new_worker(
   IN new_hash char(128))
 BEGIN
 
-  INSERT INTO workers(
+  INSERT INTO users(
     first_name,
     last_name,
     initials,
@@ -85,7 +85,7 @@ BEGIN
 
     -- according to documentation, this is safe because it is the last
     -- generated id on this connection.
-    SELECT LAST_INSERT_ID() as new_worker_id;
+    SELECT LAST_INSERT_ID() as new_user_id;
 END//
 
 delimiter ;
