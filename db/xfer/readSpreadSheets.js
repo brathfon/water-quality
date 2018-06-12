@@ -3,7 +3,12 @@
 var util  = require('util');
 var fs    = require('fs');
 var path  = require('path');
+var validator = require('./validator.js');
 
+var reportError = function (theError, SampleID, filename) {
+ console.error(theError + " sample: " + SampleID + " in " + filename );
+  //process.exit(1);
+};
 
 /* returns the lines from the spread sheet in a list, one object per line 
 
@@ -30,6 +35,7 @@ var readTeamSheet = function(teamSheetFile) {
   var lineCount = 0;
   var j;
   var contents = fs.readFileSync(teamSheetFile, 'utf8')
+  var filename = path.basename(teamSheetFile);
   //console.log("contents: " + contents);
   lines = contents.split("\n");
   lines.forEach( function (line) {
@@ -55,8 +61,8 @@ var readTeamSheet = function(teamSheetFile) {
           obj['SampleID']      = pieces[11];
           obj['Location']      = pieces[12];
           obj['SiteName']      = pieces[13];
-          obj['Date']          = pieces[14];
-          obj['Time']          = pieces[15];
+          validator.isDate(pieces[14])       ? obj['Date']    = pieces[14] : reportError("'" + pieces[14] + "' date is not a correctly formed (YYYY-MM-DD)", obj.SampleID, filename);
+          validator.isHourMinute(pieces[15]) ? obj['Time']    = pieces[15] : reportError("'" + pieces[15] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);
           obj['40D#']          = pieces[16];
           obj['2100Q#']        = pieces[17];
           obj['pHInst#']       = pieces[18];

@@ -60,6 +60,7 @@ var readSoestFile = function(soestFile, knownSites) {
   var year       = null;
   var mon        = null;
   var day        = null;
+  var filename = path.basename(soestFile);
 
   //console.log("contents: " + contents);
   lines = contents.split("\r");
@@ -110,9 +111,9 @@ var readSoestFile = function(soestFile, knownSites) {
                lineList.push(obj);
             } // is known site
             else {
-              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** in ",  filename);
               console.log("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
-              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
               console.error("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
             }
           } // length greater than 13
@@ -121,9 +122,9 @@ var readSoestFile = function(soestFile, knownSites) {
             if (line !== "" && 
                 ! line.match(/^,*,$/) &&  // finds lines like: ',,,,' ',,,,,,,' 
                 line !== ',,110,16,,,3.5,2') {
-              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
               console.log("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
-              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** ");
+              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
               console.error("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
             }
           }
