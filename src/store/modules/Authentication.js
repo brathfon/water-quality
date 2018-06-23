@@ -4,7 +4,7 @@ const namespaced = true;
 const state = {
     firstName : '',
     lastName : '',
-    workerID : -1,
+    userID : -1,
     roles : [],
     hasAdministrationRole : false,
     hasDataEntryRole : false,
@@ -25,8 +25,8 @@ const mutations = {
     updateRoles(state, newRoles) {
       state.roles = newRoles;
     },
-    updateWorkerID (state, newWorkerID) {
-      state.workerID = newWorkerID;
+    updateUserID (state, newUserID) {
+      state.userID = newUserID;
     },
     updateHasAdministrationRole (state, status) {
       state.hasAdministrationRole = status;
@@ -52,7 +52,7 @@ const mutations = {
   const actions = {
     // ************** Authorization actions *****************
     resetAuth(context) {
-      context.commit('updateWorkerID',  -1);
+      context.commit('updateUserID',  -1);
       context.commit('updateFirstName', '');
       context.commit('updateLastName',  '');
       context.commit('updateRoles',     []);

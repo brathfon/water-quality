@@ -65,7 +65,7 @@ export default {
     },
 
     dataLoaded: function() {
-      this.samplesByDate = dfHelper.organizeSamplesAndWorkersByDate(this.samples, []);  // no workers
+      this.samplesByDate = dfHelper.organizeSamplesByDate(this.samples, []);  // no workers
     },
 
     getData: function() {

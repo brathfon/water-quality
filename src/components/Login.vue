@@ -138,7 +138,7 @@
             this.password = "";
             if (response.data.loginSuccessful && this.token) {   // the login was successful
               payload = JSON.parse(atob(this.token.split('.')[1]));
-              this.$store.commit('auth/updateWorkerID',  payload.workerID);
+              this.$store.commit('auth/updateUserID',  payload.userID);
               this.$store.commit('auth/updateFirstName', payload.firstName);
               this.$store.commit('auth/updateLastName',  payload.lastName);
               this.$store.commit('auth/updateRoles',     payload.roles);

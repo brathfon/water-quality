@@ -1,24 +1,24 @@
 USE water_quality;
 
 
--- special case for the root worker that will have permissions to do all.  Initial root password will be "default"
+-- special case for the root user that will have permissions to do all.  Initial root password will be "default"
 -- email will be used as the login
-INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values
+INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('root', 'root', '99', 'root@root.com', null,
    '014f8f5784eaeee325fbaf29b8170871',
    'bed6ea8f4cae38603163ef5f7fa320a85bc07382c73066de935de1b8f29cd6c5e9e8d0473a657789f3f8ad2e95b2a083d258cb436176078b09e7797751ae58e3');
 
-INSERT INTO workers (first_name, last_name, initials, email, phone_number, salt, hash) values -- #41
+INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values -- #41
    ('The', 'Guest', 'G', "guest", null,
    '969b6a075f1b27ff7e63187f3ca93d4d',
    '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
 
 -- these users will not have an initial pw at least for now
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'cathy@ubermax.com', '808-456-1234'); -- 3
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Dana', 'Reed', 'DR', 'dreedyah@yahoo.com', '720-567-3412'); -- 4
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('George', 'Burnette', 'GB', null, null); -- 5
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', null, null); -- 6
-INSERT INTO workers (first_name, last_name, initials, email, phone_number) values ('Sofia', 'de laSota', 'SD', null, null); -- 7
+INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'jandcmax@gmail.com', '808-456-1234'); -- 3
+INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('Dana', 'Reed', 'DR', 'dreedyah@yahoo.com', '720-567-3412'); -- 4
+INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('George', 'Burnette', 'GB', 'ggb7676@gmail.com', null); -- 5
+INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('Bill', 'Rathfon', 'BR', 'brathfon@gmail.com', null); -- 6
+INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('Sofia', 'de laSota', 'SD', 'delasota@hawaii.edu', null); -- 7
 
 -- labs
 
@@ -34,9 +34,9 @@ INSERT INTO roles (abrv, long_name) VALUES ( 'QA', 'Quality Assurance');
 INSERT INTO roles (abrv, long_name) VALUES ( 'RO', 'Read Only');   -- in case we want to let someone look at the data as entered
 
 
-INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 1);  -- initial root worker who has admin privileges
-INSERT INTO worker_roles (worker_id, role_id) VALUES ( 1, 2);  -- this value is more for testing, giving root DE privs
-INSERT INTO worker_roles (worker_id, role_id) VALUES ( 2, 5);  -- guest, read only`
+INSERT INTO user_roles (user_id, role_id) VALUES ( 1, 1);  -- initial root user who has admin privileges
+INSERT INTO user_roles (user_id, role_id) VALUES ( 1, 2);  -- this value is more for testing, giving root DE privs
+INSERT INTO user_roles (user_id, role_id) VALUES ( 2, 5);  -- guest, read only`
 
 
 -- R2RS

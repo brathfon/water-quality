@@ -63,6 +63,9 @@ var isFloat = function(value) {
 
 var isHourMinute = function(value) {
 
+  if (value.match(/^[0-9]:[0-5][0-9]$/) != null) {
+    return true;
+  }
   if (value.match(/^[0-1][0-9]:[0-5][0-9]$/) != null) {
     return true;
   }
@@ -161,5 +164,5 @@ export {
   isInt,
   hasTooManySigFigs,
   isHourMinute,
-  isDate  
+  isDate
 };

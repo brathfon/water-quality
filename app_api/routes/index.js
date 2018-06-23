@@ -12,25 +12,25 @@ var logging = require('../controllers/logging');
 var lookup = require('../controllers/lookupInformation');
 
 /* water quality apis */
-router.post('/createNewSession',                                                 ctrlWQ.createNewSession);
+router.post('/createNewSession',                                                    ctrlWQ.createNewSession);
 router.get('/getLabSessionsOverview', ctrlWQ.getLabSessionsOverview);
-router.get('/getSamplesForSession/:lab_id/:session_number',                        ctrlWQ.getSamplesForSession);
+router.get('/getSamplesForSession/:lab_id/:session_number',                         ctrlWQ.getSamplesForSession);
 // gets both inSitu and Nutrient
 router.get('/getSamplesForSessionOnDate/:lab_id/:session_number/:the_date',         ctrlWQ.getSamplesForSessionOnDate);
 router.get('/getInSituSamplesForSessionOnDate/:lab_id/:session_number/:the_date',   ctrlWQ.getInSituSamplesForSessionOnDate);
 router.get('/getNutrientSamplesForSessionOnDate/:lab_id/:session_number/:the_date', ctrlWQ.getNutrientSamplesForSessionOnDate);
-router.get('/getMaxSessionNumbersForLabs',                                       ctrlWQ.getMaxSessionNumbersForLabs);
-router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                ctrlWQ.isSessionNumberInUseForLab);
-router.get('/isFirstSampleDayInUseForLab/:lab_id/:first_sample_day',             ctrlWQ.isFirstSampleDayInUseForLab);
-router.put('/updateOneSample',                                                   ctrlWQ.updateOneSample);
+router.get('/getMaxSessionNumbersForLabs',                                          ctrlWQ.getMaxSessionNumbersForLabs);
+router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                   ctrlWQ.isSessionNumberInUseForLab);
+router.get('/isFirstSampleDayInUseForLab/:lab_id/:first_sample_day',                ctrlWQ.isFirstSampleDayInUseForLab);
+router.put('/updateOneSample',                                                      ctrlWQ.updateOneSample);
 
 
 /* authentication */
 router.post('/login', ctrlAuth.login);
 router.post('/setPassword', auth, ctrlAuth.setPassword);
-//router.post('/createNewWorker', auth, ctrlAuth.createNewWorker);
-router.post('/createNewWorker', ctrlAuth.createNewWorker);
-//router.get('/isValidPassword/:worker_id/:password', ctrlAuth.isValidPassword);
+//router.post('/createNewUser', auth, ctrlAuth.createNewUser);
+router.post('/createNewUser', ctrlAuth.createNewUser);
+//router.get('/isValidPassword/:user_id/:password', ctrlAuth.isValidPassword);
 
 // lookup information
 router.get('/getLabs', lookup.getLabs);
