@@ -137,6 +137,10 @@
             this.createUserFriendlyMessage();
             this.password = "";
             if (response.data.loginSuccessful && this.token) {   // the login was successful
+
+              // set the token to axios to let it make authorized calls
+              this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+              
               payload = JSON.parse(atob(this.token.split('.')[1]));
               this.$store.commit('auth/updateUserID',  payload.userID);
               this.$store.commit('auth/updateFirstName', payload.firstName);
