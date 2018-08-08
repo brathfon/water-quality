@@ -14,6 +14,6 @@ mysql -v -u $user -p$pw $db < lookup-procedures.sql
 mysql -v -u $user -p$pw $db < utility-procedures.sql
 mysql -v -u $user -p$pw $db < insertData.sql
 mysql -v -u $user -p$pw $db < ../xfer/insert-webexport-legacy-data.1.first-sample-day-change.sql
-mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-28-39-1-15.2.fixed-double-dash-dates.sql
-mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20180610.0.sessions-thru-36w-11s.sql
+mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-28-42-1-17.0.sql
+mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20180729.0.sessions-thru-39w-15s.sql
 exit

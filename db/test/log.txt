@@ -103,3 +103,10 @@ Difference found here, but expected
 
 6/11/2018
 Did a check after fixing a double dash in some of the date data for team Wailea on 2018-04-06  No diffs
+
+2018-07-29_13-31-39.pre-add-42w-17s.txt
+Going to insert new data from gdrive.  Saw no differences from last capture.
+
+2018-07-29_13-31-39.pre-add-42w-17s vs 2018-07-29_15-54-53.post-add-42w-17s-nut-39w-15s
+All diffs as expected.  Had a little trouble inerpreting the nutrient diff, but seemed OK.  Appeared to repeat sections.
+Verifies new spreadsheet data sessions 40-42 west, 16-17 south, nutrient data 37-39 west, 12-15 south

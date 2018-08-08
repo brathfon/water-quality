@@ -61,8 +61,20 @@ var readTeamSheet = function(teamSheetFile) {
           obj['SampleID']      = pieces[11];
           obj['Location']      = pieces[12];
           obj['SiteName']      = pieces[13];
+
           validator.isDate(pieces[14])       ? obj['Date']    = pieces[14] : reportError("'" + pieces[14] + "' date is not a correctly formed (YYYY-MM-DD)", obj.SampleID, filename);
-          validator.isHourMinute(pieces[15]) ? obj['Time']    = pieces[15] : reportError("'" + pieces[15] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);
+
+          //console.error("TIME : ", pieces[15]);
+          if (validator.isHourMinute(pieces[15]) ) {
+             obj['Time']    = pieces[15];
+          }
+          else if (pieces[15] === "") {  // if a site is not sampled due to conditions at the site, etc.  The time will be blank
+             reportError("'" + pieces[15] + "' time is blank, which may be a uncollected sample, setting to '00:00'", obj.SampleID, filename);
+             obj['Time']    = "00:00";
+          }
+          else {
+             reportError("'" + pieces[15] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);
+          }
           obj['40D#']          = pieces[16];
           obj['2100Q#']        = pieces[17];
           obj['pHInst#']       = pieces[18];
