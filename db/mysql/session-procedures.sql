@@ -77,7 +77,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-order by site.default_session_order; -- ignore time, just order by the usual order of collection
+order by sam.date_and_time; -- this is not perfect.  Will eventually need to use added default_sample_order
 
 
 DROP PROCEDURE IF EXISTS get_samples_for_session_on_date;

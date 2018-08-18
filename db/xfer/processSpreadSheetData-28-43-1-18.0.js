@@ -57,7 +57,7 @@ connection.connect(function(err) {
 
 var readSpreadSheetFiles = function (data, endConnection, callback) {
 
-  data['sessions'] = rss.readTeamSheets(process.env.WQ_FILES + "/gdrive-downloads/data-sessions-28-42-1-17");
+  data['sessions'] = rss.readTeamSheets(process.env.WQ_FILES + "/gdrive-downloads/data-sessions-28-43-1-18");
 
   //console.log( util.inspect(data['sessions'], false, null));
 

@@ -101,12 +101,44 @@ Difference found here, but expected
  diff nutrient-report.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt nutrient-report.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt
  diff -b qa_issues.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt qa_issues.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt 
 
-6/11/2018
+6/11/2018 **********************************
 Did a check after fixing a double dash in some of the date data for team Wailea on 2018-04-06  No diffs
 
+7/29/2018 **********************************
 2018-07-29_13-31-39.pre-add-42w-17s.txt
 Going to insert new data from gdrive.  Saw no differences from last capture.
 
 2018-07-29_13-31-39.pre-add-42w-17s vs 2018-07-29_15-54-53.post-add-42w-17s-nut-39w-15s
 All diffs as expected.  Had a little trouble inerpreting the nutrient diff, but seemed OK.  Appeared to repeat sections.
 Verifies new spreadsheet data sessions 40-42 west, 16-17 south, nutrient data 37-39 west, 12-15 south
+
+
+8/13/2018 **********************************
+
+Found problems with the nutrient data of session 15 on the south side, dates 5/29/18 to 6/1/18 (soest file TNC_060518)
+Removed that data from the load
+nutrient-report.2018-07-29_15-54-53.post-add-42w-17s-nut-39w-15s.txt
+nutrient-report.2018-08-13_15-51-57.after-removing-15s-nutrient-data.txt
+
+Diffing found diffs in nutrient report and full report, but no others, as expected.
+
+8/15/2018 **********************************
+
+Found more data problems in insitu data: some station IDs and SampleIDs not matching (inconsistant between the IDs)
+So preparing to pull in 28-43 and 1-18 along with fixes to insitu for session 16 and 17 South and session 15s nutrient remeasure.
+
+So first reloaded in data with errors as a start, but will also compare back to pre-add-42w-17s, too.
+No diffs for all comparisions
+1747692913 386202 sample-report.2018-08-13_15-51-57.after-removing-15s-nutrient-data.txt
+1747692913 386202 sample-report.2018-08-16_09-18-23.pre-add-43-18-fixed-s15-nutrient-with-know-errors.txt
+
+after loading in new pulls from gdrive with fixed stationID/SampleID and fixed session 15s nutrient data, diffed
+*.2018-08-16_09-18-23.pre-add-43-18-fixed-s15-nutrient-with-know-errors.txt and *.2018-08-16_15-10-51.post-add-28-43-1-18-nutr-fix-15w.txt
+
+Saw expected differences. 43W is new.  16-17s diffs for stationID problem, 15s nutrients back in, 18s is new.
+
+Went back a little further and diffed before these attempted inserts:
+
+compared *post-addition-of-36w-11s-nutrient-data.txt .*post-add-28-43-1-18-nutr-fix-15w.txt
+Should only see new data for 40-43 sessions on west for insitu, 16-18 on south, which I did
+Should only see new nutrient data for 37 through 39 west and 12 through 15 south, which I did.
