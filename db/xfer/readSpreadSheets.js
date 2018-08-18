@@ -59,6 +59,14 @@ var readTeamSheet = function(teamSheetFile) {
           obj['Sampler3']      =  pieces[9];
           obj['Station']       = pieces[10];
           obj['SampleID']      = pieces[11];
+          // had a problem where spreadsheet was changed when sites were changed and had column shifts that mismatched the
+          // stationID and SampleID.  Check here and print to stderr
+          let stationFromSampleID = obj.SampleID.substr(0,3);
+          //console.log(`STATIONID : ${obj.Station}, ID from SampleID : ${stationFromSampleID}`);
+          if (obj.Station !== stationFromSampleID) {
+            console.error(`Found stationID inconsistance on line ${line}`);
+            console.error(`stationID : ${obj.Station} not equal to ID from SampleID : ${obj.SampleID}`);
+          }
           obj['Location']      = pieces[12];
           obj['SiteName']      = pieces[13];
 
