@@ -1,4 +1,3 @@
-USE water_quality;
 
 
 -- special case for the root user that will have permissions to do all.  Initial root password will be "default"
@@ -8,7 +7,7 @@ INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, h
    '014f8f5784eaeee325fbaf29b8170871',
    'bed6ea8f4cae38603163ef5f7fa320a85bc07382c73066de935de1b8f29cd6c5e9e8d0473a657789f3f8ad2e95b2a083d258cb436176078b09e7797751ae58e3');
 
-INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values -- #41
+INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('The', 'Guest', 'G', "guest", null,
    '969b6a075f1b27ff7e63187f3ca93d4d',
    '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
