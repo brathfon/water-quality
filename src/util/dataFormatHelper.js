@@ -4,7 +4,10 @@ var util = require('util');
 /*
 This function takes a list of samples and organizes them
 into a list of objects, each object has a date, a list of samples.
-It is assumed that the data coming is in date order.
+It is assumed that the data coming is in date order.  NOTE: // WARNING
+This is a bad assumption.  This might need to be reworked when
+the new field is added to the sample table to record the default
+order at the time of sample creation.
 */
 
 
