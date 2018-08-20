@@ -25,7 +25,7 @@ if( ! process.argv[2] ) {
 var connection = mysql.createConnection({
     host : process.env.DB_HOST,
     user : process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
+    password: process.env.DB_USER_PASSWORD,
     database: process.env.DB_DATABASE
 });
 

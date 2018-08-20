@@ -50,8 +50,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) AS time,
+  sam.the_date,
+  sam.the_time AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -77,7 +77,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-order by sam.date_and_time; -- this is not perfect.  Will eventually need to use added default_sample_order
+order by sam.the_date, sam.the_time; -- this is not perfect.  Will eventually need to use added default_sample_order
 
 
 DROP PROCEDURE IF EXISTS get_samples_for_session_on_date;
@@ -88,8 +88,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) AS time,
+  sam.the_date,
+  the_time AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -114,7 +114,7 @@ from samples AS sam,
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
-      date(sam.date_and_time) = curr_date and
+      sam.the_date = curr_date and
       sam.site_id = site.site_id
 order by site.default_session_order; -- ignore time, just order by the usual order of collection
 
@@ -127,8 +127,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) AS time,
+  sam.the_date,
+  sam.the_time AS time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -146,7 +146,7 @@ from samples AS sam,
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
-      date(sam.date_and_time) = curr_date and
+      sam.the_date = curr_date and
       sam.site_id = site.site_id
 order by site.default_session_order; -- ignore time, just order by the usual order of collection
 
@@ -159,8 +159,8 @@ select
   sam.site_id,
   site.long_name,
   site.hui_abv,
-  cast(date(sam.date_and_time) AS char) AS the_date, -- this is to fix UTC conversion by mySQL node package
-  time(sam.date_and_time) AS time,
+  sam.the_date,
+  sam.the_time AS time,
   sess.lab_id,
   sess.session_number,
   sam.total_nitrogen,
@@ -177,7 +177,7 @@ from samples AS sam,
 where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
-      date(sam.date_and_time) = curr_date and
+      sam.the_date = curr_date and
       sam.site_id = site.site_id
 order by site.default_session_order; -- ignore time, just order by the usual order of collection
 
@@ -205,7 +205,7 @@ BEGIN
 
   INSERT INTO samples (
     site_id,
-    date_and_time,
+    the_date,
     session_id)
       SELECT
         si.site_id,

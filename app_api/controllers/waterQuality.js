@@ -236,8 +236,8 @@ module.exports.updateOneSample = function (req, res) {
 
 
   var query = null;
-  var date_and_time = req.body.the_date + " " + req.body.time;
-  var inputData = [date_and_time,
+  var inputData = [req.body.the_date,
+                   req.body.time,
                    checkForNull(req.body.temperature),
                    checkForNull(req.body.salinity),
                    checkForNull(req.body.dissolved_oxygen),
@@ -250,7 +250,8 @@ module.exports.updateOneSample = function (req, res) {
                    checkForNull(req.body.sample_id)];
 
   var query = "update samples set " +
-     "date_and_time = ?, " +
+    "the_date = ?, " +
+    "the_time = ?, " +
     "temperature = ?, " +
     "salinity = ?, " +
     "dissolved_oxygen = ?, " +

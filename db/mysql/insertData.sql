@@ -1,6 +1,6 @@
 
 
--- special case for the root user that will have permissions to do all.  Initial root password will be "default"
+-- special case for the root user that will have permissions to do all.
 -- email will be used as the login
 INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('root', 'root', '99', 'root@root.com', null,

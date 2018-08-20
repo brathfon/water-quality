@@ -142,3 +142,13 @@ Went back a little further and diffed before these attempted inserts:
 compared *post-addition-of-36w-11s-nutrient-data.txt .*post-add-28-43-1-18-nutr-fix-15w.txt
 Should only see new data for 40-43 sessions on west for insitu, 16-18 on south, which I did
 Should only see new nutrient data for 37 through 39 west and 12 through 15 south, which I did.
+
+
+8/19/2018
+
+Was converting the database, procedures and views to use a separate date and time instead of a datetime.
+Also recreated the last webexport and it was a match.
+
+3564884383 399345 sample-report.2018-08-19_11-39-14.pre-date-time-conv.txt
+3564884383 399345 sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
+~
