@@ -82,7 +82,7 @@
                   </table>
                 </td>
                 <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input" ></td>
-                <td><input v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'the_time')" type="text" autocomplete="off" v-model="samples[index].the_time" class="wq-input"></td>
                 <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
                 <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
                 <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
@@ -197,7 +197,7 @@ export default {
 
       var precision = 1;
       console.log("WAS BLURRED attribute: " + attribute + " index: " + index + " precision " + precision );
-      if (attribute === "time") {
+      if (attribute === "the_time") {
         this.validateTime(index, attribute);
       }
       else {
@@ -393,7 +393,7 @@ export default {
 
       for (i = 0; i < this.samples.length; ++i) {
         allGood &= this.validateDate(i, "the_date");
-        allGood &= this.validateTime(i, "time");
+        allGood &= this.validateTime(i, "the_time");
         allGood &= this.validateSample(i, "temperature");
         allGood &= this.validateSample(i, "salinity");
         allGood &= this.validateSample(i, "dissolved_oxygen");
@@ -438,7 +438,7 @@ export default {
       var sample = null;
       for (i = 0; i < this.samples.length; ++i) {
         sample = this.samples[i];
-        sample.time                 = lookupHelper.formatSampleTime(sample.time);
+        sample.the_time             = lookupHelper.formatSampleTime(sample.the_time);
         sample.temperature          = lookupHelper.setPrecision.call(this, "temperature",          sample.temperature);
         sample.salinity             = lookupHelper.setPrecision.call(this, "salinity",             sample.salinity);
         sample.dissolved_oxygen     = lookupHelper.setPrecision.call(this, "dissolved_oxygen",     sample.dissolved_oxygen);

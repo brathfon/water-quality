@@ -12,8 +12,8 @@ BEGIN
     long_name,
     hui_abv,
     session_number,
-    day,
-    time,
+    the_date,
+    the_time,
     temperature,
     salinity,
     dissolved_oxygen,
@@ -36,7 +36,7 @@ BEGIN
             silicate         IS NULL AND 
             nitrates         IS NULL AND 
             ammonia          IS NULL)
-   ORDER BY session_number, day, time; 
+   ORDER BY session_number, the_date, the_time; 
 
 END//
 

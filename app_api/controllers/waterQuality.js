@@ -237,7 +237,7 @@ module.exports.updateOneSample = function (req, res) {
 
   var query = null;
   var inputData = [req.body.the_date,
-                   req.body.time,
+                   req.body.the_time,
                    checkForNull(req.body.temperature),
                    checkForNull(req.body.salinity),
                    checkForNull(req.body.dissolved_oxygen),

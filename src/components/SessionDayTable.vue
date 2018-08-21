@@ -33,7 +33,7 @@
         <tr v-bind:class="stripeColor(index)">
           <td>{{sample.long_name}}</td>
           <td>{{sample.hui_abv}}</td>
-          <td class="in-situ-table-cell">{{formatSampleTime(sample.time)}}</td>
+          <td class="in-situ-table-cell">{{formatSampleTime(sample.the_time)}}</td>
           <td class="in-situ-table-cell">{{formatSample("temperature", sample.temperature)}}</td>
           <td class="in-situ-table-cell">{{formatSample("salinity", sample.salinity)}}</td>
           <td class="in-situ-table-cell">{{formatSample("dissolved_oxygen", sample.dissolved_oxygen)}}</td>

@@ -151,4 +151,11 @@ Also recreated the last webexport and it was a match.
 
 3564884383 399345 sample-report.2018-08-19_11-39-14.pre-date-time-conv.txt
 3564884383 399345 sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
-~
+
+8/20/2018
+Changed from column "time" to "the_time". cksum changed due to columns being wider, but no diffs
+ran web export and no diffs.
+
+sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
+sample-report.2018-08-20_13-55-02.change-time-to-the-time.txt
+
