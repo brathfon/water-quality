@@ -42,9 +42,9 @@ SELECT
   first_sample_day
 FROM lab_sessions_overview;
 
-DROP PROCEDURE IF EXISTS samples_for_session;
+DROP PROCEDURE IF EXISTS get_samples_for_session;
 
-CREATE PROCEDURE samples_for_session(IN curr_lab_id INT,IN curr_session_number INT)
+CREATE PROCEDURE get_samples_for_session(IN curr_lab_id INT,IN curr_session_number INT)
 select
   sam.sample_id,
   sam.site_id,
@@ -221,3 +221,34 @@ BEGIN
 END//
 
 delimiter ;
+
+
+DROP PROCEDURE IF EXISTS update_sample;
+
+CREATE PROCEDURE update_sample(
+    IN in_sample_id INT,
+    IN in_the_date DATE, 
+    IN in_the_time TIME, 
+    IN in_temperature DOUBLE, 
+    IN in_salinity DOUBLE, 
+    IN in_dissolved_oxygen DOUBLE, 
+    IN in_dissolved_oxygen_pct DOUBLE, 
+    IN in_ph DOUBLE, 
+    IN in_turbidity_1 DOUBLE,
+    IN in_turbidity_2 DOUBLE,
+    IN in_turbidity_3 DOUBLE,
+    IN in_comments VARCHAR(1024))
+
+    UPDATE samples SET 
+      the_date = in_the_date, 
+      the_time = in_the_time, 
+      temperature = in_temperature, 
+      salinity = in_salinity, 
+      dissolved_oxygen = in_dissolved_oxygen, 
+      dissolved_oxygen_pct = in_dissolved_oxygen_pct, 
+      ph = in_ph, 
+      turbidity_1 = in_turbidity_1,
+      turbidity_2 = in_turbidity_2,
+      turbidity_3 = in_turbidity_3,
+      comments = in_comments
+    WHERE sample_id = in_sample_id;
