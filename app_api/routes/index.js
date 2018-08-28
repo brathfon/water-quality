@@ -7,6 +7,8 @@ var auth = jwt({
 });
 
 var ctrlWQ = require('../controllers/waterQuality');
+var ctrlSites = require('../controllers/siteManagement');
+
 var ctrlAuth = require('../controllers/authentication');
 var logging = require('../controllers/logging');
 var lookup = require('../controllers/lookupInformation');
@@ -23,6 +25,11 @@ router.get('/getMaxSessionNumbersForLabs',                                      
 router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                   ctrlWQ.isSessionNumberInUseForLab);
 router.get('/isFirstSampleDayInUseForLab/:lab_id/:first_sample_day',                ctrlWQ.isFirstSampleDayInUseForLab);
 router.put('/updateOneSample',                                                      ctrlWQ.updateOneSample);
+
+
+/* site management */
+router.get('/getSitesOverview', ctrlSites.getSitesOverview);
+router.get('/getSiteDetails/:site_id', ctrlSites.getSiteDetails);
 
 
 /* authentication */

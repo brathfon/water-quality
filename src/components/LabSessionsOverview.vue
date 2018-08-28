@@ -79,7 +79,7 @@ export default {
 
     getLabSessions: function() {
 
-      console.log("LOADING LAB SESSIONS");
+      //console.log("LOADING LAB SESSIONS");
       var msg = {
         method: 'get',
         url: '/api/getLabSessionsOverview',

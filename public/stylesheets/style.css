@@ -12,7 +12,7 @@
 .in-situ-location-table {
   margin: auto;
   text-align:left;
-  margin-left:5px
+  margin-left:5px;
 }
 
 .user-notes-section {
@@ -23,13 +23,90 @@
   width: 12%;
 }
 
+.site-overview-row {
+  border-top-width : 1px;
+  border-top-style: solid;
+  border-top-color: #d9d9d9;
+}
+
+.site-overview-text {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.site-overview-header {
+  padding-bottom: 6px;
+  font-weight: 700;
+}
+
+.site-details {
+  font-size: 16px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.site-details-label {
+  font-weight: 700;
+}
+
 .date-input {
   width: 10%;
 }
 
 .even-table-row {
     background-color: #F9F9F9;
-  }
+}
+
+.odd-table-row {
+    background-color: #FFFFFF;
+}
+
+.even-table-row-yellow {
+  background-color: #ffffcc;
+}
+.odd-table-row-yellow {
+  background-color: #ffffe6;
+}
+
+.even-table-row-violet {
+  background-color: #f9d2f9;
+}
+
+.odd-table-row-violet {
+  background-color: #fce9fc;
+}
+
+.even-table-row-green {
+  background-color: #ccffcc;
+}
+
+.odd-table-row-green {
+  background-color: #e6ffe6;
+}
+
+.even-table-row-red {
+  background-color: #ffcccc;
+}
+
+.odd-table-row-red {
+  background-color: #ffe6e6;
+}
+
+.even-table-row-blue {
+  background-color: #cceeff;
+}
+
+.odd-table-row-blue {
+  background-color: #e6f7ff;
+}
+
+.even-table-row-orange {
+  background-color: #ffeecc;
+}
+
+.odd-table-row-orange {
+  background-color: #fff7e6;
+}
 
 .wq-container {
   padding-top: 15px;

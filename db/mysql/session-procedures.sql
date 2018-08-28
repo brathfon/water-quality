@@ -116,7 +116,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_session_order; -- ignore time, just order by the usual order of collection
+order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
 
 
 DROP PROCEDURE IF EXISTS get_in_situ_samples_for_session_on_date;
@@ -148,7 +148,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_session_order; -- ignore time, just order by the usual order of collection
+order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
 
 
 DROP PROCEDURE IF EXISTS get_nutrient_samples_for_session_on_date;
@@ -179,7 +179,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_session_order; -- ignore time, just order by the usual order of collection
+order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
 
 
 

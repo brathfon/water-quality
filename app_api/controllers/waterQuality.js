@@ -231,7 +231,7 @@ var checkReqBody = function (req, res, attr) {
 
 module.exports.updateOneSample = function (req, res) {
 
-  console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
+  //console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
   if (! checkReqBody(req, res, 'sample_id')) { return; };
   if (! checkReqBody(req, res, 'the_date')) { return; };
   if (! checkReqBody(req, res, 'the_time')) { return; };
@@ -259,14 +259,14 @@ module.exports.updateOneSample = function (req, res) {
                    checkForNull(req.body.comments)];
 
     const query = "call update_sample(?,?,?,?,?,?,?,?,?,?,?,?)";
-    console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
-    console.log(chalk.blue("query : " + util.inspect(query, false, null)));
+    //console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
+    //console.log(chalk.blue("query : " + util.inspect(query, false, null)));
 
     db.pool.query(query, inputData, function(err, rows, fields) {
 
-    console.log(chalk.blue("err : " + util.inspect(err, false, null)));
-    console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
-    console.log(chalk.blue("fields : " + util.inspect(fields, false, null)));
+    //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
+    //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
+    //console.log(chalk.blue("fields : " + util.inspect(fields, false, null)));
 
     //console.log(chalk.blue("rows affected : " + util.inspect(rows.affectedRows, false, null)));
 

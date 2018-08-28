@@ -7,7 +7,12 @@
      <div id="navbar-main" class="navbar-collapse collapse">
        <ul class="nav navbar-nav">
          <li v-if="showSessions">
-           <a href="/#/labSessionsOverview/">Sessions</a>
+           <router-link :to="{ name: 'labSessionsOverview'}">Sessions</router-link>
+         </li>
+       </ul>
+       <ul class="nav navbar-nav">
+         <li v-if="showSites">
+           <router-link :to="{ name: 'sitesOverview'}">Sites</router-link>
          </li>
        </ul>
        <ul class="nav navbar-nav navbar-right">
@@ -15,7 +20,7 @@
            <a href="/#" v-on:click="logout"">Logout {{userFullName}}</a>
          </li>
          <li v-if="!showLogout"">
-           <a href="/#/login">Login</a>
+           <router-link :to="{ name: 'login'}">Login</router-link>
          </li>
        </ul>
      </div>
@@ -27,6 +32,7 @@
   export default {
     computed: {
       showSessions() { return this.$store.state.auth.isLoggedIn; },
+      showSites() { return this.$store.state.auth.isLoggedIn; },
       showLogout() { return this.$store.state.auth.isLoggedIn; },
       userFullName() {
         return this.$store.state.auth.firstName + " " + this.$store.state.auth.lastName;
@@ -39,6 +45,7 @@
         this.$http.defaults.headers.common['Authorization'] = '';
         this.$router.push('/#');  // redirect to the landing page
       }
+
     }
   }
 </script>
