@@ -1,4 +1,4 @@
-var errorMsgs = require('./errorMessages');
+//var errorMsgs = require('./errorMessages');
 
 var getLabObj = function(lab_id) {
   var returnValue = null;
@@ -6,7 +6,7 @@ var getLabObj = function(lab_id) {
   //console.log(`matches length: ${matches.length}`);
   if (matches.length !== 1) {
     let msg = `Did not find single matching lab for lab_id ${lab_id}`;
-    errorMsgs.displayAndLogSimpleErrorMessage.call(this, msg, "danger");
+    console.error(msg);
   }
   else {
     returnValue = matches[0];

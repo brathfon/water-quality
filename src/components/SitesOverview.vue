@@ -18,26 +18,26 @@
     <div class="col-lg-1">Sampling</div>
   </div>
   <div class="row">
-    <div class="col-lg-1 site-overview-header">Site Abv</div>
-    <div class="col-lg-3 site-overview-header">Site Long Name</div>
-    <div class="col-lg-3 site-overview-header">Lab Name</div>
-    <div class="col-lg-1 site-overview-header">Day</div>
-    <div class="col-lg-1 site-overview-header">Order</div>
-    <div class="col-lg-1 site-overview-header">Active</div>
-    <div class="col-lg-1 site-overview-header">Details</div>
-    <div class="col-lg-1 site-overview-header">Edit</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Site Abv</div>
+    <div class="col-lg-3 col-md-3 col-sm-2 site-overview-header">Site Long Name</div>
+    <div class="col-lg-3 col-md-3 col-sm-2 site-overview-header">Lab Name</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Day</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Order</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Active</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Details</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-header">Edit</div>
   </div>
   <div v-for="(site, index) in filteredSites" class="row site-overview-row" v-bind:class="siteClass(index, site.default_sample_day)">
-    <div class="col-lg-1 site-overview-text">{{site.hui_abv}}</div>
-    <div class="col-lg-3 site-overview-text">{{site.long_name}}</div>
-    <div class="col-lg-3 site-overview-text">{{labLongName(site.lab_id)}}</div>
-    <div class="col-lg-1 site-overview-text">{{site.default_sample_day}}</div>
-    <div class="col-lg-1 site-overview-text">{{site.default_sampling_order}}</div>
-    <div class="col-lg-1 site-overview-text">{{activeString(site.active)}}</div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-text">{{site.hui_abv}}</div>
+    <div class="col-lg-3 col-md-3 col-sm-2 site-overview-text">{{site.long_name}}</div>
+    <div class="col-lg-3 col-md-3 col-sm-2 site-overview-text">{{labLongName(site.lab_id)}}</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-text">{{site.default_sample_day}}</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-text">{{site.default_sampling_order}}</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 site-overview-text">{{activeString(site.active)}}</div>
+    <div class="col-lg-1 col-md-1 col-sm-1">
       <a v-on:click="goToDetails(site.site_id)" class="btn btn-link">Details</a>
     </div>
-    <div class="col-lg-1">
+    <div class="col-lg-1 col-md-1 col-sm-1">
       <a v-on:click="goToEdit(site.site_id)" class="btn btn-link">Edit</a>
     </div>
 
