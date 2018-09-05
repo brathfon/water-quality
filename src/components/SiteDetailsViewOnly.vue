@@ -7,88 +7,156 @@
     </div>
   </div>
 
-  <div class="row">
+  <div v-if="dataLoaded" class="row">
 
     <!-- Details side of the page -->
     <div class="col-lg-6">
 
       <!-- Site Abbreviation row -->
       <div class="row">
-        <div class="col-lg-4 site-details site-details-label">
+        <div class="col-xs-4 site-details site-details-label">
           Site Abbreviation
         </div>
-        <div class="col-lg-4 site-details">
+        <div class="col-xs-8 site-details">
           {{abbreviation()}}
         </div>
       </div>
 
       <!-- Site Long Name row -->
       <div class="row">
-        <div class="col-lg-4 site-details site-details-label">
+        <div class="col-xs-4 site-details site-details-label">
           Site Long Name
         </div>
-        <div class="col-lg-6 site-details">
+        <div class="col-xs-8 site-details">
           {{longName()}}
         </div>
       </div>
 
+      <!-- Default sample day -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Lab
+        </div>
+        <div class="col-xs-8 site-details">
+          {{lab()}}
+        </div>
+      </div>
+
+      <!-- Default sample day -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Default Sample Day
+        </div>
+        <div class="col-xs-8 site-details">
+          {{defaultSampleDay()}}
+        </div>
+      </div>
+
+      <!-- is site active or inactivde -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Active
+        </div>
+        <div class="col-xs-8 site-details">
+          {{active()}}
+        </div>
+      </div>
+
+      <!-- latitude -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Latitude
+        </div>
+        <div class="col-xs-8 site-details">
+          {{lat()}}
+        </div>
+      </div>
+
+      <!-- longitude -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Longitude
+        </div>
+        <div class="col-xs-8 site-details">
+          {{lon()}}
+        </div>
+      </div>
+
+      <!-- description -->
+      <div class="row">
+        <div class="col-xs-4 site-details site-details-label">
+          Description
+        </div>
+        <div class="col-xs-8 site-details">
+          {{description()}}
+        </div>
+      </div>
+
+
     </div>
 
     <!-- This will be the google map -->
-    <div class="col-lg-6">
+    <div class="col-sm-6">
       <h3>Google Map</h3>
     </div>
 
+  </div>
+  <div v-else>
+    loading data.....
   </div>
 
 </div>
 </template>
 
 <script>
-//var labHelper = require('../util/labInfoHelper');
+var labHelper = require('../util/labInfoHelper');
 
 export default {
   data() {
     return {
       site_id: null, // if creating, this will be null.
-      mode: "view", // modes are "createNew", "view", and "edit"
-      site: {}
+      site: {},
+      dataLoaded: false  // getting the data for the site
     }
   },
   components: {},
   computed: {},
   methods: {
 
-    editOrViewMode : function() {
-      return ((this.mode === "edit") || (this.mode === "view"));
-    },
-
     abbreviation: function () {
-      return this.editOrViewMode() ? this.site.hui_abv :  "3 letters";
+      return this.site.hui_abv;
     },
 
     longName: function () {
-      return this.editOrViewMode() ? this.site.long_name :  "Use DOH name if possible";
+      return this.site.long_name;
+    },
+
+    lab: function () {
+      return labHelper.getLabLongName.call(this, this.site.lab_id);
+
+    },
+
+    defaultSampleDay: function () {
+      return this.site.default_sample_day;
+    },
+
+    active: function () { return this.site.active ? 'Yes' : 'No';},
+
+    lat: function () {
+      return this.site.lat;
+    },
+
+    lon: function () {
+      return this.site.lon;
+    },
+
+    description: function() {
+      return this.site.description;
     },
 
     headerString: function() {
 
-      var hdrStr = "default";
-
-      switch (this.mode) {
-        case 'edit':
-          hdrStr = `Editing site with site_id = ${this.site_id}`;
-          break;
-        case "view":
-          hdrStr = `Viewing details for site with site_id = ${this.site_id}`;
-          break;
-        case "createNew":
-          hdrStr = `Creating a new site`;
-          break;
-        default:
-          hdrStr = `ERROR: unknown mode`;
-      }
-      return hdrStr;
+      return `Details for site ${this.site.hui_abv} (${this.site.long_name})`;
     },
 
     getSiteDetails: function() {
@@ -103,6 +171,7 @@ export default {
         .then((response) => {
           if (response.data.siteDetails) {
             this.site = response.data.siteDetails[0];
+            this.dataLoaded = true;
           }
         })
         .catch((error) => {
@@ -112,10 +181,7 @@ export default {
   },
   created() {
     this.site_id = this.$route.params.site_id;
-    this.mode = this.$route.params.mode;
-    if (this.editOrViewMode()) {
-      this.getSiteDetails();
-    }
+    this.getSiteDetails();
   }
 }
 </script>

@@ -30,6 +30,10 @@ router.put('/updateOneSample',                                                  
 /* site management */
 router.get('/getSitesOverview', ctrlSites.getSitesOverview);
 router.get('/getSiteDetails/:site_id', ctrlSites.getSiteDetails);
+router.post('/updateOrInsertSite', ctrlSites.updateOrInsertSite);
+router.delete('/deleteSite', ctrlSites.deleteSite);
+
+
 
 
 /* authentication */

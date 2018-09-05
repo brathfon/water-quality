@@ -222,7 +222,7 @@ var checkReqBody = function (req, res, attr) {
 
   var returnValue = true;
   if (req.body[attr] === undefined) {
-    helpers.sendJsonResponse(res, 400, {"message": "updatePuzzlePiece(): " + attr + " param not passed"});
+    helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): " + attr + " param not passed"});
     returnValue = false;
   }
   return returnValue;

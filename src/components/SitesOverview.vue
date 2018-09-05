@@ -6,10 +6,10 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-xs-6">
       <button v-on:click="goToCreateSite()" class="btn btn-sm btn-info">Add Site</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-xs-6">
       <lab-filter></lab-filter>
     </div>
   </div>
@@ -89,10 +89,9 @@ export default {
     goToDetails: function(site_id) {
 
       const params = {
-        'site_id': site_id,
-        'mode': 'view'
+        'site_id': site_id
       };
-      this.$router.push({name: 'siteDetails', params: params});
+      this.$router.push({name: 'siteDetailsViewOnly', params: params});
     },
 
     goToEdit: function(site_id) {

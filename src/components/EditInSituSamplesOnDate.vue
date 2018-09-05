@@ -81,21 +81,21 @@
                     </tr>
                   </table>
                 </td>
-                <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input" ></td>
-                <td><input v-bind:class="alertLevel(index, 'the_time')" type="text" autocomplete="off" v-model="samples[index].the_time" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
+                <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="insitu-input" ></td>
+                <td><input v-bind:class="alertLevel(index, 'the_time')" type="text" autocomplete="off" v-model="samples[index].the_time" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="insitu-input"></td>
                 <td class="in-situ-table-cell">{{commentsSubStr(samples[index].comments)}}</td>
               </tr>
               <tr v-if="doEditComments()" v-bind:class="stripeColor(index)">
                 <td><b>{{sample.hui_abv}} comments:</b></td>
-                <td colspan="12"><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].comments" class="wq-input"></td>
+                <td colspan="12"><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].comments" class="insitu-input"></td>
               </tr>
 
           </template>
