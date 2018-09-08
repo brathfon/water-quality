@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-xs-6">
-      <button v-on:click="goToCreateSite()" class="btn btn-sm btn-info">Add Site</button>
+      <button v-on:click="goToCreateSite()" class="btn btn-sm btn-info">Add A New Site</button>
     </div>
     <div class="col-xs-6">
       <lab-filter></lab-filter>
@@ -40,7 +40,14 @@
     <div class="col-lg-1 col-md-1 col-sm-1">
       <a v-on:click="goToEdit(site.site_id)" class="btn btn-link">Edit</a>
     </div>
-
+    <div v-if="site.lastThisDay === true" class="row">
+      <div class="col-xs-2 col-xs-offset-5" id="edit-sampling-order-button">
+        <button v-on:click="goToChangeSamplingOrder(site.lab_id, site.default_sample_day)"
+                class="btn btn-sm btn-default">
+                Edit Sampling Order for Day {{site.default_sample_day}}
+        </button>
+      </div>
+    </div>
   </div>
   <div class="row">
 
@@ -58,7 +65,8 @@ var labHelper = require('../util/labInfoHelper');
 export default {
   data() {
     return {
-      sites: []
+      sites: [],
+      lastSiteIndexInSampleDay : {} // will be used to put in a button to edit the site sample order for a day
     }
   },
   components: {
@@ -103,6 +111,10 @@ export default {
       this.$router.push({name: 'siteDetails', params: params});
     },
 
+    goToChangeSamplingOrder: function(lab_id, default_sample_day) {
+      console.log(`goToChangeSamplingOrder called for lab ${lab_id}, day ${default_sample_day}`);
+    },
+
     goToCreateSite: function() {
       const params = {
         'site_id': 0,   // no site ID since it is a new one
@@ -137,6 +149,31 @@ export default {
       return  (index % 2) === 0  ? `even-table-row${color}` : `odd-table-row${color}`;
     },
 
+    populateLastSiteIndex: function() {
+
+      let lastIndex = -1;
+      let lastSampleDay = this.sites[0].default_sample_day;
+      let lastLabId = -1;
+      for (let i = 0; i < this.sites.length; ++i) {
+        // first mark and visited sites as not the last sample day
+        this.sites[i]['lastThisDay'] = false;
+        // now check to see if the last one done was the last for that day and mark it so, if true
+        if (this.sites[i].default_sample_day !== lastSampleDay ) {
+          this.lastSiteIndexInSampleDay[lastIndex] = {lastLabId, lastSampleDay};
+          this.sites[i - 1]['lastThisDay'] = true;
+        }
+        lastIndex = i;
+        lastSampleDay = this.sites[i].default_sample_day;
+        lastLabId = this.sites[i].lab_id;
+      }
+      // the last site is always the last for a day, so must be added
+      this.sites[this.sites.length - 1]['lastThisDay'] = true;
+    },
+
+    isLastDayForSampleDay: function(index) {
+      return (lastSiteIndexInSampleDay[index] !== undefined);
+    },
+
     getSiteOverview: function() {
 
       console.log("LOADING SITES");
@@ -150,6 +187,7 @@ export default {
         .then((response) => {
           if (response.data.sites) {
             this.sites = response.data.sites;
+            this.populateLastSiteIndex();
           }
         })
         .catch((error) => {

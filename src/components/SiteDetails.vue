@@ -227,6 +227,7 @@ export default {
     },
 
     inCreateNewMode: function() {
+      console.log(`IN CREATENEW_MODE ${this.mode === "createNew"}`)
       return (this.mode === "createNew");
     },
 

@@ -39,6 +39,10 @@
   font-weight: 700;
 }
 
+#edit-sampling-order-button {
+  padding-bottom: 8px;
+}
+
 .site-details {
   padding-bottom: 8px;
   padding-top: 8px;
