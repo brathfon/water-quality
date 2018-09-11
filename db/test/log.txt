@@ -142,3 +142,15 @@ Went back a little further and diffed before these attempted inserts:
 compared *post-addition-of-36w-11s-nutrient-data.txt .*post-add-28-43-1-18-nutr-fix-15w.txt
 Should only see new data for 40-43 sessions on west for insitu, 16-18 on south, which I did
 Should only see new nutrient data for 37 through 39 west and 12 through 15 south, which I did.
+
+9/9/18
+getting ready to add in w44 and s19
+pre check , no diffs
+3240295233 273735 insitu-report.2018-08-16_15-10-51.post-add-28-43-1-18-nutr-fix-15w.txt
+3240295233 273735 insitu-report.2018-09-09_20-35-16.pre-add-w44-s19.txt
+
+after loading in w44 and s19, got expected diffs.  All diffs due to sessions w44 and s19
+Note: s19 is short on data.  Not all collects were made due to hurricane Lane.
+3240295233 273735 insitu-report.2018-09-09_20-35-16.pre-add-w44-s19.txt
+2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
+
