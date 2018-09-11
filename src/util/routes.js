@@ -7,6 +7,7 @@ import CreateNewSession from '../components/CreateNewSession.vue';
 import SiteOverview from '../components/SitesOverview.vue';
 import SiteDetails from '../components/SiteDetails.vue';
 import SiteDetailsViewOnly from '../components/SiteDetailsViewOnly.vue';
+import EditSamplingOrder from '../components/EditSamplingOrder.vue';
 
 
 
@@ -22,7 +23,9 @@ export default [
   {path: '/createNewSession', component: CreateNewSession, name: 'createNewSession'},
   {path: '/sitesOverview', component: SiteOverview, name: 'sitesOverview'},
   {path: '/siteDetailsViewOnly/:site_id', component: SiteDetailsViewOnly, name: 'siteDetailsViewOnly'},
-  {path: '/siteDetails/:site_id/:mode', component: SiteDetails, name: 'siteDetails'}
+  {path: '/siteDetails/:site_id/:mode', component: SiteDetails, name: 'siteDetails'},
+  {path: '/editSamplingOrder/:lab_id/:default_sample_day', component: EditSamplingOrder, name: 'editSamplingOrder'},
+
 
 
 

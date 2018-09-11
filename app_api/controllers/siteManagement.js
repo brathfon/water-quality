@@ -60,7 +60,7 @@ module.exports.getSiteDetails = function (req, res) {
 
 
 var checkForNull = function (value){
-  return (value === '' ? null : value);
+  return (value === '' || value === 'null' ? null : value);
 };
 
 var checkReqBody = function (req, res, caller, attr) {
@@ -91,7 +91,7 @@ module.exports.updateOrInsertSite = function (req, res) {
 
   if (req.body.mode === "update") {
     inputData.push(req.body.site_id);
-    query = `call update_site(?,?,?,?,?,?,?,?,?,?)`;
+    query = `call update_site(?,?,?,?,?,?,?,?,?,?,?)`;
   }
   else if (req.body.mode === "insert") {
     query = `call insert_site(?,?,?,?,?,?,?,?,?)`;
@@ -107,7 +107,11 @@ module.exports.updateOrInsertSite = function (req, res) {
   if (! checkReqBody(req, res, caller, 'long_name')) { return; };
   if (! checkReqBody(req, res, caller, 'lab_id')) { return; };
   if (! checkReqBody(req, res, caller, 'default_sample_day')) { return; };
-  if (! checkReqBody(req, res, caller, 'lat')) { return; };
+  // the default sampling order is usually set via a difference API call
+  // and not required when creating a new site.
+  if (req.body.mode === "update") {
+    if (! checkReqBody(req, res, caller, 'default_sampling_order')) { return; };
+  }
   if (! checkReqBody(req, res, caller, 'lon')) { return; };
   if (! checkReqBody(req, res, caller, 'active')) { return; };
   if (! checkReqBody(req, res, caller, 'description')) { return; };
@@ -118,6 +122,12 @@ module.exports.updateOrInsertSite = function (req, res) {
   inputData.push(req.body.long_name);
   inputData.push(req.body.lab_id);
   inputData.push(req.body.default_sample_day);
+  // the default sampling order is usually set via a difference API call,
+  // but if a site is set to inactive, the sampling order is meaningless
+  // and should be set to null
+  if (req.body.mode === "update") {
+    inputData.push(checkForNull(req.body.default_sampling_order));
+  }
   inputData.push(req.body.lat);
   inputData.push(req.body.lon);
   inputData.push(req.body.active);
@@ -174,7 +184,7 @@ module.exports.deleteSite = function (req, res) {
   //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
 
     var data = {};
-    data['deleteSiteResults'] = [];
+    data['siteDeleted'] = false;
     data['errors'] = [];
 
     if (err) {
@@ -193,7 +203,77 @@ module.exports.deleteSite = function (req, res) {
                             res);
     }
     else {
-      data['deleteSitesResults'] =  rows[0];
+      data['siteDeleted'] =  true;
+      helpers.sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+module.exports.getDefaultSamplingOrder = function (req, res) {
+
+  const default_sample_day = req.params.default_sample_day;
+  const lab_id  = req.params.lab_id;
+
+  const args = [lab_id, default_sample_day];
+
+  db.pool.query("call get_default_sampling_order(?, ?)", args, function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['defaultSamplingOrder'] = [];
+    data['errors'] = [];
+
+    if (err) {
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for get_default_sampling_order()",
+                            "danger",
+                            err,
+                            data,
+                            res);
+    } else {
+      data['defaultSamplingOrder'] =  rows[0];
+      helpers.sendJsonResponse(res, 201, data);
+    }
+  });
+};
+
+module.exports.updateDefaultSamplingOrder = function (req, res) {
+  let caller = "updateDefaultSamplingOrder";
+
+  if (! checkReqBody(req, res, caller, 'site_id')) { return; };
+  if (! checkReqBody(req, res, caller, 'default_sampling_order')) { return; };
+
+  let args = [req.body.site_id, req.body.default_sampling_order];
+
+  db.pool.query("call update_default_sampling_order(?, ?)", args, function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['defaultSamplingOrderUpdated'] = false;
+    data['errors'] = [];
+
+    if (err) {
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for lab sessions overview",
+                            "danger",
+                            err,
+                            data,
+                            res);
+
+    }
+    else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
+      helpers.sendJsonSQLErrorResponse(`${caller}(): Expecting 1 row affected in database. ${rows.affectedRows} reported`,
+                            "danger",
+                            err,
+                            data,
+                            res);
+    }
+    else {
+      data['defaultSamplingOrderUpdated'] = true;
       helpers.sendJsonResponse(res, 201, data);
     }
   });

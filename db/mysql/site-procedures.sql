@@ -48,6 +48,7 @@ CREATE PROCEDURE update_site(
   in in_long_name VARCHAR(32),
   in in_lab_id INT,
   in in_default_sample_day INT,
+  in in_default_sampling_order INT,
   in in_lat DOUBLE,
   in in_lon DOUBLE,
   in in_active TINYINT(1),
@@ -58,6 +59,7 @@ UPDATE sites SET
     long_name = in_long_name,
     lab_id = in_lab_id,
     default_sample_day = in_default_sample_day,
+    default_sampling_order = in_default_sampling_order,
     lat = in_lat,
     lon = in_lon,
     active = in_active,
@@ -103,3 +105,26 @@ DROP PROCEDURE IF EXISTS delete_site;
 
 CREATE PROCEDURE delete_site( in in_site_id INT)
 DELETE FROM sites WHERE site_id = in_site_id;
+
+
+DROP PROCEDURE IF EXISTS get_default_sampling_order;
+
+CREATE PROCEDURE get_default_sampling_order(in in_lab_id INT, in in_default_sample_day INT)
+SELECT 
+  site_id,
+  hui_abv,
+  long_name,
+  default_sampling_order
+FROM sites
+WHERE lab_id = in_lab_id
+AND default_sample_day = in_default_sample_day 
+AND active = 1;   -- only get active sites
+
+
+DROP PROCEDURE IF EXISTS update_sampling_order;
+DROP PROCEDURE IF EXISTS update_default_sampling_order;
+
+CREATE PROCEDURE update_default_sampling_order(in in_site_id INT, in in_default_sampling_order INT)
+UPDATE sites
+SET default_sampling_order = in_default_sampling_order
+WHERE site_id = in_site_id;

@@ -30,8 +30,10 @@ router.put('/updateOneSample',                                                  
 /* site management */
 router.get('/getSitesOverview', ctrlSites.getSitesOverview);
 router.get('/getSiteDetails/:site_id', ctrlSites.getSiteDetails);
+router.get('/getDefaultSamplingOrder/:lab_id/:default_sample_day', ctrlSites.getDefaultSamplingOrder);
 router.post('/updateOrInsertSite', ctrlSites.updateOrInsertSite);
 router.delete('/deleteSite', ctrlSites.deleteSite);
+router.put('/updateDefaultSamplingOrder', ctrlSites.updateDefaultSamplingOrder);
 
 
 

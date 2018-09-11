@@ -202,6 +202,12 @@ export default {
 
     doSave: function() {
       console.log("DOING DO-SAVE");
+      // if a site is inactive, the sampling order loses meaning,
+      // so set it to null.
+      if (Number(this.site.active) === 0) {
+        console.log("active O, setting sampling order to null");
+        this.site.default_sampling_order = null;
+      }
       this.saveSite();
       this.isSaving = true;
     },
@@ -266,7 +272,7 @@ export default {
 
       this.$http(msg)
         .then((response) => {
-          if (response.data.deleteSiteResults) {
+          if (response.data.siteDeleted === true) {
             this.showDeleteModal = false;  // let the modal know it can go away
             // go back to overview page
             this.$router.push('/sitesOverview');
@@ -342,6 +348,9 @@ export default {
       this.site['mode'] = "insert";
       this.site['active'] = 1;
       this.site['default_sample_day'] = "Day sampled in session";
+      // sampling order will not be displayed, but will be initially null
+      // and set to null if a site is changed to inactive.
+      this.site['default_sampling_order'] = null;
       this.site['description'] = "512 characters max";
       this.site['hui_abv'] = "3 characters";
       this.site['lab_id'] = "";
