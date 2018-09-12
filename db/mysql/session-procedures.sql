@@ -77,7 +77,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-order by sam.the_date, sam.the_time; -- this is not perfect.  Will eventually need to use added default_sample_order
+order by sam.sampling_order, sam.the_date, sam.the_time; -- use sampling_order first, then date and time if sampling order is null
 
 
 DROP PROCEDURE IF EXISTS get_samples_for_session_on_date;
@@ -89,7 +89,7 @@ select
   site.long_name,
   site.hui_abv,
   sam.the_date,
-  the_time,
+  sam.the_time,
   sess.lab_id,
   sess.session_number,
   sam.temperature,
@@ -108,15 +108,15 @@ select
   sam.ammonia,
   sam.nitrate_last_run_date,
   sam.comments
-from samples AS sam,
+FROM samples AS sam,
      sites AS site,
      sessions AS sess
-where sess.lab_id = curr_lab_id and
+WHERE sess.lab_id = curr_lab_id and
       sess.session_number = curr_session_number and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
+ORDER BY sam.sampling_order, sam.the_date, sam.the_time; -- use sampling order first, then date and time if sampling order null
 
 
 DROP PROCEDURE IF EXISTS get_in_situ_samples_for_session_on_date;
@@ -148,7 +148,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
+ORDER BY sam.sampling_order, sam.the_date, sam.the_time; -- use sampling order first, then date and time if sampling order null
 
 
 DROP PROCEDURE IF EXISTS get_nutrient_samples_for_session_on_date;
@@ -179,7 +179,7 @@ where sess.lab_id = curr_lab_id and
       sess.session_id = sam.session_id and
       sam.the_date = curr_date and
       sam.site_id = site.site_id
-order by site.default_sampling_order; -- ignore time, just order by the usual order of collection
+ORDER BY sam.sampling_order, sam.the_date, sam.the_time; -- use sampling order first, then date and time if sampling order null
 
 
 
@@ -206,10 +206,12 @@ BEGIN
   INSERT INTO samples (
     site_id,
     the_date,
+    sampling_order,
     session_id)
       SELECT
         si.site_id,
         DATE_ADD(curr_session_date, INTERVAL (si.default_sample_day - 1 ) DAY),
+        si.default_sampling_order,
         se.session_id
       FROM sites AS si,
            sessions AS se
