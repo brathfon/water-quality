@@ -154,3 +154,8 @@ Note: s19 is short on data.  Not all collects were made due to hurricane Lane.
 3240295233 273735 insitu-report.2018-09-09_20-35-16.pre-add-w44-s19.txt
 2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
 
+Found a problem with the data when reviewing it: SampleID date was correct, date in the "Date" column was a cut and paste from the session before
+Corrected and see these diffs only.
+2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
+913805778 280434 insitu-report.2018-09-10_15-39-31.fix-bad-dates-s19-makena.txt
+
