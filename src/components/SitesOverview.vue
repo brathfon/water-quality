@@ -22,8 +22,8 @@
                   class="form-check-input"
                   name="showSamplingOrderButton">
           Edit Sampling Order
-      </label>
-    </div>
+        </label>
+      </div>
     </div>
   </div>
   <div class="row">

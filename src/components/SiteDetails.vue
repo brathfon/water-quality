@@ -12,7 +12,7 @@
   <div v-if="showDeleteModal" class="row">
     <div class="col-lg-12">
       <transition name="modal">
-        <div class="modal" style="display: block">
+        <div class="modal modal-mask" style="display: block">
                 <div class="modal-dialog" >
                   <div class="modal-content">
                     <div class="modal-header">

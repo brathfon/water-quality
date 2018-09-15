@@ -4,6 +4,7 @@ SELECT l.lab_id,
        l.lab_code,
        l.short_name,
        l.long_name,
+       s.session_id,
        s.session_number,
        s.first_sample_day
   FROM labs AS l, sessions AS s

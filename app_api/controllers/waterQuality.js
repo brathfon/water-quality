@@ -218,11 +218,12 @@ var checkForNull = function (value){
   return (value === '' ? null : value);
 };
 
-var checkReqBody = function (req, res, attr) {
+
+var checkReqBody = function (req, res, caller, attr) {
 
   var returnValue = true;
   if (req.body[attr] === undefined) {
-    helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): " + attr + " param not passed"});
+    helpers.sendJsonResponse(res, 400, {"message": `${caller}(): ${attr} param not passed`});
     returnValue = false;
   }
   return returnValue;
@@ -231,19 +232,21 @@ var checkReqBody = function (req, res, attr) {
 
 module.exports.updateOneSample = function (req, res) {
 
+  let caller = "updateOneSample";
+
   //console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
-  if (! checkReqBody(req, res, 'sample_id')) { return; };
-  if (! checkReqBody(req, res, 'the_date')) { return; };
-  if (! checkReqBody(req, res, 'the_time')) { return; };
-  if (! checkReqBody(req, res, 'temperature')) { return; };
-  if (! checkReqBody(req, res, 'salinity')) { return; };
-  if (! checkReqBody(req, res, 'dissolved_oxygen')) { return; };
-  if (! checkReqBody(req, res, 'dissolved_oxygen_pct')) { return; };
-  if (! checkReqBody(req, res, 'ph')) { return; };
-  if (! checkReqBody(req, res, 'turbidity_1')) { return; };
-  if (! checkReqBody(req, res, 'turbidity_2')) { return; };
-  if (! checkReqBody(req, res, 'turbidity_3')) { return; };
-  if (! checkReqBody(req, res, 'comments')) { return; };
+  if (! checkReqBody(req, res, caller, 'sample_id')) { return; };
+  if (! checkReqBody(req, res, caller, 'the_date')) { return; };
+  if (! checkReqBody(req, res, caller, 'the_time')) { return; };
+  if (! checkReqBody(req, res, caller, 'temperature')) { return; };
+  if (! checkReqBody(req, res, caller, 'salinity')) { return; };
+  if (! checkReqBody(req, res, caller, 'dissolved_oxygen')) { return; };
+  if (! checkReqBody(req, res, caller, 'dissolved_oxygen_pct')) { return; };
+  if (! checkReqBody(req, res, caller, 'ph')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_1')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_2')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_3')) { return; };
+  if (! checkReqBody(req, res, caller, 'comments')) { return; };
 
   var inputData = [req.body.sample_id,
                    req.body.the_date,
@@ -382,6 +385,48 @@ module.exports.isFirstSampleDayInUseForLab = function (req, res) {
                               res);
       }
 
+    }
+  });
+};
+
+
+
+module.exports.deleteSession = function (req, res) {
+
+  let caller = "deleteSession";
+
+  if (! checkReqBody(req, res, caller, 'session_id')) { return; };
+
+  let args = [req.body.session_id];
+
+  db.pool.query("call delete_session(?)", args, function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['sessionDeleted'] = false;
+    data['errors'] = [];
+
+    if (err) {
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for lab sessions overview",
+                            "danger",
+                            err,
+                            data,
+                            res);
+
+    }
+    else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
+      helpers.sendJsonSQLErrorResponse(`${caller}(): Expecting 1 row affected in database. ${rows.affectedRows} reported`,
+                            "danger",
+                            err,
+                            data,
+                            res);
+    }
+    else {
+      data['sessionDeleted'] =  true;
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };

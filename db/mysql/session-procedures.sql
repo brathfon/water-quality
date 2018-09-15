@@ -38,6 +38,7 @@ SELECT
   lab_code,
   short_name,
   long_name,
+  session_id,
   session_number,
   first_sample_day
 FROM lab_sessions_overview;
@@ -223,6 +224,13 @@ BEGIN
 END//
 
 delimiter ;
+
+
+DROP PROCEDURE IF EXISTS delete_session;
+
+CREATE PROCEDURE delete_session(
+    IN in_session_id INT)
+DELETE FROM sessions WHERE session_id = in_session_id;
 
 
 DROP PROCEDURE IF EXISTS update_sample;

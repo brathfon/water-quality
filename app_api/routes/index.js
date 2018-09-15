@@ -15,6 +15,7 @@ var lookup = require('../controllers/lookupInformation');
 
 /* water quality apis */
 router.post('/createNewSession',                                                    ctrlWQ.createNewSession);
+router.delete('/deleteSession',                                                     ctrlWQ.deleteSession);
 router.get('/getLabSessionsOverview', ctrlWQ.getLabSessionsOverview);
 router.get('/getSamplesForSession/:lab_id/:session_number',                         ctrlWQ.getSamplesForSession);
 // gets both inSitu and Nutrient
