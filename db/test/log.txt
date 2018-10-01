@@ -159,3 +159,13 @@ Corrected and see these diffs only.
 2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
 913805778 280434 insitu-report.2018-09-10_15-39-31.fix-bad-dates-s19-makena.txt
 
+9/30/18
+Getting ready to add in session 45 on west side and 20 on south side
+3589493919 409118 sample-report.2018-09-10_15-39-31.fix-bad-dates-s19-makena.txt
+3589493919 409118 sample-report.2018-09-30_21-01-32.pre-add-45w-20s.txt
+
+after the merge, saw expected differences.  All new data for session 45w and 20s, but also added in blank collects for session 19
+team WAilea and team North Keihi due to hurricane Lane
+3589493919 409118 sample-report.2018-09-30_21-01-32.pre-add-45w-20s.txt
+3656137636 425631 sample-report.2018-09-30_21-31-28.post-add-45w-20s.txt
+
