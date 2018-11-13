@@ -169,3 +169,37 @@ team WAilea and team North Keihi due to hurricane Lane
 3589493919 409118 sample-report.2018-09-30_21-01-32.pre-add-45w-20s.txt
 3656137636 425631 sample-report.2018-09-30_21-31-28.post-add-45w-20s.txt
 
+11/11/2018
+getting ready to add in 46 and 47 west, 21 and 22 south.  All reports matched with cksum.  ex:
+3656137636 425631 sample-report.2018-09-30_21-31-28.post-add-45w-20s.txt
+3656137636 425631 sample-report.2018-11-11_12-07-38.pre-add-47w-22s.txt
+
+After the insert of the data, all checked out except seeing some different order of empty collects in south lab in older sessions 19, and 20.
+Not sure what is causing the difference.  Lined them up here to show that they have the same difference.  I suspect that the difference
+is just that they all have starting times of 00:00, which is how they are ordered, so they probably are just being ordered randomly.
+
+11d10
+< |      2 | NKP180823 | Kealia Pond                 | NKP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NKP180823 | Kealia Pond                 | NKP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+13,14c12
+< |      2 | NKC180823 | Kihei Canoe Club            | NKC     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NKC180823 | Kihei Canoe Club            | NKC     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+16,17c14,15
+< |      2 | WKD180824 | Kilohana Dr                 | WKD     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | WKD180824 | Kilohana Dr                 | WKD     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | WKB180824 | Keawekapu Beach             | WKB     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | WKB180824 | Keawekapu Beach             | WKB     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+19d16
+< |      2 | WPL180824 | Palauea                     | WPL     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+20a18,20
+> |      2 | WPL180824 | Palauea                     | WPL     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+25a26,27
+> |      2 | MML180912 | Makena Landing              | MML     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | MML180912 | Makena Landing              | MML     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+29,30d30
