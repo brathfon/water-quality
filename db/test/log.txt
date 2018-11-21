@@ -203,3 +203,37 @@ is just that they all have starting times of 00:00, which is how they are ordere
 > |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
 < |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
 29,30d30
+
+11/17/18  checking new nutrient load
+
+Looks good.  Saw differences between 40-46 west nutrient changing from NULL to values, same for 16-21 south
+Still seeing some diffs in comments and insitu due to random order due to null values for time.
+
+   2852519964 274905 nutrient-report.2018-11-11_12-30-46.post-add-47w-22ws.txt
+   629981 274905 nutrient-report.2018-11-17_07-39-17.post-add-nutrient-46w-21s.txt
+
+example of random diffs:
+
+   ~/Development/water-quality/db/test/reports  -> ./diff-last-two-cksums.sh 
+   diffs for commments-report
+   321d320
+   < |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+   322a322
+   > |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                       
+
+11/20/18
+
+Rerunning new nutrient data for sessions up to 46 west and 21 south.  There was an entry in MNMRC_180626_S.Maui.xls that duplicated site WKB sampleID.
+The normal order of collection is WKD, then WKB.  This was verified with Sofia and the correction made in the data file.
+
+629981 274905 nutrient-report.2018-11-17_07-39-17.post-add-nutrient-46w-21s.txt
+3257024028 274905 nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt
+
+Expected diffs were seen.  Also still seeing diffs due to 0:00 times in some of the uncollected sites.
+
+diffs for nutrient-report
+1216c1216
+< |      2 | WKD180622 | Kilohana Dr                 | WKD     |             16 | 06/22/18 | 07:59 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.702214 | -156.445921 |
+---
+> |      2 | WKD180622 | Kilohana Dr                 | WKD     |             16 | 06/22/18 | 07:59 | 106.42         | 11.21            | 5.66      | 251.98   | 54.11    | 2.17    | 20.702214 | -156.445921 |
+
