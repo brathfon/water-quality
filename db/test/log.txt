@@ -143,6 +143,22 @@ compared *post-addition-of-36w-11s-nutrient-data.txt .*post-add-28-43-1-18-nutr-
 Should only see new data for 40-43 sessions on west for insitu, 16-18 on south, which I did
 Should only see new nutrient data for 37 through 39 west and 12 through 15 south, which I did.
 
+
+8/19/2018
+
+Was converting the database, procedures and views to use a separate date and time instead of a datetime.
+Also recreated the last webexport and it was a match.
+
+3564884383 399345 sample-report.2018-08-19_11-39-14.pre-date-time-conv.txt
+3564884383 399345 sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
+
+8/20/2018
+Changed from column "time" to "the_time". cksum changed due to columns being wider, but no diffs
+ran web export and no diffs.
+
+sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
+sample-report.2018-08-20_13-55-02.change-time-to-the-time.txt
+=======
 9/9/18
 getting ready to add in w44 and s19
 pre check , no diffs
@@ -237,3 +253,45 @@ diffs for nutrient-report
 ---
 > |      2 | WKD180622 | Kilohana Dr                 | WKD     |             16 | 06/22/18 | 07:59 | 106.42         | 11.21            | 5.66      | 251.98   | 54.11    | 2.17    | 20.702214 | -156.445921 |
 
+
+12/25/18
+
+Checking merging of master into vue-conversion (development), where sessions 1-43 and 1-18 are initially being populated with the date_time separated into the_date and the_time.  Next step will be to load sessions 1-47 and 1-22 in with new conversion script that handles the_date and the_time.
+
+cksum *.change-time-to-the-time.txt *.post-merge-master-to-vue-conversion.txt
+61589268 172640 comments-report.2018-08-20_13-55-02.change-time-to-the-time.txt  .....  no diffs for all 
+
+
+12/15/18
+After updating the baseline, reprocessed latest data to bring dev up-to-date.
+Seeing some lines that are reported as diffs, but not seeing anying different, but related to the 00:00 time of uncollected data.
+Only seeing them in insitu and nutrient reports, other show no diffs.
+
+diff -w  insitu-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt insitu-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+
+< |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1289c1288
+< |      2 | MMB180912 | Maluaka Beach               | MMB     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+> |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1290a1290
+> |      2 | MMB180912 | Maluaka Beach               | MMB     |             20 | 09/12/18 | 00:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1341c1341
+
+and
+
+diff -w  nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt nutrient-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+1,3c1,3
+< +--------+-----------+-----------------------------+---------+----------------+----------+-------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+< | lab_id | sampleID  | long_name                   | hui_abv | session_number | day      | time  | total_nitrogen | total_phosphorus | phosphate | silicate | nitrates | ammonia | lat       | lon         |
+< +--------+-----------+-----------------------------+---------+----------------+----------+-------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+---
+> +--------+-----------+-----------------------------+---------+----------------+----------+----------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+> | lab_id | sampleID  | long_name                   | hui_abv | session_number | the_date | the_time | total_nitrogen | total_phosphorus | phosphate | silicate | nitrates | ammonia | lat       | lon         |
+> +--------+-----------+-----------------------------+---------+----------------+----------+----------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+1274d1273
+< |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.796414 | -156.503198 |
+1275a1275
+> |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.796414 | -156.503198 |
+
+Also did the web export process and found no diffs between this data and the last web export, so looking GOOD!

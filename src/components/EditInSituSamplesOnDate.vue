@@ -81,21 +81,21 @@
                     </tr>
                   </table>
                 </td>
-                <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="wq-input" ></td>
-                <td><input v-bind:class="alertLevel(index, 'time')" type="text" autocomplete="off" v-model="samples[index].time" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="wq-input"></td>
-                <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="wq-input"></td>
+                <td v-if="doEditDates()" class="date-input"><input v-bind:class="alertLevel(index, 'the_date')" type="text" autocomplete="off" v-model="samples[index].the_date" class="insitu-input" ></td>
+                <td><input v-bind:class="alertLevel(index, 'the_time')" type="text" autocomplete="off" v-model="samples[index].the_time" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'temperature')" type="text" autocomplete="off" v-model="samples[index].temperature" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'salinity')" type="text" autocomplete="off" v-model="samples[index].salinity" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'dissolved_oxygen_pct')" type="text" autocomplete="off" v-model="samples[index].dissolved_oxygen_pct" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'ph')" type="text" autocomplete="off" v-model="samples[index].ph" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_1')" type="text" autocomplete="off" v-model="samples[index].turbidity_1" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_2')" type="text" autocomplete="off" v-model="samples[index].turbidity_2" class="insitu-input"></td>
+                <td><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].turbidity_3" class="insitu-input"></td>
                 <td class="in-situ-table-cell">{{commentsSubStr(samples[index].comments)}}</td>
               </tr>
               <tr v-if="doEditComments()" v-bind:class="stripeColor(index)">
                 <td><b>{{sample.hui_abv}} comments:</b></td>
-                <td colspan="12"><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].comments" class="wq-input"></td>
+                <td colspan="12"><input v-bind:class="alertLevel(index, 'turbidity_3')" type="text" autocomplete="off" v-model="samples[index].comments" class="insitu-input"></td>
               </tr>
 
           </template>
@@ -197,7 +197,7 @@ export default {
 
       var precision = 1;
       console.log("WAS BLURRED attribute: " + attribute + " index: " + index + " precision " + precision );
-      if (attribute === "time") {
+      if (attribute === "the_time") {
         this.validateTime(index, attribute);
       }
       else {
@@ -393,7 +393,7 @@ export default {
 
       for (i = 0; i < this.samples.length; ++i) {
         allGood &= this.validateDate(i, "the_date");
-        allGood &= this.validateTime(i, "time");
+        allGood &= this.validateTime(i, "the_time");
         allGood &= this.validateSample(i, "temperature");
         allGood &= this.validateSample(i, "salinity");
         allGood &= this.validateSample(i, "dissolved_oxygen");
@@ -438,7 +438,7 @@ export default {
       var sample = null;
       for (i = 0; i < this.samples.length; ++i) {
         sample = this.samples[i];
-        sample.time                 = lookupHelper.formatSampleTime(sample.time);
+        sample.the_time             = lookupHelper.formatSampleTime(sample.the_time);
         sample.temperature          = lookupHelper.setPrecision.call(this, "temperature",          sample.temperature);
         sample.salinity             = lookupHelper.setPrecision.call(this, "salinity",             sample.salinity);
         sample.dissolved_oxygen     = lookupHelper.setPrecision.call(this, "dissolved_oxygen",     sample.dissolved_oxygen);

@@ -109,7 +109,7 @@ module.exports.getSamplesForSession = function (req, res) {
   var lab_id = req.params.lab_id;
   var session_number = req.params.session_number;
   //console.log("session_number " + session_number);
-  db.pool.query("call samples_for_session(" + lab_id + ", " + session_number + ")", function(err, rows, fields) {
+  db.pool.query("call get_samples_for_session(" + lab_id + ", " + session_number + ")", function(err, rows, fields) {
 
     var data = {};
     data['samples'] = [];
@@ -219,25 +219,38 @@ var checkForNull = function (value){
 };
 
 
+var checkReqBody = function (req, res, caller, attr) {
+
+  var returnValue = true;
+  if (req.body[attr] === undefined) {
+    helpers.sendJsonResponse(res, 400, {"message": `${caller}(): ${attr} param not passed`});
+    returnValue = false;
+  }
+  return returnValue;
+}
+
+
 module.exports.updateOneSample = function (req, res) {
 
-  console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
-  if (!req.body.temperature )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): temperature param not passed"}); return;};
-  if (!req.body.salinity )             { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): salinity param not passed"}); return;};
-  if (!req.body.dissolved_oxygen )     { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): dissolved_oxygen param not passed"}); return;};
-  if (!req.body.dissolved_oxygen_pct ) { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): dissolved_oxygen param not passed"}); return;};
-  if (!req.body.ph )                   { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): ph param not passed"}); return;};
-  if (!req.body.turbidity_1 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_1 param not passed"}); return;};
-  if (!req.body.turbidity_2 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_2 param not passed"}); return;};
-  if (!req.body.turbidity_3 )          { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): turbidity_3 param not passed"}); return;};
-  if (!req.body.sample_id )            { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): sample_id param not passed"}); return;};
+  let caller = "updateOneSample";
 
-  if (req.body.comments === undefined ) { helpers.sendJsonResponse(res, 400, {"message": "updateOneSample(): comments param not passed"}); return;};
+  //console.log(chalk.blue("in api updateOneSample: " + util.inspect(req.body, false, null)));
+  if (! checkReqBody(req, res, caller, 'sample_id')) { return; };
+  if (! checkReqBody(req, res, caller, 'the_date')) { return; };
+  if (! checkReqBody(req, res, caller, 'the_time')) { return; };
+  if (! checkReqBody(req, res, caller, 'temperature')) { return; };
+  if (! checkReqBody(req, res, caller, 'salinity')) { return; };
+  if (! checkReqBody(req, res, caller, 'dissolved_oxygen')) { return; };
+  if (! checkReqBody(req, res, caller, 'dissolved_oxygen_pct')) { return; };
+  if (! checkReqBody(req, res, caller, 'ph')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_1')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_2')) { return; };
+  if (! checkReqBody(req, res, caller, 'turbidity_3')) { return; };
+  if (! checkReqBody(req, res, caller, 'comments')) { return; };
 
-
-  var query = null;
-  var date_and_time = req.body.the_date + " " + req.body.time;
-  var inputData = [date_and_time,
+  var inputData = [req.body.sample_id,
+                   req.body.the_date,
+                   checkForNull(req.body.the_time),
                    checkForNull(req.body.temperature),
                    checkForNull(req.body.salinity),
                    checkForNull(req.body.dissolved_oxygen),
@@ -246,28 +259,18 @@ module.exports.updateOneSample = function (req, res) {
                    checkForNull(req.body.turbidity_1),
                    checkForNull(req.body.turbidity_2),
                    checkForNull(req.body.turbidity_3),
-                   checkForNull(req.body.comments),
-                   checkForNull(req.body.sample_id)];
+                   checkForNull(req.body.comments)];
 
-  var query = "update samples set " +
-     "date_and_time = ?, " +
-    "temperature = ?, " +
-    "salinity = ?, " +
-    "dissolved_oxygen = ?, " +
-    "dissolved_oxygen_pct = ?, " +
-    "ph = ?, " +
-    "turbidity_1 = ?, " +
-    "turbidity_2 = ?, " +
-    "turbidity_3 = ?, " +
-    "comments = ? " +
-    "where sample_id = ?";
-    console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
-    console.log(chalk.blue("query : " + util.inspect(query, false, null)));
+    const query = "call update_sample(?,?,?,?,?,?,?,?,?,?,?,?)";
+    //console.log(chalk.blue("inputData : " + util.inspect(inputData, false, null)));
+    //console.log(chalk.blue("query : " + util.inspect(query, false, null)));
 
     db.pool.query(query, inputData, function(err, rows, fields) {
 
     //console.log(chalk.blue("err : " + util.inspect(err, false, null)));
     //console.log(chalk.blue("rows : " + util.inspect(rows, false, null)));
+    //console.log(chalk.blue("fields : " + util.inspect(fields, false, null)));
+
     //console.log(chalk.blue("rows affected : " + util.inspect(rows.affectedRows, false, null)));
 
     var data = {};
@@ -382,6 +385,48 @@ module.exports.isFirstSampleDayInUseForLab = function (req, res) {
                               res);
       }
 
+    }
+  });
+};
+
+
+
+module.exports.deleteSession = function (req, res) {
+
+  let caller = "deleteSession";
+
+  if (! checkReqBody(req, res, caller, 'session_id')) { return; };
+
+  let args = [req.body.session_id];
+
+  db.pool.query("call delete_session(?)", args, function(err, rows, fields) {
+
+  //console.log(chalk.green("err : " + util.inspect(err, false, null)));
+  //console.log(chalk.green("rows : " + util.inspect(rows, false, null)));
+  //console.log(chalk.green("fields : " + util.inspect(fields, false, null)));
+
+    var data = {};
+    data['sessionDeleted'] = false;
+    data['errors'] = [];
+
+    if (err) {
+      helpers.sendJsonSQLErrorResponse("Error retrieving data from database for lab sessions overview",
+                            "danger",
+                            err,
+                            data,
+                            res);
+
+    }
+    else if ((rows !== null) && (rows !== undefined) && (rows.affectedRows !== 1)) {
+      helpers.sendJsonSQLErrorResponse(`${caller}(): Expecting 1 row affected in database. ${rows.affectedRows} reported`,
+                            "danger",
+                            err,
+                            data,
+                            res);
+    }
+    else {
+      data['sessionDeleted'] =  true;
+      helpers.sendJsonResponse(res, 201, data);
     }
   });
 };

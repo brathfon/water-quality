@@ -7,12 +7,15 @@ var auth = jwt({
 });
 
 var ctrlWQ = require('../controllers/waterQuality');
+var ctrlSites = require('../controllers/siteManagement');
+
 var ctrlAuth = require('../controllers/authentication');
 var logging = require('../controllers/logging');
 var lookup = require('../controllers/lookupInformation');
 
 /* water quality apis */
 router.post('/createNewSession',                                                    ctrlWQ.createNewSession);
+router.delete('/deleteSession',                                                     ctrlWQ.deleteSession);
 router.get('/getLabSessionsOverview', ctrlWQ.getLabSessionsOverview);
 router.get('/getSamplesForSession/:lab_id/:session_number',                         ctrlWQ.getSamplesForSession);
 // gets both inSitu and Nutrient
@@ -23,6 +26,17 @@ router.get('/getMaxSessionNumbersForLabs',                                      
 router.get('/isSessionNumberInUseForLab/:lab_id/:session_number',                   ctrlWQ.isSessionNumberInUseForLab);
 router.get('/isFirstSampleDayInUseForLab/:lab_id/:first_sample_day',                ctrlWQ.isFirstSampleDayInUseForLab);
 router.put('/updateOneSample',                                                      ctrlWQ.updateOneSample);
+
+
+/* site management */
+router.get('/getSitesOverview', ctrlSites.getSitesOverview);
+router.get('/getSiteDetails/:site_id', ctrlSites.getSiteDetails);
+router.get('/getDefaultSamplingOrder/:lab_id/:default_sample_day', ctrlSites.getDefaultSamplingOrder);
+router.post('/updateOrInsertSite', ctrlSites.updateOrInsertSite);
+router.delete('/deleteSite', ctrlSites.deleteSite);
+router.put('/updateDefaultSamplingOrder', ctrlSites.updateDefaultSamplingOrder);
+
+
 
 
 /* authentication */
@@ -38,7 +52,7 @@ router.get('/getMeasurementPrecision', lookup.getMeasurementPrecision);
 
 
 // logging
-router.post('/insertLogMessage', logging.insertLogMessage);
+router.post('/insertLogMessage', auth, logging.insertLogMessage);
 
 
 

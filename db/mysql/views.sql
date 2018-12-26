@@ -4,6 +4,7 @@ SELECT l.lab_id,
        l.lab_code,
        l.short_name,
        l.long_name,
+       s.session_id,
        s.session_number,
        s.first_sample_day
   FROM labs AS l, sessions AS s
@@ -27,12 +28,12 @@ CREATE OR REPLACE VIEW base_sample_report AS
 SELECT
   sess.lab_id,
   sam.sample_id,
-  CONCAT(site.hui_abv, DATE_FORMAT(sam.date_and_time, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  CONCAT(site.hui_abv, DATE_FORMAT(sam.the_date, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
   site.long_name,
   site.hui_abv,
   sess.session_number,
-  DATE_FORMAT(sam.date_and_time, '%m/%d/%y') as day, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
-  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (mm:ss) 08:58, 10:10
+  DATE_FORMAT(sam.the_date, '%m/%d/%y') as the_date, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
+  DATE_FORMAT(sam.the_time, '%H:%i') as the_time,   -- (mm:ss) 08:58, 10:10
   REPLACE(FORMAT(sam.temperature,      1), ' ', '')      AS temperature,  -- REPLACE takes out an commas in numbers
   REPLACE(FORMAT(sam.salinity,         1), ' ', '')      AS salinity,
   REPLACE(FORMAT(sam.dissolved_oxygen, 2), ' ', '')      AS dissolved_oxygen,
@@ -56,20 +57,20 @@ FROM samples AS sam,
      sessions AS sess
 WHERE sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-ORDER BY sess.lab_id, sam.date_and_time; -- by lab, then time
+ORDER BY sess.lab_id, sam.the_date, sam.the_time; -- by lab, then time
 
 
 -- this view is used for data migration
 CREATE OR REPLACE VIEW site_and_date_to_sample_id_lookup AS
 SELECT
-  CONCAT(site.hui_abv, DATE_FORMAT(sam.date_and_time, '%y%m%d')) as site_and_date, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  CONCAT(site.hui_abv, DATE_FORMAT(sam.the_date, '%y%m%d')) as site_and_date, -- returns as a string, should be safe from UTC conversion by mySQL node package
   sam.sample_id,
   site.hui_abv,
-  DATE_FORMAT(sam.date_and_time, '%c/%e/%y') as day -- returns as a string, should be safe from UTC conversion by mySQL node package
+  DATE_FORMAT(sam.the_date, '%c/%e/%y') as the_date -- returns as a string, should be safe from UTC conversion by mySQL node package
 FROM samples AS sam,
      sites AS site
 WHERE sam.site_id = site.site_id
-ORDER BY site.hui_abv, sam.date_and_time; 
+ORDER BY site.hui_abv, sam.the_date, sam.the_time; 
 
 -- this view is used for data migration
 CREATE OR REPLACE VIEW known_sites AS
@@ -87,8 +88,8 @@ SELECT
   long_name,
   hui_abv,
   session_number,
-  day,
-  time,
+  the_date,
+  the_time,
   temperature,
   salinity,
   dissolved_oxygen,
@@ -107,7 +108,7 @@ SELECT
   lat,
   lon
 FROM base_sample_report
-ORDER BY lab_id, session_number, day, time;
+ORDER BY lab_id, session_number, the_date, the_time;
 
 CREATE OR REPLACE VIEW comments_diff_report AS
 SELECT
@@ -116,12 +117,12 @@ SELECT
   long_name,
   hui_abv,
   session_number,
-  day,
-  time,
+  the_date,
+  the_time,
   comments
 FROM base_sample_report
 WHERE comments IS NOT NULL
-ORDER BY lab_id, session_number, day, time;
+ORDER BY lab_id, session_number, the_date, the_time;
 
 
 CREATE OR REPLACE VIEW insitu_diff_report AS
@@ -131,8 +132,8 @@ SELECT
   long_name,
   hui_abv,
   session_number,
-  day,
-  time,
+  the_date,
+  the_time,
   temperature,
   salinity,
   dissolved_oxygen,
@@ -143,7 +144,7 @@ SELECT
   turbidity_3,
   avg_turbidity
 FROM base_sample_report
-ORDER BY lab_id, session_number, day, time;
+ORDER BY lab_id, session_number, the_date, the_time;
 
 
 CREATE OR REPLACE VIEW nutrient_diff_report AS
@@ -153,8 +154,8 @@ SELECT
   long_name,
   hui_abv,
   session_number,
-  day,
-  time,
+  the_date,
+  the_time,
   total_nitrogen,
   total_phosphorus,
   phosphate,
@@ -164,7 +165,7 @@ SELECT
   lat,
   lon
 FROM base_sample_report
-ORDER BY lab_id, session_number, day, time;
+ORDER BY lab_id, session_number, the_date, the_time;
 
 
 -- a report to show qa entries
@@ -173,10 +174,10 @@ SELECT
   sess.lab_id,
   sam.sample_id,
   site.long_name,
-  CONCAT(site.hui_abv, DATE_FORMAT(sam.date_and_time, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  CONCAT(site.hui_abv, DATE_FORMAT(sam.the_date, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
   sess.session_number,
-  DATE_FORMAT(sam.date_and_time, '%m/%d/%y') as day, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
-  DATE_FORMAT(sam.date_and_time, '%H:%i') as time,   -- (mm:ss) 08:58, 10:10
+  DATE_FORMAT(sam.the_date, '%m/%d/%y') as the_date, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
+  DATE_FORMAT(sam.the_time, '%H:%i') as the_time,   -- (mm:ss) 08:58, 10:10
   qis.sample_column_name,
   qis.description
 FROM samples AS sam,
@@ -186,7 +187,7 @@ FROM samples AS sam,
 WHERE sess.session_id = sam.session_id and
       sam.site_id = site.site_id AND
       sam.sample_id = qis.sample_id
-ORDER BY sess.lab_id, sess.session_number, sam.date_and_time; -- by lab, session, then time
+ORDER BY sess.lab_id, sess.session_number, sam.the_date, sam.the_time; -- by lab, session, then time
 
 
 CREATE OR REPLACE VIEW qa_issues_report AS
@@ -194,8 +195,8 @@ SELECT
   lab_id,
   session_number,
   long_name,
-  day,
-  time,
+  the_date,
+  the_time,
   sample_column_name,
   description 
 FROM qa_issues_base_report
