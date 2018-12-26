@@ -158,4 +158,140 @@ ran web export and no diffs.
 
 sample-report.2018-08-19_19-46-37.post-date-time-conv.txt
 sample-report.2018-08-20_13-55-02.change-time-to-the-time.txt
+=======
+9/9/18
+getting ready to add in w44 and s19
+pre check , no diffs
+3240295233 273735 insitu-report.2018-08-16_15-10-51.post-add-28-43-1-18-nutr-fix-15w.txt
+3240295233 273735 insitu-report.2018-09-09_20-35-16.pre-add-w44-s19.txt
 
+after loading in w44 and s19, got expected diffs.  All diffs due to sessions w44 and s19
+Note: s19 is short on data.  Not all collects were made due to hurricane Lane.
+3240295233 273735 insitu-report.2018-09-09_20-35-16.pre-add-w44-s19.txt
+2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
+
+Found a problem with the data when reviewing it: SampleID date was correct, date in the "Date" column was a cut and paste from the session before
+Corrected and see these diffs only.
+2716079670 280434 insitu-report.2018-09-09_20-55-02.post-add-w44-s19.txt
+913805778 280434 insitu-report.2018-09-10_15-39-31.fix-bad-dates-s19-makena.txt
+
+9/30/18
+Getting ready to add in session 45 on west side and 20 on south side
+3589493919 409118 sample-report.2018-09-10_15-39-31.fix-bad-dates-s19-makena.txt
+3589493919 409118 sample-report.2018-09-30_21-01-32.pre-add-45w-20s.txt
+
+after the merge, saw expected differences.  All new data for session 45w and 20s, but also added in blank collects for session 19
+team WAilea and team North Keihi due to hurricane Lane
+3589493919 409118 sample-report.2018-09-30_21-01-32.pre-add-45w-20s.txt
+3656137636 425631 sample-report.2018-09-30_21-31-28.post-add-45w-20s.txt
+
+11/11/2018
+getting ready to add in 46 and 47 west, 21 and 22 south.  All reports matched with cksum.  ex:
+3656137636 425631 sample-report.2018-09-30_21-31-28.post-add-45w-20s.txt
+3656137636 425631 sample-report.2018-11-11_12-07-38.pre-add-47w-22s.txt
+
+After the insert of the data, all checked out except seeing some different order of empty collects in south lab in older sessions 19, and 20.
+Not sure what is causing the difference.  Lined them up here to show that they have the same difference.  I suspect that the difference
+is just that they all have starting times of 00:00, which is how they are ordered, so they probably are just being ordered randomly.
+
+11d10
+< |      2 | NKP180823 | Kealia Pond                 | NKP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NKP180823 | Kealia Pond                 | NKP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+13,14c12
+< |      2 | NKC180823 | Kihei Canoe Club            | NKC     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NKC180823 | Kihei Canoe Club            | NKC     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+16,17c14,15
+< |      2 | WKD180824 | Kilohana Dr                 | WKD     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | WKD180824 | Kilohana Dr                 | WKD     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | WKB180824 | Keawekapu Beach             | WKB     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | WKB180824 | Keawekapu Beach             | WKB     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+19d16
+< |      2 | WPL180824 | Palauea                     | WPL     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+20a18,20
+> |      2 | WPL180824 | Palauea                     | WPL     |             19 | 08/24/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+25a26,27
+> |      2 | MML180912 | Makena Landing              | MML     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | MML180912 | Makena Landing              | MML     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+< |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+29,30d30
+
+11/17/18  checking new nutrient load
+
+Looks good.  Saw differences between 40-46 west nutrient changing from NULL to values, same for 16-21 south
+Still seeing some diffs in comments and insitu due to random order due to null values for time.
+
+   2852519964 274905 nutrient-report.2018-11-11_12-30-46.post-add-47w-22ws.txt
+   629981 274905 nutrient-report.2018-11-17_07-39-17.post-add-nutrient-46w-21s.txt
+
+example of random diffs:
+
+   ~/Development/water-quality/db/test/reports  -> ./diff-last-two-cksums.sh 
+   diffs for commments-report
+   321d320
+   < |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+   322a322
+   > |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                       
+
+11/20/18
+
+Rerunning new nutrient data for sessions up to 46 west and 21 south.  There was an entry in MNMRC_180626_S.Maui.xls that duplicated site WKB sampleID.
+The normal order of collection is WKD, then WKB.  This was verified with Sofia and the correction made in the data file.
+
+629981 274905 nutrient-report.2018-11-17_07-39-17.post-add-nutrient-46w-21s.txt
+3257024028 274905 nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt
+
+Expected diffs were seen.  Also still seeing diffs due to 0:00 times in some of the uncollected sites.
+
+diffs for nutrient-report
+1216c1216
+< |      2 | WKD180622 | Kilohana Dr                 | WKD     |             16 | 06/22/18 | 07:59 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.702214 | -156.445921 |
+---
+> |      2 | WKD180622 | Kilohana Dr                 | WKD     |             16 | 06/22/18 | 07:59 | 106.42         | 11.21            | 5.66      | 251.98   | 54.11    | 2.17    | 20.702214 | -156.445921 |
+
+
+12/25/18
+
+Checking merging of master into vue-conversion (development), where sessions 1-43 and 1-18 are initially being populated with the date_time separated into the_date and the_time.  Next step will be to load sessions 1-47 and 1-22 in with new conversion script that handles the_date and the_time.
+
+cksum *.change-time-to-the-time.txt *.post-merge-master-to-vue-conversion.txt
+61589268 172640 comments-report.2018-08-20_13-55-02.change-time-to-the-time.txt  .....  no diffs for all 
+
+
+12/15/18
+After updating the baseline, reprocessed latest data to bring dev up-to-date.
+Seeing some lines that are reported as diffs, but not seeing anying different, but related to the 00:00 time of uncollected data.
+Only seeing them in insitu and nutrient reports, other show no diffs.
+
+diff -w  insitu-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt insitu-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+
+< |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1289c1288
+< |      2 | MMB180912 | Maluaka Beach               | MMB     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+---
+> |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1290a1290
+> |      2 | MMB180912 | Maluaka Beach               | MMB     |             20 | 09/12/18 | 00:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+1341c1341
+
+and
+
+diff -w  nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt nutrient-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+1,3c1,3
+< +--------+-----------+-----------------------------+---------+----------------+----------+-------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+< | lab_id | sampleID  | long_name                   | hui_abv | session_number | day      | time  | total_nitrogen | total_phosphorus | phosphate | silicate | nitrates | ammonia | lat       | lon         |
+< +--------+-----------+-----------------------------+---------+----------------+----------+-------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+---
+> +--------+-----------+-----------------------------+---------+----------------+----------+----------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+> | lab_id | sampleID  | long_name                   | hui_abv | session_number | the_date | the_time | total_nitrogen | total_phosphorus | phosphate | silicate | nitrates | ammonia | lat       | lon         |
+> +--------+-----------+-----------------------------+---------+----------------+----------+----------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
+1274d1273
+< |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.796414 | -156.503198 |
+1275a1275
+> |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.796414 | -156.503198 |
+
+Also did the web export process and found no diffs between this data and the last web export, so looking GOOD!

@@ -55,7 +55,7 @@ var readSoestFiles = function (data, endConnection, callback) {
 
 var getSiteAndDateToSampleId = function (data, endConnection, callback) {
 
-  connection.query("select site_and_date, sample_id, hui_abv, day from site_and_date_to_sample_id_lookup", function(err, rows, fields) {
+  connection.query("select site_and_date, sample_id, hui_abv, the_date from site_and_date_to_sample_id_lookup", function(err, rows, fields) {
    
     if (endConnection) {
       connection.end();

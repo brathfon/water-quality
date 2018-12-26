@@ -19,7 +19,7 @@ var getSoestFiles = function(directory) {
          //console.log("-- checking file " + file);
          return (
                   fs.statSync(file).isFile() &&
-                  (path.basename(file).match(/TNC/) != null) &&
+                  ((path.basename(file).match(/TNC/) != null) || (path.basename(file).match(/MNMRC/) != null)) &&  // there was a name change
                   (path.basename(file).match(/\.csv$/) != null)
                 );
      }).forEach(function (filteredFile) {
@@ -111,9 +111,9 @@ var readSoestFile = function(soestFile, knownSites) {
                lineList.push(obj);
             } // is known site
             else {
-              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** in ",  filename);
+              console.log("-- ********************* ERROR ERROR ERROR ERROR ********************* in ",  filename, " line ", lineCount);
               console.log("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
-              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
+              console.error("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.error("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
             }
           } // length greater than 13
@@ -122,9 +122,9 @@ var readSoestFile = function(soestFile, knownSites) {
             if (line !== "" && 
                 ! line.match(/^,*,$/) &&  // finds lines like: ',,,,' ',,,,,,,' 
                 line !== ',,110,16,,,3.5,2') {
-              console.log("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
+              console.log("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.log("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
-              console.error("-- ************************** ERROR ERROR ERROR ERROR ************************** in ", filename);
+              console.error("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.error("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
             }
           }

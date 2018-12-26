@@ -67,10 +67,20 @@ var readTeamSheet = function(teamSheetFile) {
             console.error(`Found stationID inconsistance on line ${line}`);
             console.error(`stationID : ${obj.Station} not equal to ID from SampleID : ${obj.SampleID}`);
           }
+
           obj['Location']      = pieces[12];
           obj['SiteName']      = pieces[13];
 
           validator.isDate(pieces[14])       ? obj['Date']    = pieces[14] : reportError("'" + pieces[14] + "' date is not a correctly formed (YYYY-MM-DD)", obj.SampleID, filename);
+
+          // had a problem where date in the SampleID did not the date field
+          let dateFromSampleID = `20${obj.SampleID.substr(3,2)}-${obj.SampleID.substr(5,2)}-${obj.SampleID.substr(7,2)}`;    // ex: RSN180622 -> 2018-06-22
+          // console.error(`DATES ${obj['Date']} ${dateFromSampleID}`);
+          if (obj.Date !== dateFromSampleID) {
+            console.error(`Found Date inconsistance on line ${line}`);
+            console.error(`date : ${obj.Date} not equal to date from SampleID : ${obj.SampleID}`);
+          }
+        
 
           //console.error("TIME : ", pieces[15]);
           if (validator.isHourMinute(pieces[15]) ) {
