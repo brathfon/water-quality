@@ -295,3 +295,8 @@ diff -w  nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt
 > |      2 | NHP180823 | Haycraft Park               | NHP     |             19 | 08/23/18 | 00:00    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.796414 | -156.503198 |
 
 Also did the web export process and found no diffs between this data and the last web export, so looking GOOD!
+
+
+1/6/2019
+Adding in sessions 48-49w and 23-25s  Saw comment at NHP181025 updated.  Rest of diffs looked right.
+sample-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt sample-report.2019-01-06_21-13-31.post-add-49w-25s.txt
