@@ -300,3 +300,13 @@ Also did the web export process and found no diffs between this data and the las
 1/6/2019
 Adding in sessions 48-49w and 23-25s  Saw comment at NHP181025 updated.  Rest of diffs looked right.
 sample-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt sample-report.2019-01-06_21-13-31.post-add-49w-25s.txt
+
+
+2/22/2019
+Diffing for adding in west 50 and 51 and south 26 and 27
+Saw what was expected: new entries for the above sessions and some diffs due to order issues with times of 0:00
+diffs for commments-report:
+comments-report.2019-01-06_21-13-31.post-add-49w-25s.txt
+comments-report.2019-02-22_10-33-00.post-add-51w-27s.txt
+290a291,304
+
