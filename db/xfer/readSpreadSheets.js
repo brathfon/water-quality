@@ -87,8 +87,8 @@ var readTeamSheet = function(teamSheetFile) {
              obj['Time']    = pieces[15];
           }
           else if (pieces[15] === "") {  // if a site is not sampled due to conditions at the site, etc.  The time will be blank
-             reportError("'" + pieces[15] + "' time is blank, which may be a uncollected sample, setting to '00:00'", obj.SampleID, filename);
-             obj['Time']    = "00:00";
+             reportError("'" + pieces[15] + "' time is blank, which may be a uncollected sample, setting to NULL", obj.SampleID, filename);
+             obj['Time']    = "null";
           }
           else {
              reportError("'" + pieces[15] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);

@@ -149,7 +149,7 @@ var readSoestFiles = function(directory, knownSites) {
   var soestFiles = getSoestFiles(directory); // returning a list of paths of the sheet files
 
   for (i = 0; i < soestFiles.length; ++i) {
-    console.log("-- reading Soest file: " + soestFiles[i]);
+    console.log("-- reading Soest file: " + path.basename(soestFiles[i]));
     siteSamples = readSoestFile(soestFiles[i], knownSites);  // returns a list of objects, each object a site sample
     for (j = 0; j < siteSamples.length; ++j) {
       siteSample = siteSamples[j];
