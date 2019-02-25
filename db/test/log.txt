@@ -310,3 +310,16 @@ comments-report.2019-01-06_21-13-31.post-add-49w-25s.txt
 comments-report.2019-02-22_10-33-00.post-add-51w-27s.txt
 290a291,304
 
+
+2/25/2019
+Changed two things: added in the use of sampling_order to older data to stop the problem of random diffs when there were
+no samples taken and all times were 0:00, and then changed the script to put in NULL instead of 0:00 when times were
+not recorded.  Saw the expected diffs from 0:00 to NULL, and also saw that tests are now repeatable without the random
+order changes.
+
+comments-report.2019-02-24_19-57-18.after-adding-sampling-order.txt
+comments-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
+210c210
+< |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | 00:00    | road blocked by workers
+---
+> |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | NULL     | road blocked by workers
