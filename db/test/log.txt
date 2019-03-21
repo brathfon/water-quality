@@ -323,3 +323,44 @@ comments-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
 < |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | 00:00    | road blocked by workers
 ---
 > |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | NULL     | road blocked by workers
+
+
+2/28/19
+Adding in nutrient data for sessions 47 west and 22-24 south
+Seeing expected diffs: nothing for comments and insitu, NULLs to values for nutrient data, all for the right sessions
+
+diffs for insitu-report:
+insitu-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
+insitu-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+
+diffs for nutrient-report:
+nutrient-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
+nutrient-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+915,933c915,933
+< |      1 | RNS181030 | Napili                      | RNS     |  
+
+
+3/2/19
+
+Found mistake I made correcting NKP181115 (I had changed it to NPK181125 from one with an extra character)
+Expected results found.
+
+diffs for nutrient-report:
+nutrient-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+nutrient-report.2019-03-02_14-15-50.post-add-nutrient-47w-22-24s-with-nkp-fix.txt
+1428c1428
+< |      2 | NKP181115 | Kealia Pond                 | NKP     |             23 | 11/15/18 | 08:50    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.794936 | -156.485587 |
+---
+> |      2 | NKP181115 | Kealia Pond                 | NKP     |             23 | 11/15/18 | 08:50    | 99.51          | 8.45             | 7.82      | 111.72   | 10.61    | 4.10    | 20.794936 | -156.485587 |
+
+
+3/12/19
+
+Added in additional nutrient data for west sessions 48-49
+
+Saw expected diffs: just nutrient data changes for sessions 48 and 49 west
+
+diffs for nutrient-report:
+nutrient-report.2019-03-02_14-15-50.post-add-nutrient-47w-22-24s-with-nkp-fix.txt
+nutrient-report.2019-03-12_19-30-44.post-add-nutrien-48-49w.txt
+
