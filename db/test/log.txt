@@ -383,3 +383,17 @@ nutrient-report.2019-03-21_17-45-58.soest-reran-24S-to-fix-total-nitrogen.txt
 > |      2 | KKS181204 | Kihei South (Lipoa)         | KKS     |             24 | 12/04/18 | 08:54    | 137.49         | 6.58             | 4.91      | 515.94   | 43.93    | 7.01    | 20.747334 | -156.457881 |
 > |      2 | KKP181204 | Kalama Park                 | KKP     |             24 | 12/04/18 | 09:15    | 146.29         | 10.65            | 9.58      | 486.34   | 46.73    | 11.10   | 20.730973 | -156.453720 |
 > |      2 | KCP181204 | Cove Park                   | KCP     |             24 | 12/04/18 | 09:30    | 478.28         | 20.30            | 20.08     | 1291.94  | 361.61   | 18.30   | 20.727434 | -156.450077 |
+
+4/1/19
+adding in session 25s to complete the year so we can make a web export release of the data for 2018
+
+Expected results: only seeing diffs of additions of nutrient data for session 25 of south maui
+
+diffs for nutrient-report:
+nutrient-report.2019-03-21_17-45-58.soest-reran-24S-to-fix-total-nitrogen.txt
+nutrient-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
+1457,1476c1457,1476
+< |      2 | NKN181218 | Kalepolepo North            | NKN     |             25 | 12/18/18 | 08:00    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.765132 | -156.459344 |
+---
+> |      2 | NKN181218 | Kalepolepo North            | NKN     |             25 | 12/18/18 | 08:00    | 150.66         | 5.34             | 3.92      | 683.02   | 79.12    | 2.35    | 20.765132 | -156.459344 |
+
