@@ -323,3 +323,77 @@ comments-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
 < |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | 00:00    | road blocked by workers
 ---
 > |      1 | RKO180720 | Ka'opala                    | RKO     |             42 | 07/20/18 | NULL     | road blocked by workers
+
+
+2/28/19
+Adding in nutrient data for sessions 47 west and 22-24 south
+Seeing expected diffs: nothing for comments and insitu, NULLs to values for nutrient data, all for the right sessions
+
+diffs for insitu-report:
+insitu-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
+insitu-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+
+diffs for nutrient-report:
+nutrient-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
+nutrient-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+915,933c915,933
+< |      1 | RNS181030 | Napili                      | RNS     |  
+
+
+3/2/19
+
+Found mistake I made correcting NKP181115 (I had changed it to NPK181125 from one with an extra character)
+Expected results found.
+
+diffs for nutrient-report:
+nutrient-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
+nutrient-report.2019-03-02_14-15-50.post-add-nutrient-47w-22-24s-with-nkp-fix.txt
+1428c1428
+< |      2 | NKP181115 | Kealia Pond                 | NKP     |             23 | 11/15/18 | 08:50    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.794936 | -156.485587 |
+---
+> |      2 | NKP181115 | Kealia Pond                 | NKP     |             23 | 11/15/18 | 08:50    | 99.51          | 8.45             | 7.82      | 111.72   | 10.61    | 4.10    | 20.794936 | -156.485587 |
+
+
+3/12/19
+
+Added in additional nutrient data for west sessions 48-49
+
+Saw expected diffs: just nutrient data changes for sessions 48 and 49 west
+
+diffs for nutrient-report:
+nutrient-report.2019-03-02_14-15-50.post-add-nutrient-47w-22-24s-with-nkp-fix.txt
+nutrient-report.2019-03-12_19-30-44.post-add-nutrien-48-49w.txt
+
+3/21/19
+
+Received an update file for MNMRC_121118_S.Maui.xls to fix problems with total nitrogen not being large enough.  This is session 24 for south Maui, and saw expected diffs.
+
+diffs for nutrient-report:
+nutrient-report.2019-03-12_19-30-44.post-add-nutrien-48-49w.txt
+nutrient-report.2019-03-21_17-45-58.soest-reran-24S-to-fix-total-nitrogen.txt
+1437,1441c1437,1441
+< |      2 | NKN181204 | Kalepolepo North            | NKN     |             24 | 12/04/18 | 08:02    | 121.16         | 9.08             | 8.57      | 1204.41  | 144.16   | 5.82    | 20.765132 | -156.459344 |
+< |      2 | KWP181204 | Waipuilani Park             | KWP     |             24 | 12/04/18 | 08:36    | 79.54          | 11.89            | 12.12     | 973.81   | 68.82    | 10.36   | 20.755056 | -156.459602 |
+< |      2 | KKS181204 | Kihei South (Lipoa)         | KKS     |             24 | 12/04/18 | 08:54    | 55.18          | 6.58             | 4.91      | 515.94   | 43.93    | 7.01    | 20.747334 | -156.457881 |
+< |      2 | KKP181204 | Kalama Park                 | KKP     |             24 | 12/04/18 | 09:15    | 59.35          | 10.65            | 9.58      | 486.34   | 46.73    | 11.10   | 20.730973 | -156.453720 |
+< |      2 | KCP181204 | Cove Park                   | KCP     |             24 | 12/04/18 | 09:30    | 265.90         | 20.30            | 20.08     | 1291.94  | 361.61   | 18.30   | 20.727434 | -156.450077 |
+---
+> |      2 | NKN181204 | Kalepolepo North            | NKN     |             24 | 12/04/18 | 08:02    | 260.17         | 9.08             | 8.57      | 1204.41  | 144.16   | 5.82    | 20.765132 | -156.459344 |
+> |      2 | KWP181204 | Waipuilani Park             | KWP     |             24 | 12/04/18 | 08:36    | 180.16         | 11.89            | 12.12     | 973.81   | 68.82    | 10.36   | 20.755056 | -156.459602 |
+> |      2 | KKS181204 | Kihei South (Lipoa)         | KKS     |             24 | 12/04/18 | 08:54    | 137.49         | 6.58             | 4.91      | 515.94   | 43.93    | 7.01    | 20.747334 | -156.457881 |
+> |      2 | KKP181204 | Kalama Park                 | KKP     |             24 | 12/04/18 | 09:15    | 146.29         | 10.65            | 9.58      | 486.34   | 46.73    | 11.10   | 20.730973 | -156.453720 |
+> |      2 | KCP181204 | Cove Park                   | KCP     |             24 | 12/04/18 | 09:30    | 478.28         | 20.30            | 20.08     | 1291.94  | 361.61   | 18.30   | 20.727434 | -156.450077 |
+
+4/1/19
+adding in session 25s to complete the year so we can make a web export release of the data for 2018
+
+Expected results: only seeing diffs of additions of nutrient data for session 25 of south maui
+
+diffs for nutrient-report:
+nutrient-report.2019-03-21_17-45-58.soest-reran-24S-to-fix-total-nitrogen.txt
+nutrient-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
+1457,1476c1457,1476
+< |      2 | NKN181218 | Kalepolepo North            | NKN     |             25 | 12/18/18 | 08:00    | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.765132 | -156.459344 |
+---
+> |      2 | NKN181218 | Kalepolepo North            | NKN     |             25 | 12/18/18 | 08:00    | 150.66         | 5.34             | 3.92      | 683.02   | 79.12    | 2.35    | 20.765132 | -156.459344 |
+
