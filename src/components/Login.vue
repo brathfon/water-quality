@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-      <div class="row page-header">
+  <div class="container wq-container">
+      <div class="row">
         <div class="col-lg-12">
           <h3>Login</h3>
         </div>

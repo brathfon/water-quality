@@ -69,6 +69,8 @@ WHERE site_id = in_site_id;
 
 DROP PROCEDURE IF EXISTS insert_site;
 
+delimiter //
+
 CREATE PROCEDURE insert_site(
   in in_hui_abv CHAR(3),
   in in_storet_code CHAR(6),
@@ -79,27 +81,35 @@ CREATE PROCEDURE insert_site(
   in in_lon DOUBLE,
   in in_active TINYINT(1),
   in in_description VARCHAR(256) )
+BEGIN
 
-INSERT INTO sites (
-  hui_abv,
-  storet_code,
-  long_name,
-  lab_id,
-  default_sample_day,
-  lat,
-  lon,
-  active,
-  description)
-VALUES (
-  in_hui_abv,
-  in_storet_code,
-  in_long_name,
-  in_lab_id,
-  in_default_sample_day,
-  in_lat,
-  in_lon,
-  in_active,
-  in_description );
+  -- DECLARE max_default_sampling_order_for_day INT DEFAULT 10
+
+  INSERT INTO sites (
+    hui_abv,
+    storet_code,
+    long_name,
+    lab_id,
+    default_sample_day,
+    default_sampling_order,
+    lat,
+    lon,
+    active,
+    description)
+  VALUES (
+    in_hui_abv,
+    in_storet_code,
+    in_long_name,
+    in_lab_id,
+    in_default_sample_day,
+    max_default_sampling_order_for_day,
+    in_lat,
+    in_lon,
+    in_active,
+    in_description );
+END//
+
+delimiter ;
 
 DROP PROCEDURE IF EXISTS delete_site;
 
@@ -118,7 +128,8 @@ SELECT
 FROM sites
 WHERE lab_id = in_lab_id
 AND default_sample_day = in_default_sample_day 
-AND active = 1;   -- only get active sites
+AND active = 1   -- only get active sites
+ORDER BY default_sampling_order;
 
 
 DROP PROCEDURE IF EXISTS update_sampling_order;

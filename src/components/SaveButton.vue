@@ -12,9 +12,6 @@ export default {
     }
   },
   computed: {
-    duhisSaving: function() {
-      return this.isSaving;
-    }
   },
   props: ['isSaving'],
   methods: {

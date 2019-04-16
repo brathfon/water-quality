@@ -5,7 +5,7 @@ user=$DB_DBA
 pw=$DB_DBA_PASSWORD
 
 
-mysql -v -u $user -p$pw $db < generated-schema-10.0.no-null-sampling-order.sql
+mysql -v -u $user -p$pw $db < generated-schema-10.1.no-drop-schema.sql
 mysql -v -u $user -p$pw $db < views.sql
 mysql -v -u $user -p$pw $db < auth-procedures.sql
 mysql -v -u $user -p$pw $db < reporting-procedures.sql
