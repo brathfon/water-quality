@@ -56,7 +56,6 @@ var readSoestFile = function(soestFile, knownSites) {
   var foundIDLine = false;  // second header line starts with ID
   var siteCode   = null;
   var sampleDate = null;
-  var sampleID   = null;
   var year       = null;
   var mon        = null;
   var day        = null;
@@ -91,10 +90,10 @@ var readSoestFile = function(soestFile, knownSites) {
             //mon = mon.replace(/0+$/g, '').replace(/\.+$/g, '').replace(/^0+/g, '');
 
 
-            sampleID   = pieces[0].substring(10);
-            // console.log("siteCode: " + siteCode +  " sampleData: " + sampleDate + " sampleID: " + sampleID); 
-            if (sampleID !== "N-1") {
-              console.log("-- replicate sample, skipping. siteCode: " + siteCode +  " sampleData: " + sampleDate + " sampleID: " + sampleID); 
+            sampleIdExt   = pieces[0].substring(10);
+            // console.log("siteCode: " + siteCode +  " sampleData: " + sampleDate + " sampleIdExt: " + sampleIdExt); 
+            if (sampleIdExt !== "N-1") {
+              console.log("-- replicate sample, skipping. siteCode: " + siteCode +  " sampleData: " + sampleDate + " sampleIdExt: " + sampleIdExt); 
             }
             else if (isKnownSiteCode(siteCode, knownSites)) {
                obj = {};
@@ -108,11 +107,26 @@ var readSoestFile = function(soestFile, knownSites) {
                obj['NNN']           = pieces[6];
                obj['NH4']           = pieces[7];
                //console.log("siteSample " + util.inspect(obj, false, null));
+               // check some basic things on the measurements to make sure that there are not big problems.
+               if (parseFloat(obj['NNN']) + parseFloat(obj['NH4']) > parseFloat(obj['TotalN'])) {
+                 console.log("");
+                 console.log(`-- WARNING: NNN of ${obj['NNN']} + NH4 of ${obj['NH4']} > TotalN of ${obj['TotalN']} from line ${line}`);
+                 console.error("");
+                 console.error(`-- WARNING: NNN of ${obj['NNN']} + NH4 of ${obj['NH4']} > TotalN of ${obj['TotalN']} from line ${line}`);
+               }
+               if (parseFloat(obj['Phosphate'])  > parseFloat(obj['TotalP'])) {
+                 console.log("");
+                 console.log(`-- WARNING: Phosphate of ${obj['Phosphate']} > TotalP of ${obj['TotalP']} from line ${line}`);
+                 console.error("");
+                 console.error(`-- WARNING: Phosphate of ${obj['Phosphate']} > TotalP of ${obj['TotalP']} from line ${line}`);
+               }
                lineList.push(obj);
             } // is known site
             else {
+              console.log("");
               console.log("-- ********************* ERROR ERROR ERROR ERROR ********************* in ",  filename, " line ", lineCount);
               console.log("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
+              console.error("");
               console.error("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.error("-- ERROR: found unknown site name of " + siteCode +". from line " + line);
             }
@@ -122,8 +136,10 @@ var readSoestFile = function(soestFile, knownSites) {
             if (line !== "" && 
                 ! line.match(/^,*,$/) &&  // finds lines like: ',,,,' ',,,,,,,' 
                 line !== ',,110,16,,,3.5,2') {
+              console.log("");
               console.log("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.log("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
+              console.error("");
               console.error("-- ********************* ERROR ERROR ERROR ERROR ********************* in ", filename, " line ", lineCount);
               console.error("-- ERROR: found invalid ID " + pieces[0] + " Line -> |" + line + "|");
             }
