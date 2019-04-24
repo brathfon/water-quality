@@ -397,3 +397,12 @@ nutrient-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
 ---
 > |      2 | NKN181218 | Kalepolepo North            | NKN     |             25 | 12/18/18 | 08:00    | 150.66         | 5.34             | 3.92      | 683.02   | 79.12    | 2.35    | 20.765132 | -156.459344 |
 
+
+4/24/2019
+
+Adding in insitu sessions 52-54 west and 28-30 south and saw expected results but did some order problems (AGAIN) where times are NULL.  Think that that reporting sql queries are not using the new sample_order field.
+
+diffs for insitu-report:
+insitu-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
+insitu-report.2019-04-21_20-20-46.post-add-52-54w-28-30s.txt
+

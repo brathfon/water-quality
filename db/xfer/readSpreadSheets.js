@@ -6,6 +6,7 @@ var path  = require('path');
 var validator = require('./validator.js');
 
 var reportError = function (theError, SampleID, filename) {
+ console.log("-- " + theError + " sample: " + SampleID + " in " + filename );
  console.error(theError + " sample: " + SampleID + " in " + filename );
   //process.exit(1);
 };
@@ -65,7 +66,7 @@ var readTeamSheet = function(teamSheetFile) {
           //console.log(`STATIONID : ${obj.Station}, ID from SampleID : ${stationFromSampleID}`);
           if (obj.Station !== stationFromSampleID) {
             console.error(`Found stationID inconsistance on line ${line}`);
-            console.error(`stationID : ${obj.Station} not equal to ID from SampleID : ${obj.SampleID}`);
+            console.error(`stationID : ${obj.Station} not equal to ID from SampleID : ${obj.SampleID} file: ${filename}`);
           }
 
           obj['Location']      = pieces[12];
@@ -185,7 +186,8 @@ var readTeamSheets = function(directory) {
     for (j = 0; j < siteSamples.length; ++j) {
       siteSample = siteSamples[j];
       //console.log("siteSample " + util.inspect(siteSample, false, null));
-      session = siteSample.Session;
+      // make the key to the list a combination of Lab ID and Session since the labs have their own independent Sessions number
+      session = siteSample.Lab + ":" + siteSample.Session;
       //console.log("session: " + session);
       if (sessions[session] == null) {
         sessions[session] = [];
@@ -217,16 +219,19 @@ var getStartDate = function(siteSamples) {
 
 var getLab = function(siteSamples) {
 
-  var lab = null;
+  let lab = null;
   for (j = 0; j < siteSamples.length; ++j) {
-    siteSample  = siteSamples[j];
-    //console.log("DATE : = " + siteSample['Date']);
+    let siteSample  = siteSamples[j];
+    //console.log("LAB : = " + siteSample['Lab']);
     if (! lab ) {
       lab = siteSample['Lab'];
     } 
     else {
       if (lab != siteSample['Lab']) {
         console.log("ERROR: expecting all lab values to be the same for this set of samples");
+        console.log(`expecting ${lab} but found ${siteSample['Lab']} for sampleID ${siteSample['SampleID']} session ${siteSample['Session']}`);
+        console.error("ERROR: expecting all lab values to be the same for this set of samples");
+        console.error(`expecting ${lab} but found ${siteSample['Lab']} for sampleID ${siteSample['SampleID']} session ${siteSample['Session']}`);
       }
     }
   }
