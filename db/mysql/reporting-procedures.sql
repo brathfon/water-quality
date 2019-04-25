@@ -1,3 +1,7 @@
+-- This procedure is used to the the web export report for issuing data to others.
+-- It does not report out data that has no nutrient data.  It assumes that there is
+-- a date and a time since there should be one if any data was taken and there are
+-- no empty samples.
 DROP PROCEDURE IF EXISTS sample_report_for_lab;
 
 delimiter //
