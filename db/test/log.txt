@@ -57,7 +57,7 @@ No differences in the data reports output.  diffs in sql were expected.
 diff water_quality.2018-04-06_13-02-01.sql water_quality.2018-04-07_15-26-49.sql
 
 5/15/2018
-checking before adding sessions through 38 and 13, respectively. 
+checking before adding sessions through 38 and 13, respectively.
 report.2018-04-07_15-26-49.txt report.2018-05-15_08-10-13.txt  no diffs
 
 After adding in sessions 37-38 west and 11-12-13 south.  No diffs in earlier sessions.
@@ -99,7 +99,7 @@ Added in nutrient data from SOEST lab, sessions 34-36 West and 7-11 South
 No differences found with insitu and comments
 Difference found here, but expected
  diff nutrient-report.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt nutrient-report.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt
- diff -b qa_issues.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt qa_issues.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt 
+ diff -b qa_issues.2018-06-10_14-36-29.pre-addition-of-36w-11s-nutrient-data.txt qa_issues.2018-06-10_14-41-35.post-addition-of-36w-11s-nutrient-data.txt
 
 6/11/2018 **********************************
 Did a check after fixing a double dash in some of the date data for team Wailea on 2018-04-06  No diffs
@@ -230,12 +230,12 @@ Still seeing some diffs in comments and insitu due to random order due to null v
 
 example of random diffs:
 
-   ~/Development/water-quality/db/test/reports  -> ./diff-last-two-cksums.sh 
+   ~/Development/water-quality/db/test/reports  -> ./diff-last-two-cksums.sh
    diffs for commments-report
    321d320
    < |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
    322a322
-   > |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane                                                                                                                                                                                                                       
+   > |      2 | NMP180823 | Mai Poina 'Oe Ia'u          | NMP     |             19 | 08/23/18 | 00:00 | Cancelled sampling session due to hurricane Lane
 
 11/20/18
 
@@ -259,7 +259,7 @@ diffs for nutrient-report
 Checking merging of master into vue-conversion (development), where sessions 1-43 and 1-18 are initially being populated with the date_time separated into the_date and the_time.  Next step will be to load sessions 1-47 and 1-22 in with new conversion script that handles the_date and the_time.
 
 cksum *.change-time-to-the-time.txt *.post-merge-master-to-vue-conversion.txt
-61589268 172640 comments-report.2018-08-20_13-55-02.change-time-to-the-time.txt  .....  no diffs for all 
+61589268 172640 comments-report.2018-08-20_13-55-02.change-time-to-the-time.txt  .....  no diffs for all
 
 
 12/15/18
@@ -267,7 +267,7 @@ After updating the baseline, reprocessed latest data to bring dev up-to-date.
 Seeing some lines that are reported as diffs, but not seeing anying different, but related to the 00:00 time of uncollected data.
 Only seeing them in insitu and nutrient reports, other show no diffs.
 
-diff -w  insitu-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt insitu-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+diff -w  insitu-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt insitu-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt
 
 < |      2 | MAS180912 | Ahihi South                 | MAS     |             20 | 09/12/18 | 00:00 | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
 1289c1288
@@ -280,7 +280,7 @@ diff -w  insitu-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt i
 
 and
 
-diff -w  nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt nutrient-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt 
+diff -w  nutrient-report.2018-11-20_19-56-59.nutrient-46w-21s-with-2-WKB-fix.txt nutrient-report.2018-12-25_21-20-39.update-dev-with-w28-47-s1-22.txt
 1,3c1,3
 < +--------+-----------+-----------------------------+---------+----------------+----------+-------+----------------+------------------+-----------+----------+----------+---------+-----------+-------------+
 < | lab_id | sampleID  | long_name                   | hui_abv | session_number | day      | time  | total_nitrogen | total_phosphorus | phosphate | silicate | nitrates | ammonia | lat       | lon         |
@@ -337,7 +337,7 @@ diffs for nutrient-report:
 nutrient-report.2019-02-24_20-25-38.after-blank-times-to-null.txt
 nutrient-report.2019-02-28_14-38-19.post-add-nutrient-w47-s22-24.txt
 915,933c915,933
-< |      1 | RNS181030 | Napili                      | RNS     |  
+< |      1 | RNS181030 | Napili                      | RNS     |
 
 
 3/2/19
@@ -405,4 +405,43 @@ Adding in insitu sessions 52-54 west and 28-30 south and saw expected results bu
 diffs for insitu-report:
 insitu-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
 insitu-report.2019-04-21_20-20-46.post-add-52-54w-28-30s.txt
+
+
+4/24/19
+
+Still was having diffs in reports for samples with NULL times due to random ordering.  Found that I did not use the sampling_order field in the views for the reports, which was added to fix this problem.
+Results showed that this fixed the problem (example was session 19, 2018-08-23 where all the times were NULL, not sampling that day). All diffs were expected except for the ones below, but each has
+an explanation, all due to samples be taken out of order from the data sheet.
+
+diffs for insitu-report:
+insitu-report.2019-04-01_15-49-19.post-adding-25s-nutrient.txt
+insitu-report.2019-04-24_16-45-49.post-add-sample-order-to-report-views.txt
+
+taken out of order that day
+> |      1 | PLT170913 | Lahaina Town                | PLT     |             27 | 09/13/17 | 10:14    | 27.7        | 33.8     | 6.51             | 99.90                | 8.08 | 19.20       | 19.20       | 19.20       | 19.20         |
+< |      1 | PLT170913 | Lahaina Town                | PLT     |             27 | 09/13/17 | 10:14    | 27.7        | 33.8     | 6.51             | 99.90                | 8.08 | 19.20       | 19.20       | 19.20       | 19.20         |
+
+taken out of order that day
+< |      2 | WPO180323 | Poolenalena (Chang's Beach) | WPO     |             10 | 03/23/18 | 09:30    | 25.3        | 34.7     | 6.88             | 101.80               | 8.22 | 0.55        | 0.64        | 0.63        | 0.61          |
+> |      2 | WPO180323 | Poolenalena (Chang's Beach) | WPO     |             10 | 03/23/18 | 09:30    | 25.3        | 34.7     | 6.88             | 101.80               | 8.22 | 0.55        | 0.64        | 0.63        | 0.61          |
+
+not taken, but a time was entered and it was out of the normal order
+< |      2 | MAS180822 | Ahihi South                 | MAS     |             19 | 08/22/18 | 09:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+> |      2 | MAS180822 | Ahihi South                 | MAS     |             19 | 08/22/18 | 09:00    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          |
+
+taken a very different order that day
+> |      2 | WKD181005 | Kilohana Dr                 | WKD     |             21 | 10/05/18 | 09:27    | 28.1        | 35.4     | 6.60             | 102.80               | 8.16 | 3.37        | 3.72        | 3.60        | 3.56          |
+> |      2 | WKB181005 | Keawekapu Beach             | WKB     |             21 | 10/05/18 | 09:10    | 27.9        | 35.3     | 6.62             | 102.80               | 8.18 | 4.71        | 4.75        | 4.57        | 4.68          |
+> |      2 | WUL181005 | Ulua Beach                  | WUL     |             21 | 10/05/18 | 08:50    | 27.8        | 35.1     | 6.66             | 103.10               | 8.17 | 5.81        | 6.36        | 6.49        | 6.22          |
+< |      2 | WUL181005 | Ulua Beach                  | WUL     |             21 | 10/05/18 | 08:50    | 27.8        | 35.1     | 6.66             | 103.10               | 8.17 | 5.81        | 6.36        | 6.49        | 6.22          |
+< |      2 | WKB181005 | Keawekapu Beach             | WKB     |             21 | 10/05/18 | 09:10    | 27.9        | 35.3     | 6.62             | 102.80               | 8.18 | 4.71        | 4.75        | 4.57        | 4.68          |
+< |      2 | WKD181005 | Kilohana Dr                 | WKD     |             21 | 10/05/18 | 09:27    | 28.1        | 35.4     | 6.60             | 102.80               | 8.16 | 3.37        | 3.72        | 3.60        | 3.56          |
+
+4/26/19
+
+Checking to see if merging in NULL changes in reporting views and eliminated random differences due to NULL reports, and it has!!! Saw only new data for sessions 52-54w and 28-30s for insitu data.
+
+diffs for insitu-report:
+insitu-report.2019-04-24_16-45-49.post-add-sample-order-to-report-views.txt
+insitu-report.2019-04-26_08-01-43.after-merging-in-report-changes-to-54w-30s.txt
 

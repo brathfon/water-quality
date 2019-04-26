@@ -29,6 +29,7 @@ SELECT
   sess.lab_id,
   sam.sample_id,
   CONCAT(site.hui_abv, DATE_FORMAT(sam.the_date, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  sam.sampling_order,
   site.long_name,
   site.hui_abv,
   sess.session_number,
@@ -57,8 +58,9 @@ FROM samples AS sam,
      sessions AS sess
 WHERE sess.session_id = sam.session_id and
       sam.site_id = site.site_id
-ORDER BY sess.lab_id, sam.the_date, sam.the_time; -- by lab, then time
-
+ORDER BY sess.lab_id, sam.the_date, sam.sampling_order, sam.the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 -- this view is used for data migration
 CREATE OR REPLACE VIEW site_and_date_to_sample_id_lookup AS
@@ -107,8 +109,10 @@ SELECT
   ammonia,
   lat,
   lon
-FROM base_sample_report
-ORDER BY lab_id, session_number, the_date, the_time;
+FROM base_sample_report AS bsr
+ORDER BY lab_id, session_number, the_date, bsr.sampling_order, the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 CREATE OR REPLACE VIEW comments_diff_report AS
 SELECT
@@ -120,9 +124,11 @@ SELECT
   the_date,
   the_time,
   comments
-FROM base_sample_report
+FROM base_sample_report AS bsr
 WHERE comments IS NOT NULL
-ORDER BY lab_id, session_number, the_date, the_time;
+ORDER BY lab_id, session_number, the_date, bsr.sampling_order, the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 
 CREATE OR REPLACE VIEW insitu_diff_report AS
@@ -143,8 +149,10 @@ SELECT
   turbidity_2,
   turbidity_3,
   avg_turbidity
-FROM base_sample_report
-ORDER BY lab_id, session_number, the_date, the_time;
+FROM base_sample_report AS bsr
+ORDER BY lab_id, session_number, the_date, bsr.sampling_order, the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 
 CREATE OR REPLACE VIEW nutrient_diff_report AS
@@ -164,8 +172,10 @@ SELECT
   ammonia,
   lat,
   lon
-FROM base_sample_report
-ORDER BY lab_id, session_number, the_date, the_time;
+FROM base_sample_report AS bsr
+ORDER BY lab_id, session_number, the_date, bsr.sampling_order, the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 
 -- a report to show qa entries
@@ -175,6 +185,7 @@ SELECT
   sam.sample_id,
   site.long_name,
   CONCAT(site.hui_abv, DATE_FORMAT(sam.the_date, '%y%m%d')) as sampleID, -- returns as a string, should be safe from UTC conversion by mySQL node package
+  sam.sampling_order,
   sess.session_number,
   DATE_FORMAT(sam.the_date, '%m/%d/%y') as the_date, -- (mm:dd:yy) returns as a string, should be safe from UTC conversion by mySQL node package
   DATE_FORMAT(sam.the_time, '%H:%i') as the_time,   -- (mm:ss) 08:58, 10:10
@@ -187,7 +198,9 @@ FROM samples AS sam,
 WHERE sess.session_id = sam.session_id and
       sam.site_id = site.site_id AND
       sam.sample_id = qis.sample_id
-ORDER BY sess.lab_id, sess.session_number, sam.the_date, sam.the_time; -- by lab, session, then time
+ORDER BY sess.lab_id, sess.session_number, sam.the_date, sam.sampling_order, sam.the_time;
+-- the_time should actually not have any effect because the the sampling_order order should be the same as the time order,
+-- but leave it there in case there are some equal sampling_orders somehow.
 
 
 CREATE OR REPLACE VIEW qa_issues_report AS
