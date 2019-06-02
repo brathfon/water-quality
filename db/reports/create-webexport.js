@@ -41,7 +41,7 @@ connection.connect(function(err) {
 
 var getSampleReportData = function (data, endConnection, callback) {
 
-  connection.query("call sample_report_for_lab(?)", labId, function(err, rows, fields) {
+  connection.query("call sample_report_for_lab_with_null_nutrient(?)", labId, function(err, rows, fields) {
    
     if (endConnection) {
       connection.end();
@@ -196,6 +196,12 @@ var checkForQAIssues = function(sample, column, qaIssues, issueDescriptions) {
     }
   }
   //console.log("inside descriptions: " + util.inspect(issueDescriptions, false, null));
+  // if we to here and there wasn't a qa issue with this sample, then it would be be something
+  // that wasn't measured, probably a nutrient data that hasn't been sampled yet or was skipped
+  // for that session.
+  if (returnValue === null || returnValue === "null") {
+    returnValue = "";
+  }
   return returnValue;
 };
 
