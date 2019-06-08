@@ -454,3 +454,13 @@ diffs for nutrient-report:
 nutrient-report.2019-04-26_08-01-43.after-merging-in-report-changes-to-54w-30s.txt
 nutrient-report.2019-04-29_11-48-11.post-add-50-52w-26-27s-nutrient.txt
 
+6/2/19
+
+Adding in insitu data for 55-56 west and 31-32 south
+
+Saw expected diffs (all new data) except for one comment that was added about missing nutrient data.
+diffs for commments-report:
+comments-report.2019-06-03_15-31-22.temp-pre-check.txt
+comments-report.2019-06-04_10-12-23.post-add-insitu-55-56w-31-32s.txt
+338a353
+> |      2 | WPO180223 | Poolenalena (Chang's Beach) | WPO     |              8 | 02/23/18 | 10:40    | Sample not sent to SOEST lab                                                                                                                                                                                                                                  
