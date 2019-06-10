@@ -41,7 +41,10 @@ connection.connect(function(err) {
 
 var getSampleReportData = function (data, endConnection, callback) {
 
-  connection.query("call sample_report_for_lab_with_null_nutrient(?)", labId, function(err, rows, fields) {
+  // the with_null_nutrient is a version of the procedure that will publish insitu without nutrient data
+  // will use it in the future.
+  //connection.query("call sample_report_for_lab_with_null_nutrient(?)", labId, function(err, rows, fields) {
+  connection.query("call sample_report_for_lab(?)", labId, function(err, rows, fields) {
    
     if (endConnection) {
       connection.end();
