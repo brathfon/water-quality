@@ -474,3 +474,11 @@ nutrient-report.2019-06-08_09-05-30.post-add-insitu-55-56w-31-32s.txt
 nutrient-report.2019-06-10_15-14-51.post-add-nutrient-53w-28-29s.txt
 
 Saw expecte results: nutrient columns going from NULL to values.
+
+6/24/2019
+Adding in insitu data for sessions 57w and 33s  Expected diffs: all new data for these two sessions
+
+diffs for commments-report:
+comments-report.2019-06-10_15-14-51.post-add-nutrient-53w-28-29s.txt
+comments-report.2019-06-24_12-03-18.post-added-insitu-57w-33s.txt
+
