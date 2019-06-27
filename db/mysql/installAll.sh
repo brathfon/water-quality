@@ -16,6 +16,6 @@ mysql -v -u $user -p$pw $db < utility-procedures.sql
 mysql -v -u $user -p$pw $db < insertData.sql
 mysql -v -u $user -p$pw $db < ../xfer/insert-webexport-legacy-data.3.add-sampling-order.sql
 mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-28-57w-1-33s.0.sql
-mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20190624.0.nutrient-53w-29s.insitu-57w-32s.sql
+mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20190627.0.nutrient-55w-30s.insitu-57w-32s.sql
 
 exit
