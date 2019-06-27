@@ -482,3 +482,11 @@ diffs for commments-report:
 comments-report.2019-06-10_15-14-51.post-add-nutrient-53w-28-29s.txt
 comments-report.2019-06-24_12-03-18.post-added-insitu-57w-33s.txt
 
+6/27/2019
+Added in nutrient data for sessions 54-55 west and 30 south.  Saw expected differences: NULL changed to values for 54-55 west and 30 south
+
+diffs for nutrient-report:
+nutrient-report.2019-06-24_12-03-18.post-added-insitu-57w-33s.txt
+nutrient-report.2019-06-27_15-18-58.post-add-nutrient-54-55w-30s.txt
+1048,1085c1048,1085
+
