@@ -490,3 +490,11 @@ nutrient-report.2019-06-24_12-03-18.post-added-insitu-57w-33s.txt
 nutrient-report.2019-06-27_15-18-58.post-add-nutrient-54-55w-30s.txt
 1048,1085c1048,1085
 
+7/13/2019
+
+added in insitu 58w and 34s and nutrient data for 31s.  Saw expected results.  This included NULL values for pH for session 34s due to cal problems.
+
+diffs for commments-report:
+comments-report.2019-06-27_15-18-58.post-add-nutrient-54-55w-30s.txt
+comments-report.2019-07-13_14-44-35.add-58w-43s-insitu-34s-nut-before-adding-nut-col.txt
+
