@@ -268,6 +268,7 @@ var createSqlStatements = function (data, callback) {
   var site_id       = null;
   var the_date = null;
   var the_time = null;
+  var nutrient_sample_taken = null;
   var moon          = null;
   var qa_code       = null;
   // insitu measurements
@@ -342,6 +343,18 @@ var createSqlStatements = function (data, callback) {
       }
 
       the_time = sample['Time'];
+
+      if (sample['Nut_Sample'].toLowerCase() === "yes") {
+        nutrient_sample_taken = 1;
+      }
+      else if (sample['Nut_Sample'].toLowerCase() === "no") {
+        nutrient_sample_taken = 0;
+      }
+      else {
+        console.error('Unrecognized Nut_Sample of ' + sample['Nut_Sample'] + ' for site ' + hui_abv + " on " + the_date + " .... existing script"); 
+        console.log('Unrecognized Nut_Sample of ' + sample['Nut_Sample'] + ' for site ' + hui_abv + " on " + the_date + " .... existing script"); 
+        process.exit(1);
+      }
       
       // the moon phase can be empty if the sample is not taken
       if (sample['Moon'] === "") {
@@ -415,6 +428,7 @@ var createSqlStatements = function (data, callback) {
       cmd +=   "turbidity_1, ";
       cmd +=   "turbidity_2, ";
       cmd +=   "turbidity_3, ";
+      cmd +=   "nutrient_sample_taken, ";
       cmd +=   "comments";
       cmd +=   ") ";
       cmd += "  values (";
@@ -438,6 +452,7 @@ var createSqlStatements = function (data, callback) {
       cmd +=          turbidity_1 + ",";
       cmd +=          turbidity_2 + ",";
       cmd +=          turbidity_3 + ",";
+      cmd +=          nutrient_sample_taken + ",";
       cmd +=          comments_str;
       cmd +=    ");";
 

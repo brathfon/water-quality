@@ -43,8 +43,8 @@ var getSampleReportData = function (data, endConnection, callback) {
 
   // the with_null_nutrient is a version of the procedure that will publish insitu without nutrient data
   // will use it in the future.
-  //connection.query("call sample_report_for_lab_with_null_nutrient(?)", labId, function(err, rows, fields) {
-  connection.query("call sample_report_for_lab(?)", labId, function(err, rows, fields) {
+  connection.query("call sample_report_for_lab_with_null_nutrient(?)", labId, function(err, rows, fields) {
+  //connection.query("call sample_report_for_lab(?)", labId, function(err, rows, fields) {
    
     if (endConnection) {
       connection.end();
@@ -160,6 +160,60 @@ var descriptionObjToString = function (obj) {
   return str;
 }
 
+
+// check to see if the nutrient value being passed in is some kind of null.  Return true if it is, false if not null
+
+var isNutrientValueEmpty = function(nutrientValue) {
+
+  let returnValue = false;
+
+  if ((nutrientValue === null) || (nutrientValue === "NULL")) {
+    returnValue = true;
+  }
+  return returnValue;
+}
+
+
+// returns true if all nutrient related values are empty, false if not
+var isNutrientDataEmpty = function(sample) {
+    
+  let returnValue = false;
+
+  if ( isNutrientValueEmpty(sample["total_nitrogen"]) &&
+       isNutrientValueEmpty(sample["total_phosphorus"]) &&
+       isNutrientValueEmpty(sample["phosphate"]) &&
+       isNutrientValueEmpty(sample["silicate"]) &&
+       isNutrientValueEmpty(sample["nitrates"]) &&
+       isNutrientValueEmpty(sample["ammonia"]) ) {
+    returnValue = true;
+  }
+  return returnValue;
+}
+
+
+// This function adds a comment to the msgObj that reports when the nutrient data is empty.
+// It reports that there is data pending (not back from the lab) if the nutrient data is empty
+// but samples were taken according to the database. If the database says not samples were
+// taken, then it reports that.
+
+var addMissingNutrientDataMsg = function(sample, msgObj) {
+
+  if (isNutrientDataEmpty(sample)) {
+    if (sample["nutrient_sample_taken"] === 1) {
+      //console.log("nutrient empty YES, samples taken YES");
+      msgObj["nutrient data pending"] = true;
+    }
+    else if (sample["nutrient_sample_taken"] === 0) {
+      //console.log("nutrient empty YES, samples taken NO");
+      msgObj["nutrient samples not taken"] = true;
+    }
+    else {
+      console.error(`ERROR: unexpected value for nutrient_sample_taken of ${sample["nutrient_sample_taken"]} .  exiting .....`);
+      process.exit(1);
+    }
+  }
+}
+
 var checkForQAIssues = function(sample, column, qaIssues, issueDescriptions) {
 
   var returnValue = sample[column];
@@ -214,7 +268,6 @@ var createReport = function (data, callback) {
   var i;
   var row;
   var header;
-  var issueDescriptions = {};
 
   //console.log("data " + util.inspect(data , false, null));
 
@@ -244,7 +297,7 @@ var createReport = function (data, callback) {
 
 
   for (i = 0;  i < data.samples.length; ++i) {
-    issueDescriptions = {};
+    let issueDescriptions = {};
     row = (i + 1) + "\t";
     row += data.samples[i].sampleID + "\t";
     row += data.samples[i].long_name + "\t";
@@ -266,6 +319,9 @@ var createReport = function (data, callback) {
     row += checkForQAIssues(data.samples[i], "ammonia",              data.qaIssues, issueDescriptions) + "\t";
     row += checkForQAIssues(data.samples[i], "lat",                  data.qaIssues, issueDescriptions) + "\t";
     row += checkForQAIssues(data.samples[i], "lon",                  data.qaIssues, issueDescriptions) + "\t";
+
+    addMissingNutrientDataMsg(data.samples[i], issueDescriptions);
+
     row += descriptionObjToString(issueDescriptions);
     console.log(row);
 
