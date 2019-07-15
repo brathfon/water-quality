@@ -74,6 +74,7 @@ BEGIN
     dissolved_oxygen_pct,
     ph,
     avg_turbidity,
+    nutrient_sample_taken,
     total_nitrogen,
     total_phosphorus,
     phosphate,

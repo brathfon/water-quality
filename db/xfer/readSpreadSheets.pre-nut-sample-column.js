@@ -46,21 +46,20 @@ var readTeamSheet = function(teamSheetFile) {
       //console.log("line " + lineCount + " line length " + pieces.length);
       if (lineCount > 3) {  // first three lines are header information
         // for (j = 0; j < pieces.length; ++j) { console.log(j, pieces[j]); }  // print out all pieces for debug
-        if (pieces.length === 45) {
+        if (pieces.length === 44) {
           obj = {};
           obj['Added_to_Main'] =  pieces[0];  // not going to use this
           obj['Ver_By_Dana']   =  pieces[1];  // not going to use this
-          obj['Nut_Sample']    =  pieces[2];
-          obj['Nut_Dup']       =  pieces[3];
-          obj['Sed_Sample']    =  pieces[4];
-          obj['Session']       =  pieces[5];
-          obj['Team']          =  pieces[6];
-          obj['Lab']           =  pieces[7];
-          obj['Sampler']       =  pieces[8];
-          obj['Sampler2']      =  pieces[9];
-          obj['Sampler3']      =  pieces[10];
-          obj['Station']       =  pieces[11];
-          obj['SampleID']      =  pieces[12];
+          obj['Nut_Dup']       =  pieces[2];
+          obj['Sed_Sample']    =  pieces[3];
+          obj['Session']       =  pieces[4];
+          obj['Team']          =  pieces[5];
+          obj['Lab']           =  pieces[6];
+          obj['Sampler']       =  pieces[7];
+          obj['Sampler2']      =  pieces[8];
+          obj['Sampler3']      =  pieces[9];
+          obj['Station']       = pieces[10];
+          obj['SampleID']      = pieces[11];
           // had a problem where spreadsheet was changed when sites were changed and had column shifts that mismatched the
           // stationID and SampleID.  Check here and print to stderr
           let stationFromSampleID = obj.SampleID.substr(0,3);
@@ -70,10 +69,10 @@ var readTeamSheet = function(teamSheetFile) {
             console.error(`stationID : ${obj.Station} not equal to ID from SampleID : ${obj.SampleID} file: ${filename}`);
           }
 
-          obj['Location']      = pieces[13];
-          obj['SiteName']      = pieces[14];
+          obj['Location']      = pieces[12];
+          obj['SiteName']      = pieces[13];
 
-          validator.isDate(pieces[15])       ? obj['Date']    = pieces[15] : reportError("'" + pieces[15] + "' date is not a correctly formed (YYYY-MM-DD)", obj.SampleID, filename);
+          validator.isDate(pieces[14])       ? obj['Date']    = pieces[14] : reportError("'" + pieces[14] + "' date is not a correctly formed (YYYY-MM-DD)", obj.SampleID, filename);
 
           // had a problem where date in the SampleID did not the date field
           let dateFromSampleID = `20${obj.SampleID.substr(3,2)}-${obj.SampleID.substr(5,2)}-${obj.SampleID.substr(7,2)}`;    // ex: RSN180622 -> 2018-06-22
@@ -84,44 +83,45 @@ var readTeamSheet = function(teamSheetFile) {
           }
         
 
-          if (validator.isHourMinute(pieces[16]) ) {
-             obj['Time']    = pieces[16];
+          //console.error("TIME : ", pieces[15]);
+          if (validator.isHourMinute(pieces[15]) ) {
+             obj['Time']    = pieces[15];
           }
-          else if (pieces[16] === "") {  // if a site is not sampled due to conditions at the site, etc.  The time will be blank
-             reportError("'" + pieces[16] + "' time is blank, which may be a uncollected sample, setting to NULL", obj.SampleID, filename);
+          else if (pieces[15] === "") {  // if a site is not sampled due to conditions at the site, etc.  The time will be blank
+             reportError("'" + pieces[15] + "' time is blank, which may be a uncollected sample, setting to NULL", obj.SampleID, filename);
              obj['Time']    = "null";
           }
           else {
-             reportError("'" + pieces[16] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);
+             reportError("'" + pieces[15] + "' time is not a correctly formed (HH-MM)", obj.SampleID, filename);
           }
-          obj['40D#']          = pieces[17];
-          obj['2100Q#']        = pieces[18];
-          obj['pHInst#']       = pieces[19];
-          obj['DOInst#']       = pieces[20];
-          obj['SalInst#']      = pieces[21];
-          obj['Moon']          = pieces[22];
-          obj['Cloud_1_8']     = pieces[23];
-          obj['Rain_1_4']      = pieces[24];
-          obj['Wind_dir']      = pieces[25];
-          obj['SampleID2']     = pieces[26];
-          obj['Temp']          = pieces[27];
-          obj['Salinity']      = pieces[28];
-          obj['DO']            = pieces[29];
-          obj['DO%']           = pieces[30];
-          obj['pH']            = pieces[31];
-          obj['Turb1']         = pieces[32];
-          obj['Turb2']         = pieces[33];
-          obj['Turb3']         = pieces[34];
-          obj['Average Turbidity'] = pieces[35];
-          obj['CV Turbidity']      = pieces[36];
-          obj['blank']      = pieces[37];    // for some reason getting a blank column
-          obj['Waves']      = pieces[38];
-          obj['Wind']       = pieces[39];
-          obj['Stream']     = pieces[40];
-          obj['Swimmers']   = pieces[41];
-          obj['On Beach']   = pieces[42];
-          obj['Campers']    = pieces[43];
-          obj['Comments']   = pieces[44];
+          obj['40D#']          = pieces[16];
+          obj['2100Q#']        = pieces[17];
+          obj['pHInst#']       = pieces[18];
+          obj['DOInst#']       = pieces[10];
+          obj['SalInst#']      = pieces[20];
+          obj['Moon']          = pieces[21];
+          obj['Cloud_1_8']     = pieces[22];
+          obj['Rain_1_4']      = pieces[23];
+          obj['Wind_dir']      = pieces[24];
+          obj['SampleID2']     = pieces[25];
+          obj['Temp']          = pieces[26];
+          obj['Salinity']      = pieces[27];
+          obj['DO']            = pieces[28];
+          obj['DO%']           = pieces[29];
+          obj['pH']            = pieces[30];
+          obj['Turb1']         = pieces[31];
+          obj['Turb2']         = pieces[32];
+          obj['Turb3']         = pieces[33];
+          obj['Average Turbidity'] = pieces[34];
+          obj['CV Turbidity']      = pieces[35];
+          obj['blank']      = pieces[36];    // for some reason getting a blank column
+          obj['Waves']      = pieces[37];
+          obj['Wind']       = pieces[38];
+          obj['Stream']     = pieces[39];
+          obj['Swimmers']   = pieces[40];
+          obj['On Beach']   = pieces[41];
+          obj['Campers']    = pieces[42];
+          obj['Comments']   = pieces[43];
           // get rid of the Microsoft end of line char
           obj['Comments']   = obj['Comments'].replace("\r", "");
           lineList.push(obj);
