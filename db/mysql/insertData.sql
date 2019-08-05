@@ -3,14 +3,14 @@
 -- special case for the root user that will have permissions to do all.
 -- email will be used as the login
 INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values
-   ('root', 'root', '99', 'root@root.com', null,
+   ('root', 'root', '99', 'root', null,
    '014f8f5784eaeee325fbaf29b8170871',
    'bed6ea8f4cae38603163ef5f7fa320a85bc07382c73066de935de1b8f29cd6c5e9e8d0473a657789f3f8ad2e95b2a083d258cb436176078b09e7797751ae58e3');
 
 INSERT INTO users (first_name, last_name, initials, email, phone_number, salt, hash) values
    ('The', 'Guest', 'G', "guest", null,
-   '969b6a075f1b27ff7e63187f3ca93d4d',
-   '6a7f5fdfd3ae70a604b658fb0c05f9ce0449ac1ef30e264c2387b33196080111153bca4d019acc5c3089a63ca47f081006708ce4c1b68918261714f761547267');
+   'c7a2626abc7a1d37dd8d9634545df480',
+   '2ebad3ac4f62132691f97be50f20f443e33e30747506f7d27b81b8b55b3e99d2d10f32d27c8f76fca2cd184c5427993103e3b12f66fabe252bb76407b518ac52');
 
 -- these users will not have an initial pw at least for now
 INSERT INTO users (first_name, last_name, initials, email, phone_number) values ('Cathy', 'Maxwell', 'CM', 'jandcmax@gmail.com', '808-456-1234'); -- 3
