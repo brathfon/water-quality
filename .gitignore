@@ -11,3 +11,5 @@ errs
 env
 temp
 npm-debug.log
+prodTempCreateDatabase.sql
+pm2.config.js
