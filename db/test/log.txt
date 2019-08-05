@@ -506,3 +506,11 @@ report now has an extra column.
 1708654831 372320 nutrient-report.2019-07-13_14-44-35.add-58w-43s-insitu-34s-nut-before-adding-nut-col.txt
 302019763 415280 nutrient-report.2019-07-14_14-19-19.add-58w-43s-insitu-34s-nut-after-adding-nut-col.txt
 
+
+8/5/2019
+
+adding sessions 59w and 35s.  Saw expected results, differences only in the new sessions:
+
+comments-report.2019-07-14_14-19-19.add-58w-43s-insitu-34s-nut-after-adding-nut-col.txt
+comments-report.2019-08-05_16-04-04.post-add-insitu-59w-35s.txt
+
