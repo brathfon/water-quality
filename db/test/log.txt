@@ -514,3 +514,11 @@ adding sessions 59w and 35s.  Saw expected results, differences only in the new 
 comments-report.2019-07-14_14-19-19.add-58w-43s-insitu-34s-nut-after-adding-nut-col.txt
 comments-report.2019-08-05_16-04-04.post-add-insitu-59w-35s.txt
 
+8/27/2019
+
+adding session 60w and 36s insitu only data.  Saw expected differences of only those sessions
+
+diffs for sample-report:
+sample-report.2019-08-05_16-04-04.post-add-insitu-59w-35s.txt
+sample-report.2019-08-27_15-42-08.post-add-insitu-60w-36s.txt
+

@@ -112,6 +112,7 @@ INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, def
   values (         'KKO',    '000681',    'Kamaole Beach I',         2,      1,                  NULL,                  20.721985, -156.448183, 0,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (         'KKT',    '000683',    'Kamaole Beach III',       2,      1,                  NULL,                  20.712908, -156.446596, 0,       null);
+-- day 6 is NMP, which was in North Kihei team but now be collected on day 1 with Kamaole team
 
 -- Makena 
 INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
@@ -129,15 +130,16 @@ INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, def
 
 -- North Kihei
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values          ('NHP',     '000687',    'Haycraft Park',        2,      3,                  1,                    20.796414, -156.503198, 1,       null);
+  values          ('NHP',     '000687',    'Haycraft Park',        2,      3,                  3,                    20.796414, -156.503198, 1,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'NKP',     '000711',    'Kealia Pond',          2,      3,                  2,                    20.794936, -156.485587, 1,       null);
+  values (         'NKP',     '000711',    'Kealia Pond',          2,      3,                  4,                    20.794936, -156.485587, 1,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'NSB',     NULL,        'Sugar Beach',          2,      3,                  3,                    20.784204, -156.466463, 1,       null);
+  values (         'NSB',     NULL,        'Sugar Beach',          2,      3,                  5,                    20.784204, -156.466463, 1,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'NKC',     '000671',    'Kihei Canoe Club',     2,      3,                  4,                    20.781403, -156.463176, 1,       null);
+  values (         'NKC',     '000671',    'Kihei Canoe Club',     2,      3,                  6,                    20.781403, -156.463176, 1,       null);
+-- NOTE: this site as moved to day one for this lab, but keeping the insert here so site ids stay the same for data import
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'NMP',     '000702',    'Mai Poina \'Oe Ia\'u', 2,      3,                  5,                    20.774894, -156.460776, 1,       null);
+  values (         'NMP',     '000702',    'Mai Poina \'Oe Ia\'u', 2,      1,                  6,                    20.774894, -156.460776, 1,       null);
 -- NOTE: this site as moved to day one for this lab, but keeping the insert here so site ids stay the same for data import
 INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (         'NKN',     NULL,        'Kalepolepo North',     2,      1,                  1,                    20.765132, -156.459344, 1,       null);
@@ -156,6 +158,11 @@ INSERT INTO sites (hui_abv , storet_code, long_name,                       lab_i
 INSERT INTO sites (hui_abv , storet_code, long_name,                       lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values          ('WPO',     '000716',    'Poolenalena (Chang\'s Beach)', 2,      4,                  5,                    20.66339,  -156.441968, 1,       null);
 
+-- Added South Maui sites.  Both of these sites were added to team North Kihei to be sampled on day 3
+INSERT INTO sites (hui_abv , storet_code, long_name,                       lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
+  values          ('NMH',     NULL,    'Maalaea Harbor',                   2,      3,                  1,                    20.790305,  -156.510825, 1,       null);
+INSERT INTO sites (hui_abv , storet_code, long_name,                       lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
+  values          ('NMC',     NULL,    'Maalaea Condos',                   2,      3,                  2,                    20.794917,  -156.506735, 1,       null);
 
 /* extra Olowalu sites
 2031,OBR,,Ukumehame Bridge,Olowalu,
