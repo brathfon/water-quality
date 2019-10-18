@@ -527,7 +527,7 @@ var descriptionObjToString = function (obj) {
   for (i = 0; i < keys.length; ++i) {
      str += keys[i];
    if (i !== (keys.length - 1)) {
-     str +=  ", ";
+     str +=  "; ";
    }
   }
   return str;
@@ -717,6 +717,9 @@ var createReportFromList = function (samples) {
       row += "\n";
       report += row;
     }
+    else {
+      console.log(`isEmptyInsituData for ${samples[i].SampleID} is TRUE`);
+    }
 
   }
 
@@ -867,37 +870,6 @@ var sortAscendingByDateAndTime = function(a,b) {
      return 1;
 
    return 0;
-/*
-  // now by time if the dates are the same.  The 1/1/1999 is arbitrary.  Also, add seconds to the time stored
-   const aDate = new Date(`{a.Date} {a.Time}:00`);
-   const bDate = new Date(`{b.Date} {b.Time}:00`);
-   if (aDate < bDate)
-     return -1;
-   if (aDate > bDate)
-     return 1;
-
-   return 0;   // date and time are equal
-
-
-
-   // first compare the dates
-   const aDate = new Date(a.Date);
-   const bDate = new Date(b.Date);
-   if (aDate < bDate)
-     return -1;
-   if (aDate > bDate)
-     return 1;
-
-  // now by time if the dates are the same.  The 1/1/1999 is arbitrary.  Also, add seconds to the time stored
-   const aTime = new Date('01/01/1999 ' + a.Time + ':00');
-   const bTime = new Date('01/01/1999 ' + b.Time + ':00');
-   if (aTime < bTime)
-     return -1;
-   if (aTime > bTime)
-     return 1;
-
-   return 0;   // date and time are equal
-*/
 };
 
 

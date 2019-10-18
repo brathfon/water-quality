@@ -38,11 +38,11 @@
 |      35 | MBS     | NULL        | Makena Beach Shoreline      |      2 |                  2 |                   NULL |      NULL |  20.63061 | -156.446183 |      0 | NULL        |
 |      36 | MAN     | NULL        | Ahihi North                 |      2 |                  2 |                      4 |      NULL | 20.618366 | -156.437572 |      1 | NULL        |
 |      37 | MAS     | NULL        | Ahihi South                 |      2 |                  2 |                      5 |      NULL |   20.6138 | -156.436853 |      1 | NULL        |
-|      38 | NHP     | 000687      | Haycraft Park               |      2 |                  3 |                      1 |      NULL | 20.796414 | -156.503198 |      1 | NULL        |
-|      39 | NKP     | 000711      | Kealia Pond                 |      2 |                  3 |                      2 |      NULL | 20.794936 | -156.485587 |      1 | NULL        |
-|      40 | NSB     | NULL        | Sugar Beach                 |      2 |                  3 |                      3 |      NULL | 20.784204 | -156.466463 |      1 | NULL        |
-|      41 | NKC     | 000671      | Kihei Canoe Club            |      2 |                  3 |                      4 |      NULL | 20.781403 | -156.463176 |      1 | NULL        |
-|      42 | NMP     | 000702      | Mai Poina 'Oe Ia'u          |      2 |                  3 |                      5 |      NULL | 20.774894 | -156.460776 |      1 | NULL        |
+|      38 | NHP     | 000687      | Haycraft Park               |      2 |                  3 |                      3 |      NULL | 20.796414 | -156.503198 |      1 | NULL        |
+|      39 | NKP     | 000711      | Kealia Pond                 |      2 |                  3 |                      4 |      NULL | 20.794936 | -156.485587 |      1 | NULL        |
+|      40 | NSB     | NULL        | Sugar Beach                 |      2 |                  3 |                      5 |      NULL | 20.784204 | -156.466463 |      1 | NULL        |
+|      41 | NKC     | 000671      | Kihei Canoe Club            |      2 |                  3 |                      6 |      NULL | 20.781403 | -156.463176 |      1 | NULL        |
+|      42 | NMP     | 000702      | Mai Poina 'Oe Ia'u          |      2 |                  1 |                      6 |      NULL | 20.774894 | -156.460776 |      1 | NULL        |
 |      43 | NKN     | NULL        | Kalepolepo North            |      2 |                  1 |                      1 |      NULL | 20.765132 | -156.459344 |      1 | NULL        |
 |      44 | WKD     | 000704      | Kilohana Dr                 |      2 |                  4 |                      1 |      NULL | 20.702214 | -156.445921 |      1 | NULL        |
 |      45 | WKB     | 000685      | Keawekapu Beach             |      2 |                  4 |                      2 |      NULL | 20.695939 | -156.444632 |      1 | NULL        |
@@ -50,4 +50,6 @@
 |      47 | WWA     | 000691      | Wailea Beach                |      2 |                  4 |                   NULL |      NULL |  20.68156 | -156.443524 |      0 | NULL        |
 |      48 | WPL     | 000715      | Palauea                     |      2 |                  4 |                      4 |      NULL | 20.669565 | -156.442907 |      1 | NULL        |
 |      49 | WPO     | 000716      | Poolenalena (Chang's Beach) |      2 |                  4 |                      5 |      NULL |  20.66339 | -156.441968 |      1 | NULL        |
+|      50 | NMH     | NULL        | Maalaea Harbor              |      2 |                  3 |                      1 |      NULL | 20.790305 | -156.510825 |      1 | NULL        |
+|      51 | NMC     | NULL        | Maalaea Condos              |      2 |                  3 |                      2 |      NULL | 20.794917 | -156.506735 |      1 | NULL        |
 +---------+---------+-------------+-----------------------------+--------+--------------------+------------------------+-----------+-----------+-------------+--------+-------------+
