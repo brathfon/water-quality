@@ -38,7 +38,7 @@ SELECT
   REPLACE(FORMAT(sam.temperature,      1), ',', '')      AS temperature,  -- REPLACE takes out an commas in numbers
   REPLACE(FORMAT(sam.salinity,         1), ',', '')      AS salinity,
   REPLACE(FORMAT(sam.dissolved_oxygen, 2), ',', '')      AS dissolved_oxygen,
-  REPLACE(FORMAT(sam.dissolved_oxygen_pct, 2), ',', '')  AS dissolved_oxygen_pct,
+  REPLACE(FORMAT(sam.dissolved_oxygen_pct, 1), ',', '')  AS dissolved_oxygen_pct,
   REPLACE(FORMAT(sam.ph, 2), ' ', '')           AS ph,
   REPLACE(FORMAT(sam.turbidity_1, 2), ',', '')  AS turbidity_1,
   REPLACE(FORMAT(sam.turbidity_2, 2), ',', '')  AS turbidity_2,

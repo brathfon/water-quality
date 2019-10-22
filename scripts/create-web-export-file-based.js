@@ -117,8 +117,8 @@ const reportPrecision = {};
 
 reportPrecision['Temp']      = 1;
 reportPrecision['Salinity']  = 1;
-reportPrecision['DO']        = 2;  // is this supposed to be 2 or 1
-reportPrecision['DO%']       = 2;
+reportPrecision['DO']        = 2;
+reportPrecision['DO%']       = 1;
 reportPrecision['pH']        = 2;
 reportPrecision['Turbidity'] = 2;
 
