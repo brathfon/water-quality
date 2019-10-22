@@ -8,7 +8,7 @@ var data = {};
 var sessions = null;
 
 
-var rsf  = require('./readSoestFiles');
+var rsf  = require('../../lib/readSoestFiles');
 
 
 var connection = mysql.createConnection({

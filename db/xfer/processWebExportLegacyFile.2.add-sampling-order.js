@@ -7,7 +7,7 @@ var util  = require('util');
 var data = {};
 
 
-var rwef  = require('./readWebExportLegacyFile');
+var rwef  = require('../../lib/readWebExportLegacyFile');
 
 
 var printSessionsAsComments = function(theSessions) {
@@ -394,6 +394,11 @@ var createSqlStatements = function (data, callback) {
   for (k = 0; k < qaInserts.length; ++k) {
     console.log(qaInserts[k]);
   }
+
+  console.log("");
+  console.log("-- all the legacy data had nutrient data taken, so set them all the true, or 1");
+  console.log("UPDATE samples SET nutrient_sample_taken = 1;");
+
 
   if (callback) {
     callback();

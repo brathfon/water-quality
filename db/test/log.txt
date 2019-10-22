@@ -551,3 +551,42 @@ insitu-report.2019-10-06_16-23-59.post-add-insitu-61-62w-37-38s.txt
 > |      1 | RKS190827 | Kaanapali Shores            | RKS     |             61 | 08/27/19 | 08:58    | 28.3        | 36.0     | 5.84             | 91.50                | 8.13 | 1.87        | 2.16        | 1.95        | 1.99          |
 > |      1 | RCB190827 | Canoe Beach                 | RCB     |             61 | 08/27/19 | 09:17    | 28.7        | 35.2     | 6.46             | 101.70               | 8.22 | 2.30        | 1.93        | 1.86        | 2.03          |
 
+
+10/15/19
+removed "," from values >= 1000  Just 3 samples had this in some of the nutrient data.
+
+diffs for nutrient-report:
+nutrient-report.2019-10-06_16-23-59.post-add-insitu-61-62w-37-38s.txt
+nutrient-report.2019-10-15_12-33-20.after-remove-commas.txt
+1730c1730
+< |      2 | KCP190226 | Cove Park                   | KCP     |             28 | 02/26/19 | 09:40    |                     1 | 1,187.17       | 26.55            | 21.65     | 1779.46  | 749.38   | 15.63   | 20.727434 | -156.450077 |
+---
+> |      2 | KCP190226 | Cove Park                   | KCP     |             28 | 02/26/19 | 09:40    |                     1 | 1187.17        | 26.55            | 21.65     | 1779.46  | 749.38   | 15.63   | 20.727434 | -156.450077 |
+.....
+
+
+10/22/2019
+
+Reduce significant digits for reports and web export to 1 from 2.  Saw expected results. Diffs for insitu and samples reports, none for nutrients and qa results
+
+2181903733 348600 comments-report.2019-10-15_12-33-20.after-remove-commas.txt
+2181903733 348600 comments-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
+
+3954288928 456768 insitu-report.2019-10-15_12-33-20.after-remove-commas.txt
+1680473204 456768 insitu-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
+
+3024772974 452864 nutrient-report.2019-10-15_12-33-20.after-remove-commas.txt
+3024772974 452864 nutrient-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
+
+2951705555 663680 sample-report.2019-10-15_12-33-20.after-remove-commas.txt
+2862041026 663680 sample-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
+
+example diffs:
+==> insitu-report.2019-10-15_12-33-20.after-remove-commas.txt <==
+|      2 | WPO190927 | Poolenalena (Chang's Beach) | WPO     |             38 | 09/27/19 | 09:29    | 28.6        | 35.2     | 6.55             | 103.00               | 8.19 | 0.83        | 0.81        | 0.82        | 0.82          |
++--------+-----------+-----------------------------+---------+----------------+----------+----------+-------------+----------+------------------+----------------------+------+-------------+-------------+-------------+---------------+
+
+==> insitu-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt <==
+|      2 | WPO190927 | Poolenalena (Chang's Beach) | WPO     |             38 | 09/27/19 | 09:29    | 28.6        | 35.2     | 6.55             | 103.0                | 8.19 | 0.83        | 0.81        | 0.82        | 0.82          |
++--------+-----------+-----------------------------+---------+----------------+----------+----------+-------------+----------+------------------+----------------------+------+-------------+-------------+-------------+---------------+
+
