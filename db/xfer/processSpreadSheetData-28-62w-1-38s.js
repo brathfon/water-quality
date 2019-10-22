@@ -6,7 +6,7 @@
 
 var mysql = require('mysql');
 var util  = require('util');
-var rss  = require('./readSpreadSheets');
+var rss  = require('../../lib/readSpreadSheets');
 
 
 var theData = null;
