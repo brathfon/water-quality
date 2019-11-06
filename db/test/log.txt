@@ -590,3 +590,12 @@ example diffs:
 |      2 | WPO190927 | Poolenalena (Chang's Beach) | WPO     |             38 | 09/27/19 | 09:29    | 28.6        | 35.2     | 6.55             | 103.0                | 8.19 | 0.83        | 0.81        | 0.82        | 0.82          |
 +--------+-----------+-----------------------------+---------+----------------+----------+----------+-------------+----------+------------------+----------------------+------+-------------+-------------+-------------+---------------+
 
+11/02/2019
+
+Added in insitu for sessions 63 west and 39 south
+
+All looked good. Expecting results of only diffs between 63 west and 39 south
+
+diffs for insitu-report:
+insitu-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
+insitu-report.2019-11-02_11-19-09.post-add-insitu-63w-39s.txt
