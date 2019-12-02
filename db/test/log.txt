@@ -599,3 +599,16 @@ All looked good. Expecting results of only diffs between 63 west and 39 south
 diffs for insitu-report:
 insitu-report.2019-10-22_14-38-36.post-do-percent-to-1-sigfig.txt
 insitu-report.2019-11-02_11-19-09.post-add-insitu-63w-39s.txt
+
+11/30/2019
+
+Big load
+Adding insitu for sessions 64-65 west Maui and 40-41 South Maui with nutrient data for sessions 60 to 64 West and 36 - 39 South.  Saw expected results.
+
+diffs for insitu-report:
+insitu-report.2019-11-02_11-19-09.post-add-insitu-63w-39s.txt
+insitu-report.2019-11-30_12-39-28.post-add-64-65w-40-41w-with-nut-thru-64w-39s.txt
+1237a1238,1275
+> |      1 | RNS191029 | Napili                      | RNS     |             64 | 10/29/19 | 08:24    | 26.8        | 36.0     | 6.72             | 103.2                | 8.13 | 1.44        | 1.54        | 1.71        | 1.56          |
+> |      1 | RPO191029 | Pohaku                      | RPO     |             64 | 10/29/19 | 08:55    | 26.2        | 34.3     | 6.80             | 102.4                | 8.11 | 11.50       | 11.10       | 11.00       | 11.20         |
+
