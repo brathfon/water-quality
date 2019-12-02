@@ -3,7 +3,6 @@
 
 "use strict";
 
-var mysql = require('mysql');
 var util  = require('util');
 var fs    = require('fs');
 var path  = require('path');
@@ -12,9 +11,14 @@ const scriptname = path.basename(process.argv[1]);
 
 var argv = require('minimist')(process.argv.slice(2));
 console.dir(`arguments passed in ${argv}`);
+console.dir(`arguments passed in ${util.inspect(argv, false, null)}`);
+
+
 
 const printUsage = function () {
-  console.log(`Usage: ${scriptname} --odir <directory to write report files> --bname <basename for the files> --gsdir <Google sheets directory> --lfile <legacy file> --sfile <site file> --ndir <nutrient data directory`);
+  console.log(`Usage: ${scriptname} --odir <directory to write report files> --bname <basename for the files> --gsdir <Google sheets directory> --lfile <legacy file> --sfile <site file> --ndir <nutrient data directory [--inns]`);
+  console.log(`optional:`);
+  console.log(`  --inns     Ignore no nutrient data lines. They will not be included in the report.`);
 }
 
 if (argv.help || argv.h ) {
@@ -79,6 +83,13 @@ if (argv.sfile) data['siteFile']  = argv.sfile;
 
 if (argv.n)     data['nutrientDirectory']  = argv.n;
 if (argv.ndir)  data['nutrientDirectory']  = argv.ndir;
+
+// initialize the ignoreNoNutrientSamples to false.  Default behavior will be to report samples without nutrient data
+data['ignoreNoNutrientSamples']  = false;
+data['ignoreNoNutrientSamples']  = false;
+// if the option is passed in, do not report samples without nutrient data
+if (argv.i)     data['ignoreNoNutrientSamples']  = true;
+if (argv.inns)  data['ignoreNoNutrientSamples']  = true;
 
 data['samples'] = {};  // the key of samples is the sample ID. ex: RWA190716, which encode the site and the date
                        // the value is an object with the information about the sample
@@ -353,9 +364,6 @@ var updateSamplesWithNutrientData = function (data, callback) {
       data.samples[sampleID].Silicate  = data.nutrientSamples[sampleID].Silicate;
       data.samples[sampleID].NNN       = data.nutrientSamples[sampleID].NNN;
       data.samples[sampleID].NH4       = data.nutrientSamples[sampleID].NH4;
-    }
-    else {
-      console.log("No nutrient data found for sample " + sampleID);
     }
   }
 
@@ -645,7 +653,7 @@ var addMissingNutrientDataMsg = function(sample, msgObj) {
 
 
 
-var createReportFromList = function (samples) {
+var createReportFromList = function (samples, ignoreNoNutrientSamples) {
 
   console.log("In createReport From List");
 
@@ -680,9 +688,12 @@ var createReportFromList = function (samples) {
   for (let i = 0; i < samples.length; ++i) {
 
     // will not be reporting on any empty samples
-    if ( ! isEmptyInsituData(samples[i]) ) {
+    if ( ! isEmptyInsituData(samples[i])) {
 
-      //padOutDateFormat(samples[i].Date);
+      // check special case of ignoring empty nutrient data and it is empty.  If so skip this line
+      if (  ( ignoreNoNutrientSamples ) && ( isEmptyNutrientData(samples[i]) ) ) {
+        continue;
+      }
 
       ++count;
 
@@ -713,12 +724,9 @@ var createReportFromList = function (samples) {
 
       row += descriptionObjToString(issueDescriptions);
 
-
+      // finish the row
       row += "\n";
       report += row;
-    }
-    else {
-      console.log(`isEmptyInsituData for ${samples[i].SampleID} is TRUE`);
     }
 
   }
@@ -753,13 +761,13 @@ var createReports = function (data, callback) {
   console.log("Creating report for all samples");
 
   let filePath = path.join(data.directoryForFiles, data.basenameForFiles + ".all-labs.tsv");
-  writeFile(filePath, createReportFromList(data.sortedSamples));
+  writeFile(filePath, createReportFromList(data.sortedSamples, data.ignoreNoNutrientSamples));
 
 
   for (let labID in data.samplesByLab) {
      console.log("Creating report for lab " + labID);
      filePath = path.join(data.directoryForFiles, data.basenameForFiles + `.${labID}-lab.tsv`);
-     writeFile(filePath, createReportFromList(data.samplesByLab[labID]));
+     writeFile(filePath, createReportFromList(data.samplesByLab[labID]), data.ignoreNoNutrientSamples);
   }
 
   if (callback) {
@@ -902,7 +910,6 @@ var filterSamplesByLab = function(data, callback) {
     const labCode = sample.Lab;
 
     if ( ! data.samplesByLab[labCode] ) {
-      console.log(`First time for lab ${labCode}`);
       data.samplesByLab[labCode] = [];  // haven't seen this lab yet, so make an empty list
     }
     data.samplesByLab[labCode].push(sample);
