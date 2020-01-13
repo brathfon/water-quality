@@ -612,3 +612,21 @@ insitu-report.2019-11-30_12-39-28.post-add-64-65w-40-41w-with-nut-thru-64w-39s.t
 > |      1 | RNS191029 | Napili                      | RNS     |             64 | 10/29/19 | 08:24    | 26.8        | 36.0     | 6.72             | 103.2                | 8.13 | 1.44        | 1.54        | 1.71        | 1.56          |
 > |      1 | RPO191029 | Pohaku                      | RPO     |             64 | 10/29/19 | 08:55    | 26.2        | 34.3     | 6.80             | 102.4                | 8.11 | 11.50       | 11.10       | 11.00       | 11.20         |
 
+
+1/5/2020
+
+Adding insitu 66 west and 42 south
+
+saw expected diffs new insitu for sessions 66 west and 42 south.
+
+Did see this difference in the output which was due to finding a problem with the nutrient data for this sample and just setting to "not taken" in the spread sheets so that the reports
+will not indicate that we are awaiting these results.
+
+nutrient-report.2020-01-05_19-44-30.post-add-insitu-66w-42s.txt
+
+1275a1276,1294
+2030c2049
+< |      2 | WPO191018 | Poolenalena (Chang's Beach) | WPO     |             39 | 10/18/19 | 09:09    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.663390 | -156.441968 |
+---
+> |      2 | WPO191018 | Poolenalena (Chang's Beach) | WPO     |             39 | 10/18/19 | 09:09    |                     0 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.663390 | -156.441968 |
+
