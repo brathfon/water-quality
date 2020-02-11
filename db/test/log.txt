@@ -630,3 +630,12 @@ nutrient-report.2020-01-05_19-44-30.post-add-insitu-66w-42s.txt
 ---
 > |      2 | WPO191018 | Poolenalena (Chang's Beach) | WPO     |             39 | 10/18/19 | 09:09    |                     0 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.663390 | -156.441968 |
 
+2/7/2020
+adding 65-66 west and 40-42 south nutrient data.  Saw expected diff for new data.  There was also a correction on some data that got swapped in early sessions.  Saw that diff, too.
+1965,1966c1965,1966
+< |      2 | KKP190813 | Kalama Park                 | KKP     |             36 | 08/13/19 | 09:10    |                     1 | 492.93         | 24.41            | 21.84     | 1075.78  | 74.75    | 29.66   | 20.730973 | -156.453720 |
+< |      2 | KCP190813 | Cove Park                   | KCP     |             36 | 08/13/19 | 09:30    |                     1 | 134.76         | 8.85             | 3.90      | 227.70   | 25.77    | 4.03    | 20.727434 | -156.450077 |
+---
+> |      2 | KKP190813 | Kalama Park                 | KKP     |             36 | 08/13/19 | 09:10    |                     1 | 134.76         | 8.85             | 3.90      | 227.70   | 25.77    | 4.03    | 20.730973 | -156.453720 |
+> |      2 | KCP190813 | Cove Park                   | KCP     |             36 | 08/13/19 | 09:30    |                     1 | 492.93         | 24.41            | 21.84     | 1075.78  | 74.75    | 29.66   | 20.727434 | -156.450077 |
+
