@@ -639,3 +639,9 @@ adding 65-66 west and 40-42 south nutrient data.  Saw expected diff for new data
 > |      2 | KKP190813 | Kalama Park                 | KKP     |             36 | 08/13/19 | 09:10    |                     1 | 134.76         | 8.85             | 3.90      | 227.70   | 25.77    | 4.03    | 20.730973 | -156.453720 |
 > |      2 | KCP190813 | Cove Park                   | KCP     |             36 | 08/13/19 | 09:30    |                     1 | 492.93         | 24.41            | 21.84     | 1075.78  | 74.75    | 29.66   | 20.727434 | -156.450077 |
 
+3/3/20
+
+Adding in insitu for sessions 67 and 68 west, 43 and 44 south.  Expected results
+insitu-report.2020-02-07_09-50-07.post-add-nutr-65-66w-40-42s.txt
+insitu-report.2020-03-03_13-07-26.post-67-68w-43-44s.txt
+
