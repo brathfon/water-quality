@@ -645,3 +645,12 @@ Adding in insitu for sessions 67 and 68 west, 43 and 44 south.  Expected results
 insitu-report.2020-02-07_09-50-07.post-add-nutr-65-66w-40-42s.txt
 insitu-report.2020-03-03_13-07-26.post-67-68w-43-44s.txt
 
+3/11/2020
+
+Expected results: only saw insitu data added for 69 west and 45 south sessions
+
+diffs for insitu-report:
+insitu-report.2020-03-03_13-07-26.post-67-68w-43-44s.txt
+insitu-report.2020-03-11_16-03-45.post-add-insitu-69w-45s.txt
+1332a1333,1351
+
