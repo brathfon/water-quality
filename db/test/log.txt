@@ -654,3 +654,16 @@ insitu-report.2020-03-03_13-07-26.post-67-68w-43-44s.txt
 insitu-report.2020-03-11_16-03-45.post-add-insitu-69w-45s.txt
 1332a1333,1351
 
+3/17/2020
+
+Fixes found for some data not recorded correctly.  DO for NKN and and 2nd turbidity for KWP
+
+diffs for insitu-report:
+insitu-report.2020-03-11_16-03-45.post-add-insitu-69w-45s.txt
+insitu-report.2020-03-17_10-22-04.insitu-fixes-s45-kamaole.txt
+2217,2218c2217,2218
+< |      2 | NKN200225 | Kalepolepo North            | NKN     |             45 | 02/25/20 | 08:01    | 24.3        | 33.4     | 7.75             | 92.4                 | 8.19 | 1.83        | 1.91        | 2.06        | 1.93          |
+< |      2 | KWP200225 | Waipuilani Park             | KWP     |             45 | 02/25/20 | 08:23    | 22.8        | 32.0     | 6.55             | 90.9                 | 8.10 | 22.60       | 29.60       | 25.10       | 25.77         |
+---
+> |      2 | NKN200225 | Kalepolepo North            | NKN     |             45 | 02/25/20 | 08:01    | 24.3        | 33.4     | 6.43             | 92.4                 | 8.19 | 1.83        | 1.91        | 2.06        | 1.93          |
+> |      2 | KWP200225 | Waipuilani Park             | KWP     |             45 | 02/25/20 | 08:23    | 22.8        | 32.0     | 6.55             | 90.9                 | 8.10 | 22.60       | 24.60       | 25.10       | 24.10         |
