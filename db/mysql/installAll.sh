@@ -14,7 +14,10 @@ mysql -v -u $user -p$pw $db < site-procedures.sql
 mysql -v -u $user -p$pw $db < lookup-procedures.sql
 mysql -v -u $user -p$pw $db < utility-procedures.sql
 mysql -v -u $user -p$pw $db < insertData.sql
-mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-1-63w-1-39w.no-legacy-test.sql
-mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.legacy-update-test.sql
+#mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-1-63w-1-39w.no-legacy-test.sql
+#mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.legacy-update-test.sql
+mysql -v -u $user -p$pw $db < ../xfer/insert-webexport-legacy-data.4.nut-sample-taken-col.sql
+mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-28-70w-1-45s.0.sql
+mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20200321.0.nutrient-66w-42s.insitu-70w-45s.sql
 
 exit
