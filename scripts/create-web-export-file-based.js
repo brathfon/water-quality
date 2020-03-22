@@ -793,7 +793,7 @@ var printLookupData = function (data, callback) {
   console.log(util.inspect(reportMeasurementNames, false, null));
 
   console.log("");
-  console.log("Report Percision:");
+  console.log("Report Precision:");
   console.log(util.inspect(reportPrecision, false, null));
 
   if (callback) {
@@ -924,7 +924,7 @@ var filterSamplesByLab = function(data, callback) {
 // this is the main
 
 getSiteData(data, function () {
-  readLegacyFile(data, function () {
+  //readLegacyFile(data, function () {       // not needed if legacy in spread sheets
     readSpreadSheetData(data, function () {
       readNutrientData(data, function () {
         updateSamplesWithNutrientData(data, function () {
@@ -940,6 +940,6 @@ getSiteData(data, function () {
         });
       });
     });
-  });
+  //});
 });
 

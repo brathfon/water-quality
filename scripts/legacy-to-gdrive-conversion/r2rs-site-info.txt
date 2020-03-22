@@ -1,0 +1,6 @@
+RAB	2017	Airport Beach
+RCB	2020	Canoe Beach
+RKS	2071	Kaanapali Shores
+RNS	2006	Napili Bay
+RPO	2010	Pohaku
+RWA	2021	Wahikuli

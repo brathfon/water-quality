@@ -1,0 +1,6 @@
+RFN	2003	Fleming North
+RFS	2005	Kapalua Bay
+RHL	2001	Honolua Bay
+RKO	2008	Ka'opala Bay
+RKV	2074	Kahana Village
+RON	2004	Oneloa Bay
