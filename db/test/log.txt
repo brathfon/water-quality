@@ -667,3 +667,13 @@ insitu-report.2020-03-17_10-22-04.insitu-fixes-s45-kamaole.txt
 ---
 > |      2 | NKN200225 | Kalepolepo North            | NKN     |             45 | 02/25/20 | 08:01    | 24.3        | 33.4     | 6.43             | 92.4                 | 8.19 | 1.83        | 1.91        | 2.06        | 1.93          |
 > |      2 | KWP200225 | Waipuilani Park             | KWP     |             45 | 02/25/20 | 08:23    | 22.8        | 32.0     | 6.55             | 90.9                 | 8.10 | 22.60       | 24.60       | 25.10       | 24.10         |
+
+
+3/21/2020
+
+Adding insitu for 70 west.  No sampling for south because of COVID19.  Expected diffs seen.  Only session 70 added.
+
+diffs for commments-report:
+comments-report.2020-03-17_10-22-04.insitu-fixes-s45-kamaole.txt
+comments-report.2020-03-21_11-11-56.post-add-insitu-70w.txt
+445a446,458
