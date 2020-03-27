@@ -8,8 +8,7 @@ output_dir=/tmp
 ./create-web-export-file-based.js  \
    --odir $output_dir \
    --bname legacy-test.after  \
-   --gsdir  "./legacy-to-gdrive-conversion/tab-separated-files-after" \
-   --lfile "$wq_files/legacy-data/west-maui-legacy-data-sessions-1-27.tsv" \
+   --gsdir  "$wq_files/gdrive-downloads/data-sessions-1-70w-1-45s" \
    --sfile ./sites.txt  \
    --ndir  $wq_files/soest/csv-files \
 
