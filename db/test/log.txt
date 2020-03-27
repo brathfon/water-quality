@@ -677,3 +677,12 @@ diffs for commments-report:
 comments-report.2020-03-17_10-22-04.insitu-fixes-s45-kamaole.txt
 comments-report.2020-03-21_11-11-56.post-add-insitu-70w.txt
 445a446,458
+
+3/24/2020
+
+Put the legacy data (sessions 1-27 west) into gdrive.  Tested to make sure all is equal from last load in master, and it is
+
+2355178588 461916 comments-report.2020-03-21_11-11-56.post-add-insitu-70w.txt
+2355178588 461916 comments-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
+
+etc....
