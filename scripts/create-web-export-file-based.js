@@ -16,7 +16,7 @@ console.dir(`arguments passed in ${util.inspect(argv, false, null)}`);
 
 
 const printUsage = function () {
-  console.log(`Usage: ${scriptname} --odir <directory to write report files> --bname <basename for the files> --gsdir <Google sheets directory> --lfile <legacy file> --sfile <site file> --ndir <nutrient data directory [--inns]`);
+  console.log(`Usage: ${scriptname} --odir <directory to write report files> --bname <basename for the files> --gsdir <Google sheets directory> --sfile <site file> --ndir <nutrient data directory [--inns]`);
   console.log(`optional:`);
   console.log(`  --inns     Ignore no nutrient data lines. They will not be included in the report.`);
 }
@@ -40,12 +40,6 @@ if (! (argv.b || argv.bname )) {
 
 if (! (argv.g || argv.gsdir )) {
   console.log("ERROR: you must specify a google spread sheet directory for reading the exported data");
-  printUsage();
-  process.exit();
-}
-
-if (! (argv.l || argv.lfile )) {
-  console.log("ERROR: you must specify a legacy spread sheet file for reading the legacy data");
   printUsage();
   process.exit();
 }
@@ -74,9 +68,6 @@ if (argv.bname) data['basenameForFiles']  = argv.bname;
 
 if (argv.g)     data['googleSheetsDirectory']  = argv.g;
 if (argv.gsdir) data['googleSheetsDirectory']  = argv.gsdir;
-
-if (argv.l)     data['legacyFile']  = argv.l;
-if (argv.lfile) data['legacyFile']  = argv.lfile;
 
 if (argv.s)     data['siteFile']  = argv.s;
 if (argv.sfile) data['siteFile']  = argv.sfile;
@@ -147,41 +138,6 @@ var getPrecisionForMeasurement = function (column) {
   return reportPrecision[column];
 };
 
-
-
-// some of the first sessions taken were stored in personal spread sheets (sessions 1-27, West Maui).
-// Read those in.  This may eventually go away because it would be better for the data to be in the Google Sheets.
-
-var readLegacyFile = function (data, callback) {
-
-  console.log("In readLegacyFile");
-
-  let sessions = rwef.readWebExportFile(data.legacyFile, data.sites);
-
-  // readWebExport sends the data back organized in sessions.  That is no longer needed when creating a flat representation
-  // each session has a list of samples, so loop through the sessions, then the samples, and push the samples onto the list
-  for ( let sessionId in sessions ) {
-    let i = 0;
-    for (i = 0; i < sessions[sessionId].length; ++i) {
-      sessions[sessionId][i]['NutSampled'] = 'yes';  // all legacy data had nutrient samples
-      sessions[sessionId][i]['Date'] = fixDateFormat(sessions[sessionId][i]['Date']);  // put the date in the MM/DD/YY format
-      sessions[sessionId][i]['Time'] = fixTimeFormat(sessions[sessionId][i]['Time']);  // put the time in the HH:MM format
-      // legacy data only had the average turbidity in it.  Assign that to all 3.
-      sessions[sessionId][i]['Turb1'] = sessions[sessionId][i]['Turbidity'];
-      sessions[sessionId][i]['Turb2'] = sessions[sessionId][i]['Turbidity'];
-      sessions[sessionId][i]['Turb3'] = sessions[sessionId][i]['Turbidity'];
-      // all legacy data came from the Lahainaluna High School lab
-      sessions[sessionId][i]['Lab']   = "LLHS";
-      data.samples[sessions[sessionId][i].SampleID] = sessions[sessionId][i];
-    }
-  }
-
-  //console.log("samples " + util.inspect(data.samples, false, null));
-
-  if (callback) {
-    callback();
-  }
-};
 
 
 var getSiteData = function (data, callback) {
@@ -793,7 +749,7 @@ var printLookupData = function (data, callback) {
   console.log(util.inspect(reportMeasurementNames, false, null));
 
   console.log("");
-  console.log("Report Percision:");
+  console.log("Report Precision:");
   console.log(util.inspect(reportPrecision, false, null));
 
   if (callback) {
@@ -924,16 +880,14 @@ var filterSamplesByLab = function(data, callback) {
 // this is the main
 
 getSiteData(data, function () {
-  readLegacyFile(data, function () {
-    readSpreadSheetData(data, function () {
-      readNutrientData(data, function () {
-        updateSamplesWithNutrientData(data, function () {
-          printLookupData(data, function () {
-            sortSamples(data, function () {
-              filterSamplesByLab(data, function () {
-                printSamples(data, function () {   // for troubleshooting, need to comment things back in in the function to use it
-                  createReports(data, null);
-                });
+  readSpreadSheetData(data, function () {
+    readNutrientData(data, function () {
+      updateSamplesWithNutrientData(data, function () {
+        printLookupData(data, function () {
+          sortSamples(data, function () {
+            filterSamplesByLab(data, function () {
+              printSamples(data, function () {   // for troubleshooting, need to comment things back in in the function to use it
+                createReports(data, null);
               });
             });
           });
