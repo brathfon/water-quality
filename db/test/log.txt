@@ -686,3 +686,21 @@ Put the legacy data (sessions 1-27 west) into gdrive.  Tested to make sure all i
 2355178588 461916 comments-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
 
 etc....
+
+4/18/2020
+
+Checking to make sure that things were equal after last changes and getting ready to publish 1st quarter 2020 data.
+There are not changes because covid19 has caused no new sampling since the legacy data changes.  All good.
+
+2355178588 461916 comments-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
+2355178588 461916 comments-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+
+1060462341 528372 insitu-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
+1060462341 528372 insitu-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+
+919132092 523856 nutrient-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
+919132092 523856 nutrient-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+
+1857956523 767720 sample-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
+1857956523 767720 sample-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+
