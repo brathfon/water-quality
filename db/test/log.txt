@@ -691,6 +691,9 @@ etc....
 
 Checking to make sure that things were equal after last changes and getting ready to publish 1st quarter 2020 data.
 There are not changes because covid19 has caused no new sampling since the legacy data changes.  All good.
+The thing that was being checked was due to upgrading nodejs on my machine, there were some differences in the
+generated insert statements from the javascript scripts. Dropping of sig figs when they are zero. ex; 81.0 -> 81.
+No difference to DB.
 
 2355178588 461916 comments-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
 2355178588 461916 comments-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
@@ -703,4 +706,26 @@ There are not changes because covid19 has caused no new sampling since the legac
 
 1857956523 767720 sample-report.2020-03-24_07-16-26.post-add-legacy-to-gdrive.txt
 1857956523 767720 sample-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+
+
+4/26/2020
+
+Adding nutrient data for sessions 67-68 west and 43 south.  Saw expected results: not diffs for insitu data,
+and nutrient data going from null to values for the expected sessions.
+
+comments-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+comments-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
+
+diffs for insitu-report:
+insitu-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+insitu-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
+
+diffs for nutrient-report:
+nutrient-report.2020-04-18_11-51-37.2020-1st-quarter-check.txt
+nutrient-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
+1295,1321c1295,1321
+< |      1 | RNS200107 | Napili                      | RNS     |             67 | 01/07/20 | 08:11    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.994222 | -156.667417 |
+< |      1 | RPO200107 | Pohaku                      | RPO     |             67 | 01/07/20 | 08:40    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.967083 | -156.681390 |
+......
+etc.
 
