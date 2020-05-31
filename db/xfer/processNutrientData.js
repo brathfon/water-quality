@@ -170,6 +170,7 @@ var createSqlStatements = function (data, callback) {
     }
     else {
       console.error("-- WARNING: did not find sample id for  " + nutrients.SampleID + " site: " + nutrients.Location + " date " + nutrients.Date);
+      console.log("-- WARNING: did not find sample id for  " + nutrients.SampleID + " site: " + nutrients.Location + " date " + nutrients.Date);
     }
   }
 

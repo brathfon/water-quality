@@ -729,3 +729,11 @@ nutrient-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
 ......
 etc.
 
+5/29/2020
+
+Adding in nutrient data for sessions 69 west Maui and 44-45 South Maui. Expected diffs seen.
+
+diffs for nutrient-report:
+nutrient-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
+nutrient-report.2020-05-29_13-15-53.post-add-nut-69w-44-45s.txt
+
