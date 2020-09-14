@@ -737,3 +737,12 @@ diffs for nutrient-report:
 nutrient-report.2020-04-26_11-14-43.post-add-nut-67-68w-43s.txt
 nutrient-report.2020-05-29_13-15-53.post-add-nut-69w-44-45s.txt
 
+Note: looks like I missed logging some things.
+
+9/14/2020
+
+Added in sessions 72-74 west and 47-50 south nutrient data.
+Expected diffs in nutrient and sample report
+diffs for nutrient-report:
+nutrient-report.2020-09-02_14-16-22.post-add-initu-74-75w-49-50s.txt
+nutrient-report.2020-09-14_16-07-05.post-nutrient-add-72-74w-47-50s.txt
