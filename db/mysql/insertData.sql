@@ -129,7 +129,7 @@ INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, def
 INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (         'MAN',    NULL,        'Ahihi North',             2,      2,                  5,                     20.618366, -156.437572, 1,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,                 lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'MAS',    NULL,        'Ahihi South',             2,      2,                  5,                     20.6138,   -156.436853, 1,       null);
+  values (         'MAS',    NULL,        'Ahihi South',             2,      2,                  6,                     20.6138,   -156.436853, 1,       null);
 
 -- North Kihei
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
@@ -139,7 +139,7 @@ INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, defau
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (         'NSB',     NULL,        'Sugar Beach',          2,      3,                  NULL,                 20.784204, -156.466463, 0,       null);
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
-  values (         'NKC',     '000671',    'Kihei Canoe Club',     2,      3,                  6,                    20.781403, -156.463176, 1,       null);
+  values (         'NKC',     '000671',    'Kihei Canoe Club',     2,      3,                  5,                    20.781403, -156.463176, 1,       null);
 -- NOTE: this site as moved to day one for this lab, but keeping the insert here so site ids stay the same for data import
 INSERT INTO sites (hui_abv , storet_code, long_name,               lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (         'NMP',     '000702',    'Mai Poina \'Oe Ia\'u', 2,      1,                  NULL,                 20.774894, -156.460776, 0,       null);
