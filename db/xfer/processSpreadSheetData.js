@@ -150,6 +150,19 @@ var getLabCodeToLabId = function (data, endConnection, callback) {
         //console.log("initials " + rows[i].initials);
         data['labCodeToLabId'][rows[i].lab_code] = rows[i].lab_id;
       }
+      // HACK WARNING WARNING
+      // Because there were lab problem during COVID, we had to move labs.
+      // Team leads wanted to use other lab codes.
+      // Will just map new codes over to the old lab.
+      // lab_code LLHS lab_id 1
+      // lab_code NMS lab_id 2
+      
+      // west side move
+      data['labCodeToLabId']['TMO'] = 1;
+
+      // south side move
+      data['labCodeToLabId']['DHS'] = 2;
+
       if (callback) {
         callback(data, endConnection, callback);
       }

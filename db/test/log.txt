@@ -746,3 +746,18 @@ Expected diffs in nutrient and sample report
 diffs for nutrient-report:
 nutrient-report.2020-09-02_14-16-22.post-add-initu-74-75w-49-50s.txt
 nutrient-report.2020-09-14_16-07-05.post-nutrient-add-72-74w-47-50s.txt
+
+
+10/14/2020
+
+adding insitu for 76-77 west and 51-52 south for 3rd quarter  - expected results, including seeing pH QA'ed since before these new sessions
+
+diffs for insitu-report:
+insitu-report.2020-09-14_16-07-05.post-nutrient-add-72-74w-47-50s.txt
+insitu-report.2020-10-14_20-57-11.post-add-insitu-76-77w-51-52s-3rd-quarter-release.txt
+
+1448c1448
+< |      1 | RNS200818 | Napili                      | RNS     |             75 | 08/18/20 | 08:10    | 26.2        | 33.2     | 6.20             | 92.3                 | 7.57 | 2.51        | 2.72        | 2.34        | 2.52          |
+---
+> |      1 | RNS200818 | Napili                      | RNS     |             75 | 08/18/20 | 08:10    | 26.2        | 33.2     | 6.20             | 92.3                 | NULL | 2.51        | 2.72        | 2.34        | 2.52          |
+
