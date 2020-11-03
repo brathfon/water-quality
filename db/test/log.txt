@@ -761,3 +761,13 @@ insitu-report.2020-10-14_20-57-11.post-add-insitu-76-77w-51-52s-3rd-quarter-rele
 ---
 > |      1 | RNS200818 | Napili                      | RNS     |             75 | 08/18/20 | 08:10    | 26.2        | 33.2     | 6.20             | 92.3                 | NULL | 2.51        | 2.72        | 2.34        | 2.52          |
 
+
+11/3/2020
+
+Adding in insitu for sessions 78 West Maui, 53 South Maui and nutrient for 75-76 West and 51 South
+
+Saw expected differences
+diffs for insitu-report:
+insitu-report.2020-10-14_20-57-11.post-add-insitu-76-77w-51-52s-3rd-quarter-release.txt
+insitu-report.2020-11-03_08-50-55.post-add-insitu-78w-53s-nutr-75-76w-51s.txt
+
