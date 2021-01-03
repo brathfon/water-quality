@@ -159,6 +159,7 @@ var getLabCodeToLabId = function (data, endConnection, callback) {
       
       // west side move
       data['labCodeToLabId']['TMO'] = 1;
+      data['labCodeToLabId']['PKL'] = 1;
 
       // south side move
       data['labCodeToLabId']['DHS'] = 2;

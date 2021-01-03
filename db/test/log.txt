@@ -771,3 +771,12 @@ diffs for insitu-report:
 insitu-report.2020-10-14_20-57-11.post-add-insitu-76-77w-51-52s-3rd-quarter-release.txt
 insitu-report.2020-11-03_08-50-55.post-add-insitu-78w-53s-nutr-75-76w-51s.txt
 
+
+1/3/2020
+
+adding insitu data for sessions 79-81 West Maui and 54-56 South Maui.
+Saw expected diffs.
+
+comments-report.2020-11-03_08-50-55.post-add-insitu-78w-53s-nutr-75-76w-51s.txt
+comments-report.2021-01-03_15-04-20.post-add-insitu-79-81w-54-56s-with-NKC201105-fix.txt
+
