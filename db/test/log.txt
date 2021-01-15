@@ -780,3 +780,30 @@ Saw expected diffs.
 comments-report.2020-11-03_08-50-55.post-add-insitu-78w-53s-nutr-75-76w-51s.txt
 comments-report.2021-01-03_15-04-20.post-add-insitu-79-81w-54-56s-with-NKC201105-fix.txt
 
+
+1/15/2020
+
+Adding in nutrient data for sessions 77-79 West Maui and 52-55 South Maui.  Found a problem with replicates not entered correctly in the spread sheet,
+so fixed it and here are the diffs, nutrient data only.
+
+nutrient-report.2021-01-13_17-34-25.add-nutrient-77-79w-52-55s.txt
+nutrient-report.2021-01-15_14-31-18.add-nutrient-77-79w-52-55s-with-replicate-fix.txt
+2589c2589
+< |      2 | KKS201013 | Kihei South (Lipoa)         | KKS     |             53 | 10/13/20 | 08:25    |                     1 | 142.92         | 7.35             | 5.05      | 569.93   | 48.89    | 7.30    | 20.747334 | -156.457881 |
+---
+> |      2 | KKS201013 | Kihei South (Lipoa)         | KKS     |             53 | 10/13/20 | 08:25    |                     1 | 141.00         | 7.38             | 5.31      | 569.66   | 48.73    | 7.06    | 20.747334 | -156.457881 |
+2591c2591
+< |      2 | KCP201013 | Cove Park                   | KCP     |             53 | 10/13/20 | 09:02    |                     1 | 604.82         | 26.83            | 25.74     | 2602.53  | 511.27   | 4.05    | 20.727434 | -156.450077 |
+---
+> |      2 | KCP201013 | Cove Park                   | KCP     |             53 | 10/13/20 | 09:02    |                     1 | 590.93         | 28.33            | 25.84     | 2697.28  | 520.10   | 3.99    | 20.727434 | -156.450077 |
+2601c2601
+< |      2 | NKP201015 | Kealia Pond                 | NKP     |             53 | 10/15/20 | 08:52    |                     1 | 71.59          | 8.59             | 3.38      | 113.34   | 3.81     | 1.29    | 20.794936 | -156.485587 |
+---
+> |      2 | NKP201015 | Kealia Pond                 | NKP     |             53 | 10/15/20 | 08:52    |                     1 | 68.84          | 8.16             | 3.45      | 114.62   | 3.92     | 1.28    | 20.794936 | -156.485587 |
+
+Found expected diffs between last data addition and this one: only in the sessions expected
+
+diffs for nutrient-report:
+nutrient-report.2021-01-03_15-04-20.post-add-insitu-79-81w-54-56s-with-NKC201105-fix.txt
+nutrient-report.2021-01-15_14-31-18.add-nutrient-77-79w-52-55s-with-replicate-fix.txt
+
