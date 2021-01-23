@@ -807,3 +807,16 @@ diffs for nutrient-report:
 nutrient-report.2021-01-03_15-04-20.post-add-insitu-79-81w-54-56s-with-NKC201105-fix.txt
 nutrient-report.2021-01-15_14-31-18.add-nutrient-77-79w-52-55s-with-replicate-fix.txt
 
+
+1/23/2021
+
+Adding in a correction to the nutrient data.  A line was duplicated in the spreadsheet from SOEST and it was corrected.
+Expected results:
+
+nutrient-report.2021-01-15_14-31-18.add-nutrient-77-79w-52-55s-with-replicate-fix.txt
+nutrient-report.2021-01-23_13-17-51.fix-NHP200924.txt
+2584c2584
+< |      2 | NHP200924 | Haycraft Park               | NHP     |             52 | 09/24/20 | 08:27    |                     1 | 103.20         | 8.61             | 4.21      | 42.53    | 5.76     | 2.34    | 20.796414 | -156.503198 |
+---
+> |      2 | NHP200924 | Haycraft Park               | NHP     |             52 | 09/24/20 | 08:27    |                     1 | 114.62         | 9.38             | 5.08      | 312.01   | 39.09    | 2.34    | 20.796414 | -156.503198 |
+
