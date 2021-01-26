@@ -820,3 +820,32 @@ nutrient-report.2021-01-23_13-17-51.fix-NHP200924.txt
 ---
 > |      2 | NHP200924 | Haycraft Park               | NHP     |             52 | 09/24/20 | 08:27    |                     1 | 114.62         | 9.38             | 5.08      | 312.01   | 39.09    | 2.34    | 20.796414 | -156.503198 |
 
+
+1/24/2021
+
+Adding in the remaining nutrient data for the 4th quarter release for 2020.  Sessions 80-81 West Maui and 56 South Maui
+Saw expected diffs.
+
+diffs for nutrient-report:
+nutrient-report.2021-01-23_13-17-51.fix-NHP200924.txt
+nutrient-report.2021-01-24_18-54-49.add-nutr-89-81w-56s-4th-quarter-release.txt
+
+
+1/26/2021
+
+Found a problem with WUL20118 and MMB20118. Nutrient data was collected for both sites but the
+WUL sample was contaminated and should not have been sent to the SOEST lab.  Then another
+mistake was made and the MMB nut-sample-taken column in google sheets was set to no, not
+WUL.  Diffs are as expected: WUL now has no nutrient data.
+
+
+diffs for nutrient-report:
+nutrient-report.2021-01-24_18-54-49.add-nutr-89-81w-56s-4th-quarter-release.txt
+nutrient-report.2021-01-26_09-24-06.fix-WUL201118.txt
+2626,2627c2626,2627
+< |      2 | WUL201118 | Ulua Beach                  | WUL     |             55 | 11/18/20 | 08:43    |                     1 | 131.83         | 16.50            | 8.94      | 115.03   | 16.82    | 1.85    | 20.691120 | -156.444201 |
+< |      2 | MMB201118 | Maluaka Beach               | MMB     |             55 | 11/18/20 | 09:17    |                     0 | 120.51         | 10.28            | 4.84      | 120.67   | 15.61    | 1.88    | 20.645598 | -156.443859 |
+---
+> |      2 | WUL201118 | Ulua Beach                  | WUL     |             55 | 11/18/20 | 08:43    |                     0 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.691120 | -156.444201 |
+> |      2 | MMB201118 | Maluaka Beach               | MMB     |             55 | 11/18/20 | 09:17    |                     1 | 120.51         | 10.28            | 4.84      | 120.67   | 15.61    | 1.88    | 20.645598 | -156.443859 |
+

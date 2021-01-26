@@ -15,6 +15,6 @@ mysql -v -u $user -p$pw $db < lookup-procedures.sql
 mysql -v -u $user -p$pw $db < utility-procedures.sql
 mysql -v -u $user -p$pw $db < insertData.sql
 mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-1-81w-1-56s.0.sql
-mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20210113.1.nutrient-79w-55s.insitu-81w-56s.sql
+mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20210124.0.nutrient-81w-56s.insitu-81w-56s.sql
 
 exit
