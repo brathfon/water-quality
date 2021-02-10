@@ -849,3 +849,12 @@ nutrient-report.2021-01-26_09-24-06.fix-WUL201118.txt
 > |      2 | WUL201118 | Ulua Beach                  | WUL     |             55 | 11/18/20 | 08:43    |                     0 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.691120 | -156.444201 |
 > |      2 | MMB201118 | Maluaka Beach               | MMB     |             55 | 11/18/20 | 09:17    |                     1 | 120.51         | 10.28            | 4.84      | 120.67   | 15.61    | 1.88    | 20.645598 | -156.443859 |
 
+2/10/2021
+
+Adding in insitu data for sessions 82 west maui and 57 south maui
+
+Expected diffs seen: only 82 and 57 sessions added. no other diffs
+
+diffs for insitu-report:
+insitu-report.2021-01-26_09-24-06.fix-WUL201118.txt
+insitu-report.2021-02-10_16-19-40.post-add-insitu-82w-57s.txt.txt
