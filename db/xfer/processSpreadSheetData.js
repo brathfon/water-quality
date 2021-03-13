@@ -151,6 +151,9 @@ var getLabCodeToLabId = function (data, endConnection, callback) {
         data['labCodeToLabId'][rows[i].lab_code] = rows[i].lab_id;
       }
       // HACK WARNING WARNING
+      // This hack was replace by another hack in the sheets reader in the library that
+      // used the file names from the sheets to map all data to LLHS and NMS, avoiding
+      // the other lab codes (TMO, PKL, KAL and DHS) 
       // Because there were lab problem during COVID, we had to move labs.
       // Team leads wanted to use other lab codes.
       // Will just map new codes over to the old lab.
@@ -158,11 +161,12 @@ var getLabCodeToLabId = function (data, endConnection, callback) {
       // lab_code NMS lab_id 2
       
       // west side move
-      data['labCodeToLabId']['TMO'] = 1;
-      data['labCodeToLabId']['PKL'] = 1;
+      //data['labCodeToLabId']['TMO'] = 1;
+      //data['labCodeToLabId']['PKL'] = 1;
+      //data['labCodeToLabId']['KAL'] = 1;  // Kaanapali , Feb 2021
 
       // south side move
-      data['labCodeToLabId']['DHS'] = 2;
+      //data['labCodeToLabId']['DHS'] = 2;
 
       if (callback) {
         callback(data, endConnection, callback);

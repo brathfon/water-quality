@@ -858,3 +858,23 @@ Expected diffs seen: only 82 and 57 sessions added. no other diffs
 diffs for insitu-report:
 insitu-report.2021-01-26_09-24-06.fix-WUL201118.txt
 insitu-report.2021-02-10_16-19-40.post-add-insitu-82w-57s.txt.txt
+
+
+3/13/2021
+
+Adding in insitu 83-84 West Maui and 58-59 South Maui.  There was one sample that Dana had to go back and correct in
+session 57 that came up as a diff.
+
+insitu-report.2021-02-10_16-19-40.post-add-insitu-82w-57s.txt.txt
+insitu-report.2021-03-12_14-55-36.post-add-insitu-83-84w-58-59s.txt
+1579a1580,1611
+> |      1 | RKO210225 | Ka'opala                    | RKO     |             84 | 02/25/21 | 09:20    | 23.8        | 34.2     | 6.60             | 95.0                 | 8.10 | 6.41        | 6.30        | 6.36        | 6.36          |
+> |      1 | RKV210225 | Kahana Village              | RKV     |             84 | 02/25/21 | 09:35    | 24.0        | 33.9     | 6.94             | 99.9                 | 8.16 | 6.69        | 8.47        | 7.07        | 7.41          |
+2667c2699
+< |      2 | NKN210105 | Kalepolepo North            | NKN     |             57 | 01/05/21 | 07:58    | 25.1        | 35.1     | 6.84             | 82.3                 | 8.08 | 0.63        | 0.71        | 0.81        | 0.72          |
+---
+> |      2 | NKN210105 | Kalepolepo North            | NKN     |             57 | 01/05/21 | 07:58    | 25.5        | 34.9     | 5.57             | 82.3                 | 8.08 | 0.63        | 0.71        | 0.81        | 0.72          |
+2682a2715,2740
+> |      2 | NKN210126 | Kalepolepo North            | NKN     |             58 | 01/26/21 | 07:57    | 24.5        | 33.7     | 6.74             | 97.8                 | 8.16 | 6.30        | 6.20        | 6.51        | 6.34          |
+> |      2 | KWP210126 | Waipuilani Park             | KWP     |             58 | 01/26/21 | 08:19    | 24.3        | 33.5     | 6.45             | 92.9                 | 8.06 | 12.00       | 11.50       | 12.50       | 12.00         |
+
