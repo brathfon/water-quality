@@ -896,3 +896,11 @@ diffs for nutrient-report:
 nutrient-report.2021-04-16_10-25-38.add-insitu-85w-60-61s.txt
 nutrient-report.2021-04-18_19-48-41.post-nutrient-82-84w-57-60s.txt
 
+5/17/21 adding insitu data for 86-87 West and 62 West
+
+Saw expected diffs of the new data.  No diffs in old data
+
+diffs for insitu-report:
+insitu-report.2021-04-18_19-48-41.post-nutrient-82-84w-57-60s.txt
+insitu-report.2021-05-17_20-30-49.insitu-add-86-87w-62s.txt
+
