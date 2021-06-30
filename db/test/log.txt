@@ -924,3 +924,12 @@ diffs for insitu-report:
 insitu-report.2021-05-17_20-30-49.insitu-add-86-87w-62s.txt
 insitu-report.2021-06-22_18-58-58.post-add-insitu-88w-63-64s.txt
 
+6/29/2021
+
+Finishing up session 89 west.  This session's data was not complete last time time insitu data was inserted.  Saw expected dat added:
+Partial for one data added, full data for another day. 
+
+diffs for commments-report:
+comments-report.2021-06-22_18-58-58.post-add-insitu-88w-63-64s.txt
+comments-report.2021-06-29_17-25-09.insitu-complete-89w.txt
+
