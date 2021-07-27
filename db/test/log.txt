@@ -933,3 +933,27 @@ diffs for commments-report:
 comments-report.2021-06-22_18-58-58.post-add-insitu-88w-63-64s.txt
 comments-report.2021-06-29_17-25-09.insitu-complete-89w.txt
 
+7/20/2021
+
+Adding in in 87w and 62s nutrient data in prep for 2nd quarter 2021 release.  Diffs looked correct.
+
+diffs for nutrient-report:
+nutrient-report.2021-06-30_14-09-11.post-nutr-85-86w-60-61s.txt
+nutrient-report.2021-07-20_18-49-50.post-add-nutr-87w-62s.txt
+
+
+7/25/2021
+
+Adding in 90w and 65s insitu and 88-89 west and 63-64 south nutrient.  Also
+diffs for nutrient-report:
+nutrient-report.2021-07-20_18-49-50.post-add-nutr-87w-62s.txt
+nutrient-report.2021-07-25_16-05-30.post-add-90w-65s-insitu-88-89w-63-64s-nutr.txt
+1660,1691c1660,1707
+
+Also removed the nutrient data for NKP210311 to because the sample had been missed for time for shipping, was shipped last, but was really too long of a hold time before analysis
+
+2832c2848
+< |      2 | NKP210311 | Kealia Pond                 | NKP     |             60 | 03/11/21 | 08:40    |                     1 | 67.89          | 9.66             | 4.39      | 119.84   | 1.38     | 1.78    | 20.794936 | -156.485587 |
+---
+> |      2 | NKP210311 | Kealia Pond                 | NKP     |             60 | 03/11/21 | 08:40    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.794936 | -156.485587 |
+
