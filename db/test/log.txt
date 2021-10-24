@@ -966,3 +966,34 @@ diffs for insitu-report:
 insitu-report.2021-07-25_16-05-30.post-add-90w-65s-insitu-88-89w-63-64s-nutr.txt
 insitu-report.2021-08-31_13-45-42.post-add-insitu-91-92w-66-68s.txt
 
+
+10/06/2021  Adding insitu sessions 93-94 west, 69 south
+
+Saw an expected diff all the way back to the third session of west Maui due to a salinity meaurement being out of a reasonable range.
+The rest of the diffs were as expected (new data)
+
+insitu-report.2021-08-31_13-45-42.post-add-insitu-91-92w-66-68s.txt
+insitu-report.2021-10-06_12-47-56.post-add-insitu-93-94w-69s.txt
+34c34
+< |      1 | RKS160712 | Kaanapali Shores            | RKS     |              3 | 07/12/16 | 07:49    | 26.0        | 39.1     | 6.53             | 100.1                | 8.07 | 3.90        | 3.90        | 3.90        | 3.90          |
+---
+> |      1 | RKS160712 | Kaanapali Shores            | RKS     |              3 | 07/12/16 | 07:49    | 26.0        | NULL     | 6.53             | 100.1                | 8.07 | 3.90        | 3.90        | 3.90        | 3.90          |
+
+
+10/10/2021
+
+Adding in nutrient data for sessions 90-93 west and 65-68 south.  All diffs seen were expected.
+
+diffs for nutrient-report:
+nutrient-report.2021-10-06_12-47-56.post-add-insitu-93-94w-69s.txt
+nutrient-report.2021-10-10_18-42-03.add-nutrient-90-93w-65-68s.txt
+1692,1755c1692,1755
+
+
+10/21/2021
+
+adding nutrient data for sessions 94 West and 69 South to complete the 3rd quarter data
+All diffs as expected
+sample-report.2021-10-10_18-42-03.add-nutrient-90-93w-65-68s.txt
+sample-report.2021-10-21_19-30-07.post-adding-in-nutrient-94w-69s.txt
+1756,1771c1756,1771
