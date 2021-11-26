@@ -997,3 +997,13 @@ All diffs as expected
 sample-report.2021-10-10_18-42-03.add-nutrient-90-93w-65-68s.txt
 sample-report.2021-10-21_19-30-07.post-adding-in-nutrient-94w-69s.txt
 1756,1771c1756,1771
+
+11/24/2021
+
+As expected: only seeing new sessions
+
+diffs for insitu-report:
+insitu-report.2021-10-21_19-30-07.post-adding-in-nutrient-94w-69s.txt
+insitu-report.2021-11-24_15-39-29.post-adding-insitu-96w-71s.txt
+1771a1772,1803
+
