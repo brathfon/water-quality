@@ -1007,3 +1007,28 @@ insitu-report.2021-10-21_19-30-07.post-adding-in-nutrient-94w-69s.txt
 insitu-report.2021-11-24_15-39-29.post-adding-insitu-96w-71s.txt
 1771a1772,1803
 
+1/6/2022
+
+Adding in nutrient data for sessions 70 South and 95 West
+
+expected results.  No diffs for comments or insitu, just nutrient.
+
+diffs for nutrient-report:
+nutrient-report.2021-11-24_15-39-29.post-adding-insitu-96w-71s.txt
+nutrient-report.2022-01-06_13-54-48.add-nutrient-70s-95w.txt
+1772,1787c1772,1787
+.......
+
+1/7/2022 Adding nutrient data for session 71 South.
+Expected results.  No diffs for comments or insitu, just nutrient.
+
+diffs for nutrient-report:
+nutrient-report.2022-01-06_13-54-48.add-nutrient-70s-95w.txt
+nutrient-report.2022-01-07_17-57-35.add-nutrient-data-71s.txt
+
+1/7/2022 Adding in insitu data for 97-98 West and 72-73 South
+diffs for insitu-report:
+insitu-report.2022-01-07_17-57-35.add-nutrient-data-71s.txt
+insitu-report.2022-01-07_20-33-44.add-insitu-97-98w-72-73s.txt
+1803a1804,1835
+
