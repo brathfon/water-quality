@@ -1032,3 +1032,9 @@ insitu-report.2022-01-07_17-57-35.add-nutrient-data-71s.txt
 insitu-report.2022-01-07_20-33-44.add-insitu-97-98w-72-73s.txt
 1803a1804,1835
 
+1/16/2022 Adding nutrient data for sessions 96-97 West and 72 South Maui
+Saw expected diffs.  Only new data for the added sessions
+diffs for nutrient-report:
+nutrient-report.2022-01-07_20-33-44.add-insitu-97-98w-72-73s.txt
+nutrient-report.2022-01-17_11-09-44.added-nutrient-96-97w-72s.txt
+
