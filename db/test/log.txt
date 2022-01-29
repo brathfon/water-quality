@@ -1038,3 +1038,9 @@ diffs for nutrient-report:
 nutrient-report.2022-01-07_20-33-44.add-insitu-97-98w-72-73s.txt
 nutrient-report.2022-01-17_11-09-44.added-nutrient-96-97w-72s.txt
 
+1/27/2021 Adding nutrient data for session 73s
+expected diffs: only s73 nutrient data updated
+diffs for nutrient-report:
+nutrient-report.2022-01-17_11-09-44.added-nutrient-96-97w-72s.txt
+nutrient-report.2022-01-27_11-29-08.add-nutrient-s73.txt
+
