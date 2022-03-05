@@ -14,7 +14,7 @@ mysql -v -u $user -p$pw $db < site-procedures.sql
 mysql -v -u $user -p$pw $db < lookup-procedures.sql
 mysql -v -u $user -p$pw $db < utility-procedures.sql
 mysql -v -u $user -p$pw $db < insertData.sql
-mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-1-98w-1-73s.0.sql
-mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20220127.0.nutrient-97w-73s.insitu-98w-73s.sql
+mysql -v -u $user -p$pw $db < ../xfer/insert-data-sessions-1-99w-1-74s.0.sql
+mysql -v -u $user -p$pw $db < ../xfer/update-nutrient-data.20220301.0.nutrient-97w-73s.insitu-99w-74s.sql
 
 exit
