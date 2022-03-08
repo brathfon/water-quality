@@ -1044,3 +1044,14 @@ diffs for nutrient-report:
 nutrient-report.2022-01-17_11-09-44.added-nutrient-96-97w-72s.txt
 nutrient-report.2022-01-27_11-29-08.add-nutrient-s73.txt
 
+2/27/2022 Missed logging the adding in sessions insitu 99 west and 74 south when I was doing it.
+all was as expected.
+
+3/7/2022 added nutrient data for 98 West and 74 South.  Expected diffs, nutrient only.
+
+diffs for nutrient-report:
+nutrient-report.2022-03-01_10-40-34.add-insitu-99w-74s.txt
+nutrient-report.2022-03-07_20-21-32.add-nutrient-98w-74s.txt
+
+
+
