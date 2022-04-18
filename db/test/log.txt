@@ -1053,9 +1053,17 @@ diffs for nutrient-report:
 nutrient-report.2022-03-01_10-40-34.add-insitu-99w-74s.txt
 nutrient-report.2022-03-07_20-21-32.add-nutrient-98w-74s.txt
 
-3/22/2022 added nutrient data for sessions 100 West and 75-76 South.  Saw expected diffs.
+3/22/2022 added insitu  data for sessions 100 West and 75-76 South.  Saw expected diffs.
 
 diffs for insitu-report:
 insitu-report.2022-03-07_20-21-32.add-nutrient-98w-74s.txt
 insitu-report.2022-03-22_15-00-23.add-insitu-100w-75-76s.txt
+
+4/16/2022 added nutrient data for sessions 99-100 West and 75-76 South
+Saw expected diffs.
+
+diffs for nutrient-report:
+nutrient-report.2022-03-22_15-00-23.add-insitu-100w-75-76s.txt
+nutrient-report.2022-04-14_14-37-40.nutr-99-100w-75-76s.txt
+1836,1860c1836,1860
 
