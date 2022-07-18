@@ -1075,3 +1075,13 @@ comments-report.2022-04-14_14-37-40.nutr-99-100w-75-76s.txt
 comments-report.2022-04-18_17-29-59.add-insitu-data-101-102w-77-78s.txt
 787a788,808
 
+7/10/2022
+
+Expected diffs seen for adding insitu 105-106 West and 81-82 South plus
+5 sessions of nutrient data for West and South (101-105 West and 77-81 South)
+
+diffs for commments-report:
+comments-report.2022-05-21_15-10-49.add-insitu-103-104w-79-80s.txt
+comments-report.2022-07-10_16-53-13.post-load-insitu-105-106w-81-82s-nutr-thru-105w-81s.txt
+836a837,858
+
