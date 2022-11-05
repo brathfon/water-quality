@@ -1085,3 +1085,75 @@ comments-report.2022-05-21_15-10-49.add-insitu-103-104w-79-80s.txt
 comments-report.2022-07-10_16-53-13.post-load-insitu-105-106w-81-82s-nutr-thru-105w-81s.txt
 836a837,858
 
+10/16/2022
+
+Adding in insitu 107-111 west and 83-86 south
+
+Did find diffs between 2nd quarter and this data because of west Maui session 106 having problems with DO measurements.
+All DO measurements for sessions 106 and first day of 107 West (7/5/22) were QA'ed out.
+diffs for insitu-report:
+insitu-report.2022-07-10_16-53-13.post-load-insitu-105-106w-81-82s-nutr-thru-105w-81s.txt
+insitu-report.2022-10-18_13-29-25.add-insitu-107-111w-83-86s.txt
+1948,1963c1948,2043
+
+
+10/30/2022
+
+Adding in nutrient data for sessions 106-108 west and 82-84 south. Also removed session 87 south, which should not have been in the 3rd quarter data
+All diffs expected.  Did see the effect of of OCO220727 and OPP220727 not having any samples taken.  Makes a weird little separation in the diff at
+lines 1991 (see below).
+
+diffs for sample-report:
+sample-report.2022-10-18_13-29-25.add-insitu-107-111w-83-86s.txt
+sample-report.2022-10-30_17-07-17.rm-87s-add-nutr-106-107s-82-84s.txt
+
+
+
+1991,1995c1991,1995
+< |      1 | RHL220728 | Honolua                     | RHL     |            108 | 07/28/22 | 08:05    | 25.1        | 34.8     | 5.69             | 84.0                 | 8.08 | 3.78        | 3.82        | 4.17        | 3.92          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 21.013058 | -156.638340 |
+< |      1 | RON220728 | Oneloa                      | RON     |            108 | 07/28/22 | 08:47    | 25.9        | 35.4     | 6.82             | 102.7                | 8.18 | 0.73        | 0.93        | 0.81        | 0.82          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 21.004056 | -156.658940 |
+< |      1 | RFS220728 | Kapalua Bay (Fleming S)     | RFS     |            108 | 07/28/22 | 09:16    | 26.4        | 32.2     | 6.56             | 97.7                 | 8.08 | 1.90        | 1.91        | 1.70        | 1.84          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.998924 | -156.666746 |
+< |      1 | RKO220728 | Ka'opala                    | RKO     |            108 | 07/28/22 | 10:05    | 25.9        | 34.4     | 6.75             | 100.9                | 8.18 | 7.82        | 7.64        | 8.26        | 7.91          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.982074 | -156.673398 |
+< |      1 | RKV220728 | Kahana Village              | RKV     |            108 | 07/28/22 | 10:30    | 26.0        | 34.7     | 6.49             | 97.2                 | 8.07 | 4.45        | 4.42        | 4.83        | 4.57          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.976561 | -156.678000 |
+---
+> |      1 | RHL220728 | Honolua                     | RHL     |            108 | 07/28/22 | 08:05    | 25.1        | 34.8     | 5.69             | 84.0                 | 8.08 | 3.78        | 3.82        | 4.17        | 3.92          | 103.71         | 11.08            | 7.40      | 456.42   | 3.29     | 7.04    | 21.013058 | -156.638340 |
+> |      1 | RON220728 | Oneloa                      | RON     |            108 | 07/28/22 | 08:47    | 25.9        | 35.4     | 6.82             | 102.7                | 8.18 | 0.73        | 0.93        | 0.81        | 0.82          | 81.09          | 11.27            | 3.90      | 172.15   | 9.85     | 0.83    | 21.004056 | -156.658940 |
+> |      1 | RFS220728 | Kapalua Bay (Fleming S)     | RFS     |            108 | 07/28/22 | 09:16    | 26.4        | 32.2     | 6.56             | 97.7                 | 8.08 | 1.90        | 1.91        | 1.70        | 1.84          | 269.53         | 32.02            | 29.89     | 2664.89  | 195.10   | 4.14    | 20.998924 | -156.666746 |
+> |      1 | RKO220728 | Ka'opala                    | RKO     |            108 | 07/28/22 | 10:05    | 25.9        | 34.4     | 6.75             | 100.9                | 8.18 | 7.82        | 7.64        | 8.26        | 7.91          | 127.48         | 14.00            | 9.17      | 891.81   | 53.66    | 5.78    | 20.982074 | -156.673398 |
+> |      1 | RKV220728 | Kahana Village              | RKV     |            108 | 07/28/22 | 10:30    | 26.0        | 34.7     | 6.49             | 97.2                 | 8.07 | 4.45        | 4.42        | 4.83        | 4.57          | 115.06         | 10.27            | 6.44      | 662.90   | 22.22    | 2.08    | 20.976561 | -156.678000 |
+
+
+10/31/2022
+
+Removed both insitu and nutrient data for PLT220615, which was QAed out due to not taking the sample in deep enough water
+
+diffs for sample-report:
+sample-report.2022-10-30_17-07-17.rm-87s-add-nutr-106-107s-82-84s.txt
+sample-report.2022-10-31_20-42-46.post-removing-PLT220615-QAed-out.txt
+1956c1956
+< |      1 | PLT220615 | Lahaina Town                | PLT     |            106 | 06/15/22 | 09:20    | 27.9        | 32.8     | NULL             | 94.1                 | 8.11 | 1.62        | 1.60        | 1.60        | 1.61          | 196.62         | 6.87             | 4.72      | 1171.64  | 100.89   | 13.32   | 20.863560 | -156.672970 |
+---
+> |      1 | PLT220615 | Lahaina Town                | PLT     |            106 | 06/15/22 | 09:20    | NULL        | NULL     | NULL             | NULL                 | NULL | NULL        | NULL        | NULL        | NULL          | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.863560 | -156.672970 |
+
+
+11/5/2022
+
+QA decision about QAing out all DO% if DO has been QAed out.  Expected to see only diffs with with insitu, which as true.
+Expected diffs seen.
+
+diffs for sample-report:
+sample-report.2022-10-31_20-42-46.post-removing-PLT220615-QAed-out.txt
+sample-report.2022-11-05_07-02-25.post-fix-all-DO-sat-QA-out.txt
+
+11/5/2022
+
+Missed one last DO and DO_sat pair that needed the DO_sat removed.
+
+diffs for insitu-report:
+insitu-report.2022-11-05_07-02-25.post-fix-all-DO-sat-QA-out.txt
+insitu-report.2022-11-05_09-05-19.post-one-last-DO-sat_QAed-out.txt
+189c189
+< |      1 | OSF161116 | Olowalu Shore Front         | OSF     |             12 | 11/16/16 | 10:15    | 26.8        | 34.7     | NULL             | 106.9                | 8.11 | 4.37        | 4.37        | 4.37        | 4.37          |
+---
+> |      1 | OSF161116 | Olowalu Shore Front         | OSF     |             12 | 11/16/16 | 10:15    | 26.8        | 34.7     | NULL             | NULL                 | 8.11 | 4.37        | 4.37        | 4.37        | 4.37          |
+
