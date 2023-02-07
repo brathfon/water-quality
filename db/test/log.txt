@@ -1157,3 +1157,60 @@ insitu-report.2022-11-05_09-05-19.post-one-last-DO-sat_QAed-out.txt
 ---
 > |      1 | OSF161116 | Olowalu Shore Front         | OSF     |             12 | 11/16/16 | 10:15    | 26.8        | 34.7     | NULL             | NULL                 | 8.11 | 4.37        | 4.37        | 4.37        | 4.37          |
 
+
+1/2/2023
+
+Adding in insitu 112 and 113 west sessions and 87 and 88 south.
+Saw expected diffs.
+
+diffs for insitu-report:
+insitu-report.2022-11-05_09-05-19.post-one-last-DO-sat_QAed-out.txt
+insitu-report.2023-01-02_16-39-26.add-insitu-112-113w-87-88s.txt
+2043a2044,2075
+
+1/18/2023
+Adding in West 114-115 and South 89-90 in prep for 4th quarter 2022 release
+
+expected diffs
+
+diffs for commments-report:
+comments-report.2023-01-02_16-39-26.add-insitu-112-113w-87-88s.txt
+comments-report.2023-01-17_16-58-43.post-add-insitu-114-115w-89-90s.txt
+953a954,985
+
+
+1/20/2023
+diffs for insitu-report:
+insitu-report.2023-01-17_16-58-43.post-add-insitu-114-115w-89-90s.txt
+insitu-report.2023-01-20_14-24-51.4th-quarter-QA-fixes.txt
+dissolved_oxygen MAS221207
+turbdity_2 NKP221117
+
+3625c3625
+  | lab_id | sampleID  | long_name                   | hui_abv | session_number | the_date | the_time | temperature | salinity | dissolved_oxygen | dissolved_oxygen_pct | ph   | turbidity_1 | turbidity_2 | turbidity_3 | avg_turbidity |
+
+< |      2 | NKP221117 | Kealia Pond                 | NKP     |             89 | 11/17/22 | 08:55    | 26.3        | 35.5     | 6.54             | 98.7                 | 8.18 | 1.33        | 4.21        | 1.26        | 2.27          |
+---
+> |      2 | NKP221117 | Kealia Pond                 | NKP     |             89 | 11/17/22 | 08:55    | 26.3        | 35.5     | 6.54             | 98.7                 | 8.18 | 1.33        | 1.21        | 1.26        | 1.27          |
+3634c3634
+< |      2 | MAS221207 | Ahihi South                 | MAS     |             90 | 12/07/22 | 09:35    | 25.6        | 35.4     | 6.60             | 98.0                 | 8.09 | 1.35        | 1.26        | 1.27        | 1.29          |
+---
+> |      2 | MAS221207 | Ahihi South                 | MAS     |             90 | 12/07/22 | 09:35    | 25.6        | 35.4     | 6.57             | 98.0                 | 8.09 | 1.35        | 1.26        | 1.27        | 1.29          |
+
+
+2/3/23
+Added in nutrient data 109-111 West Maui and 85-86 South Maui
+
+Expected diffs
+diffs for nutrient-report:
+nutrient-report.2023-01-20_14-24-51.4th-quarter-QA-fixes.txt
+nutrient-report.2023-02-03_14-28-35.add-nutrient-data-85-86s-109-111w.txt
+
+
+2/3/23
+Added in nutrient data 112-114 West Maui and 97-90 South Maui
+
+Expected diffs
+diffs for nutrient-report:
+nutrient-report.2023-02-03_14-28-35.add-nutrient-data-85-86s-109-111w.txt
+nutrient-report.2023-02-03_14-52-13.add-nutrient-data-112-114w-97-90s.txt
