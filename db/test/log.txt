@@ -1223,3 +1223,20 @@ diffs for commments-report:
 comments-report.2023-02-03_14-52-13.add-nutrient-data-112-114w-97-90s.txt
 comments-report.2023-04-02_14-35-24.add-insitu-116-117w-91-93s.txt
 
+4/17/2023
+
+Added in nutrient session 115 for West Maui.
+
+expected diffs seen.
+
+diffs for nutrient-report:
+nutrient-report.2023-04-02_14-35-24.add-insitu-116-117w-91-93s.txt
+nutrient-report.2023-04-17_15-02-44.add-nutrient-115w.txt
+
+Also added 116 west and 91 south
+
+diffs for nutrient-report:
+nutrient-report.2023-04-17_15-02-44.add-nutrient-115w.txt
+nutrient-report.2023-04-17_17-57-31.added-nutrient-116w-91s.txt
+2108,2123c2108,2123
+
