@@ -1240,3 +1240,40 @@ nutrient-report.2023-04-17_15-02-44.add-nutrient-115w.txt
 nutrient-report.2023-04-17_17-57-31.added-nutrient-116w-91s.txt
 2108,2123c2108,2123
 
+
+4/26/2023
+
+comments-report.2023-04-17_17-57-31.added-nutrient-116w-91s.txt
+comments-report.2023-04-26_16-31-08.add-insitu-118-119w-94-95s.txt
+1011a1012,1041
+
+Checking the final 4 sessions for the 1st quarter 2023 release. Saw expected diffs.
+
+Concerned that there are only 2 comments in all 4 sessions.  Checked this out and something is bombing in the diff that causes it not to complete.  Comments are in the DB.
+
+> |      1 | RNS230228 | Napili                      | RNS     |            118 | 02/28/23 | 08:15    | ~3-4' North swell; light offshore wind; intermittent rain; midtide; rainbows galore, Moloka'i in shrouds                                                                                                                                                                                                                                                                                                                1621a1652,1676
+> |      2 | NKN230307 | Kalepolepo North            | NKN     |             94 | 03/07/23 | 07:55    | 8 mph wind, low tide, dirty water, no big surf, rain earlier, flowing water earlier                                                                                                                                                                            
+
+Saw DO and DO% QAed out in Session 93 South Maui
+> |      2 | NKN230214 | Kalepolepo North            | NKN     |             93 | 02/14/23 | 08:05    | 22.8        | 32.1     | NULL             | NULL                 | 8.12 | 15.30       | 15.20       | 15.80       | 15.43         |
+> |      2 | KWP230214 | Waipuilani Park             | KWP     |             93 | 02/14/23 | 08:31    | 22.3        | 33.0     | NULL             | NULL                 | 8.12 | 18.60       | 17.40       | 18.00       | 18.00         |
+> |      2 | KKS230214 | Kihei South (Lipoa)         | KKS     |             93 | 02/14/23 | 08:47    | 22.6        | 33.0     | NULL             | NULL                 | 8.13 | 12.70       | 13.30       | 14.00       | 13.33         |
+> |      2 | KKP230214 | Kalama Park                 | KKP     |             93 | 02/14/23 | 09:10    | 23.1        | 33.9     | NULL             | NULL                 | 8.13 | 3.01        | 3.28        | 3.06        | 3.12          |
+> |      2 | KCP230215 | Cove Park                   | KCP     |             93 | 02/15/23 | 08:12    | 23.4        | 32.5     | NULL             | NULL                 | 8.05 | 2.92        | 2.82        | 2.41        | 2.72          |
+> |      2 | MMB230215 | Maluaka Beach               | MMB     |             93 | 02/15/23 | 08:49    | 23.6        | 35.0     | NULL             | NULL                 | 8.16 | 1.36        | 1.52        | 1.36        | 1.41          |
+> |      2 | MAN230215 | Ahihi North                 | MAN     |             93 | 02/15/23 | 09:09    | 23.8        | 34.2     | NULL             | NULL                 | 8.08 | 1.38        | 1.34        | 1.09        | 1.27          |
+> |      2 | MAS230215 | Ahihi South                 | MAS     |             93 | 02/15/23 | 09:30    | 24.1        | 35.1     | NULL             | NULL                 | 8.14 | 1.80        | 2.12        | 1.85        | 1.92          |
+> |      2 | NMH230216 | Maalaea Harbor              | NMH     |             93 | 02/16/23 | 07:48    | 23.9        | 34.7     | NULL             | NULL                 | 8.14 | 1.04        | 1.02        | 0.94        | 1.00          |
+> |      2 | NMC230216 | Maalaea Condos              | NMC     |             93 | 02/16/23 | 08:13    | 23.8        | 33.2     | NULL             | NULL                 | 8.00 | 0.66        | 0.69        | 0.75        | 0.70          |
+> |      2 | NHP230216 | Haycraft Park               | NHP     |             93 | 02/16/23 | 08:33    | 24.2        | 34.0     | NULL             | NULL                 | 8.15 | 9.24        | 9.62        | 9.34        | 9.40          |
+> |      2 | NKP230216 | Kealia Pond                 | NKP     |             93 | 02/16/23 | 09:00    | 24.2        | 35.2     | NULL             | NULL                 | 8.17 | 1.56        | 2.12        | 1.84        | 1.84          |
+> |      2 | NKC230216 | Kihei Canoe Club            | NKC     |             93 | 02/16/23 | 09:23    | 24.7        | 34.3     | NULL             | NULL                 | 8.12 | 23.10       | 24.60       | 21.20       | 22.97         |
+> |      2 | NKN230307 | Kalepolepo North            | NKN     |             94 | 03/07/23 | 07:55    | 23.6        | 32.9     | NULL             | NULL                 | 8.07 | 58.30       | 58.30       | 58.50       | 58.37         |
+> |      2 | KWP230307 | Waipuilani Park             | KWP     |             94 | 03/07/23 | 08:20    | 23.6        | 33.2     | NULL             | NULL                 | 8.11 | 32.30       | 30.10       | 32.20       | 31.53         |
+> |      2 | KKS230307 | Kihei South (Lipoa)         | KKS     |             94 | 03/07/23 | 08:31    | 24.1        | 30.4     | NULL             | NULL                 | 8.09 | 39.50       | 39.10       | 38.50       | 39.03         |
+> |      2 | KKP230307 | Kalama Park                 | KKP     |             94 | 03/07/23 | 08:50    | 24.1        | 34.8     | NULL             | NULL                 | 8.17 | 10.80       | 10.60       | 11.00       | 10.80         |
+> |      2 | KCP230308 | Cove Park                   | KCP     |             94 | 03/08/23 | 08:23    | 24.2        | 34.3     | NULL             | NULL                 | 8.14 | 9.53        | 9.62        | 9.94        | 9.70          |
+> |      2 | MMB230308 | Maluaka Beach               | MMB     |             94 | 03/08/23 | 08:50    | 24.4        | 35.2     | NULL             | NULL                 | 8.18 | 6.11        | 6.81        | 6.53        | 6.48          |
+> |      2 | MAN230308 | Ahihi North                 | MAN     |             94 | 03/08/23 | 09:12    | 24.5        | 35.2     | NULL             | NULL                 | 8.15 | 8.12        | 9.13        | 8.81        | 8.69          |
+> |      2 | MAS230308 | Ahihi South                 | MAS     |             94 | 03/08/23 | 09:30    | 24.6        | 35.1     | NULL             | NULL                 | 8.11 | 11.01       | 11.20       | 11.40       | 11.20         |
+
