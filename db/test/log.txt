@@ -1277,3 +1277,14 @@ Saw DO and DO% QAed out in Session 93 South Maui
 > |      2 | MAN230308 | Ahihi North                 | MAN     |             94 | 03/08/23 | 09:12    | 24.5        | 35.2     | NULL             | NULL                 | 8.15 | 8.12        | 9.13        | 8.81        | 8.69          |
 > |      2 | MAS230308 | Ahihi South                 | MAS     |             94 | 03/08/23 | 09:30    | 24.6        | 35.1     | NULL             | NULL                 | 8.11 | 11.01       | 11.20       | 11.40       | 11.20         |
 
+
+5/3/23
+
+Adding in nutrient data for sessions 117-118 West Maui and 92-94 South Maui
+
+Expected diffs seen (just new data added for these sessions)
+
+diffs for nutrient-report:
+nutrient-report.2023-04-26_16-31-08.add-insitu-118-119w-94-95s.txt
+nutrient-report.2023-05-03_17-09-57.add-nutrient-117-118w-92-94s.txt
+
