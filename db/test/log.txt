@@ -1288,3 +1288,14 @@ diffs for nutrient-report:
 nutrient-report.2023-04-26_16-31-08.add-insitu-118-119w-94-95s.txt
 nutrient-report.2023-05-03_17-09-57.add-nutrient-117-118w-92-94s.txt
 
+
+6/19/2023
+
+Adding in sessions 120-122 west and 96-97 south Maui
+
+Expected diffs:
+
+diffs for insitu-report:
+insitu-report.2023-05-03_17-09-57.add-nutrient-117-118w-92-94s.txt
+insitu-report.2023-06-19_14-02-11.add-insitu-120-122w-96-97s.txt
+
