@@ -1299,3 +1299,13 @@ diffs for insitu-report:
 insitu-report.2023-05-03_17-09-57.add-nutrient-117-118w-92-94s.txt
 insitu-report.2023-06-19_14-02-11.add-insitu-120-122w-96-97s.txt
 
+6/25/2023
+
+added in nutrient data for sessions 119-121 west and 95-96 south
+saw expected diffs
+
+diffs for nutrient-report:
+nutrient-report.2023-06-19_14-02-11.add-insitu-120-122w-96-97s.txt
+nutrient-report.2023-06-25_12-43-31.added-nutrient-119-121w-95-96s.txt
+2156,2205c2156,2205
+
