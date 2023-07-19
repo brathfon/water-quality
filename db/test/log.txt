@@ -1309,3 +1309,18 @@ nutrient-report.2023-06-19_14-02-11.add-insitu-120-122w-96-97s.txt
 nutrient-report.2023-06-25_12-43-31.added-nutrient-119-121w-95-96s.txt
 2156,2205c2156,2205
 
+7/17/2023
+
+Adding in insitu 123 west and 98-99 south
+Saw expected diffs, including the one below from a mid-quarter load:
+
+insitu-report.2023-06-25_12-43-31.added-nutrient-119-121w-95-96s.txt
+insitu-report.2023-07-17_16-23-39.add-insitu-123w-98-99s.txt
+
+2207c2207
+< |      1 | RPO230523 | Pohaku                      | RPO     |            122 | 05/23/23 | 08:29    | 25.2        | 33.4     | 6.66             | 97.5                 | 8.17 | 2.13        | 1.47        | 2.10        | 1.90          |
+---
+> |      1 | RPO230523 | Pohaku                      | RPO     |            122 | 05/23/23 | 08:29    | 25.2        | 33.4     | 6.66             | 97.5                 | 8.17 | 2.13        | 1.58        | 2.10        | 1.94          |
+
+note from the event:
+Fixed RPO230523  4th turbidity reading not entered in SS, when clearly the 3rd was crossed out and the 4th replacing it.  Will catch on next download before the quarterly release. 1.58 new vs 1.47 old
