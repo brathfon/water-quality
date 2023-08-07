@@ -1324,3 +1324,14 @@ insitu-report.2023-07-17_16-23-39.add-insitu-123w-98-99s.txt
 
 note from the event:
 Fixed RPO230523  4th turbidity reading not entered in SS, when clearly the 3rd was crossed out and the 4th replacing it.  Will catch on next download before the quarterly release. 1.58 new vs 1.47 old
+
+8/7/2023
+
+Added in nutrient data 122 west and 87 south
+Expected diffs found.
+
+diffs for nutrient-report:
+nutrient-report.2023-07-17_16-23-39.add-insitu-123w-98-99s.txt
+nutrient-report.2023-08-07_06-29-49.add-in-nutrient-122w-97s.txt
+2206,2223c2206,2223
+
