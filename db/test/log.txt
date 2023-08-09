@@ -1335,3 +1335,13 @@ nutrient-report.2023-07-17_16-23-39.add-insitu-123w-98-99s.txt
 nutrient-report.2023-08-07_06-29-49.add-in-nutrient-122w-97s.txt
 2206,2223c2206,2223
 
+8/7/2023
+
+Adding in insitu 124-125 west and 100 south, minus a day or two due to data not ready
+
+expected diffs seen.
+
+diffs for commments-report:
+comments-report.2023-08-07_06-29-49.add-in-nutrient-122w-97s.txt
+comments-report.2023-08-07_13-29-10.add-insitu-124-125w-100s.txt
+
