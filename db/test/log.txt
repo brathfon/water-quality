@@ -1371,3 +1371,16 @@ insitu-report.2023-09-14_18-30-05.add-insitu-126w-101s.txt
 > |      2 | KWP230808 | Waipuilani Park             | KWP     |            101 | 08/08/23 | 08:18    | 24.9        | 34.9     | 6.65             | 97.2                 | 8.09 | 13.70       | 14.20       | 14.40       | 14.10         |
 > |      2 | KKS230808 | Kihei South (Lipoa)         | KKS     |            101 | 08/08/23 | 08:35    | 26.0        | 34.2     | 6.24             | 92.4                 | 8.09 | 18.70       | 19.60       | 18.80       | 19.03         |
 
+
+9/18/2023
+
+Added nutrient data for sessions 123-125 West Maui and 98-100 South Maui
+
+Expected results in the diffs
+
+diffs for nutrient-report:
+nutrient-report.2023-09-14_18-30-05.add-insitu-126w-101s.txt
+nutrient-report.2023-09-18_20-00-11.add-nutrient-123-125w-98-100s.txt
+2224,2277c2224,2277
+< |      1 | RNS230613 | Napili                      | RNS     |            123 | 06/13/23 | 08:03    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.994222 | -156.667417 |
+
