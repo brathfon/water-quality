@@ -171,6 +171,16 @@ INSERT INTO sites (hui_abv , storet_code, long_name,                       lab_i
 INSERT INTO sites (hui_abv , storet_code, long_name,              lab_id, default_sample_day, default_sampling_order, lat,       lon,         active,  description)
   values (        'RKT',     '000733',    'Kahekili Two',         1,      1,                  4,                   20.941269, -156.692439,    1,       null);
 
+-- Added burn area sites, going to hope sample day doesn't matter since they are sampled by a new team
+INSERT INTO sites (hui_abv , storet_code, long_name,              lab_id, default_sample_day, default_sampling_order, lat,        lon,         active,  description)
+  values (        'LMT',     NULL,        'Mala Tavern',          1,      5,                  1,                      20.887449, -156.685048,  1,       null);
+INSERT INTO sites (hui_abv , storet_code, long_name,              lab_id, default_sample_day, default_sampling_order, lat,        lon,         active,  description)
+  values (        'LMR',     NULL,        'Mala Ramp',            1,      5,                  2,                      20.885373, -156.686429,  1,       null);
+INSERT INTO sites (hui_abv , storet_code, long_name,              lab_id, default_sample_day, default_sampling_order, lat,        lon,         active,  description)
+  values (        'LPS',     NULL,        'Papalaua St.',         1,      5,                  3,                      20.876911, -156.681359,  1,       null);
+INSERT INTO sites (hui_abv , storet_code, long_name,              lab_id, default_sample_day, default_sampling_order, lat,        lon,         active,  description)
+  values (        'LLH',     NULL,        'Lahaina Harbor',       1,      5,                  4,                      20.871933, -156.678624,  1,       null);
+
 /* extra Olowalu sites
 2031,OBR,,Ukumehame Bridge,Olowalu,
 2026,OSB,,Olowalu surf break,Olowalu,

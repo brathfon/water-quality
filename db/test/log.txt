@@ -1384,3 +1384,18 @@ nutrient-report.2023-09-18_20-00-11.add-nutrient-123-125w-98-100s.txt
 2224,2277c2224,2277
 < |      1 | RNS230613 | Napili                      | RNS     |            123 | 06/13/23 | 08:03    |                     1 | NULL           | NULL             | NULL      | NULL     | NULL     | NULL    | 20.994222 | -156.667417 |
 
+
+10/19/2023
+
+Added insitu data for sessions 127 West Maui and 102-103 South Maui.
+Also includes Team Fire Response for sessions 126 and 127.
+
+Expected diffs seen.
+
+diffs for insitu-report:
+insitu-report.2023-09-18_20-00-11.add-nutrient-123-125w-98-100s.txt
+insitu-report.2023-10-19_13-11-57.add-insitu-127w-102-103s.txt
+2295a2296,2350
+> |      1 | RCB230829 | Canoe Beach                 | RCB     |            126 | 08/29/23 | 08:30    | 26.5        | 35.3     | 6.77             | 101.7                | 8.15 | 3.21        | 3.34        | 3.29        | 3.28          |
+> |      1 | RWA230829 | Wahikuli                    | RWA     |            126 | 08/29/23 | 09:04    | 26.8        | 35.0     | 6.73             | 101.4                | 8.18 | 3.55        | 3.77        | 3.79        | 3.70          |
+
