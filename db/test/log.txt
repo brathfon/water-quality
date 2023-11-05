@@ -1399,3 +1399,25 @@ insitu-report.2023-10-19_13-11-57.add-insitu-127w-102-103s.txt
 > |      1 | RCB230829 | Canoe Beach                 | RCB     |            126 | 08/29/23 | 08:30    | 26.5        | 35.3     | 6.77             | 101.7                | 8.15 | 3.21        | 3.34        | 3.29        | 3.28          |
 > |      1 | RWA230829 | Wahikuli                    | RWA     |            126 | 08/29/23 | 09:04    | 26.8        | 35.0     | 6.73             | 101.4                | 8.18 | 3.55        | 3.77        | 3.79        | 3.70          |
 
+
+10/30/2023
+
+Adding nutrient sessions 126w which includes fire response data, and 101-102 south
+
+Saw expected diffs
+
+diffs for nutrient-report:
+nutrient-report.2023-10-19_13-11-57.add-insitu-127w-102-103s.txt
+nutrient-report.2023-10-30_14-29-26.adding-nutrient-126w-101-102s.txt
+2278,2283c2278,2283
+<
+
+11/3/2023
+
+Added nutrient sessions 127w which includes Fire Response 3 and 4 and 103 south
+
+diffs for nutrient-report:
+nutrient-report.2023-10-30_14-29-26.adding-nutrient-126w-101-102s.txt
+nutrient-report.2023-11-03_19-37-17.add-nutrient-127w-103s.txt
+2318,2350c2318,2350
+
