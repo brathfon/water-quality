@@ -1430,3 +1430,14 @@ diffs for insitu-report:
 insitu-report.2023-11-03_19-37-17.add-nutrient-127w-103s.txt
 insitu-report.2023-12-30_11-55-20.insitu-128-130w-104-105s.txt
 
+
+12/30/2023
+
+Adding in nutrient data for session 128 West Maui
+
+Expected diffs
+diffs for nutrient-report:
+nutrient-report.2023-12-30_11-55-20.insitu-128-130w-104-105s.txt
+nutrient-report.2023-12-30_17-12-05.add-nutrient-128w.txt
+2351,2372c2351,2372
+
