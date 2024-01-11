@@ -1441,3 +1441,14 @@ nutrient-report.2023-12-30_11-55-20.insitu-128-130w-104-105s.txt
 nutrient-report.2023-12-30_17-12-05.add-nutrient-128w.txt
 2351,2372c2351,2372
 
+01/11/2024
+Adding insitu data for sessions 131 west and 106-107 south
+Saw expected diffs.  Also saw a correction I made to time (see below) and a lot of changes of comments in past sessions due to Maile Sharps interpretive tours. ;-)
+
+insitu-report.2023-12-30_17-12-05.add-nutrient-128w.txt
+insitu-report.2024-01-11_09-30-05.add-initu-131w-106-107s.txt
+2406c2406
+< |      1 | PLH231115 | Lindsey Hale                | PLH     |            130 | 11/15/23 | 09:36    | 26.3        | 34.9     | 5.94             | 89.0                 | 8.07 | 12.80       | 12.10       | 12.20       | 12.37         |
+---
+> |      1 | PLH231115 | Lindsey Hale                | PLH     |            130 | 11/15/23 | 09:39    | 26.3        | 34.9     | 5.94             | 89.0                 | 8.07 | 12.80       | 12.10       | 12.20       | 12.37         |
+
