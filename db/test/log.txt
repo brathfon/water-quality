@@ -1452,3 +1452,14 @@ insitu-report.2024-01-11_09-30-05.add-initu-131w-106-107s.txt
 ---
 > |      1 | PLH231115 | Lindsey Hale                | PLH     |            130 | 11/15/23 | 09:39    | 26.3        | 34.9     | 5.94             | 89.0                 | 8.07 | 12.80       | 12.10       | 12.20       | 12.37         |
 
+2/01/2024
+
+Adding in nutrient data for 4th quarter 2023
+
+saw expected addition of 129-131 west and 104-106 south
+
+diffs for nutrient-report:
+sample-report.2024-01-11_09-30-05.add-initu-131w-106-107s.txt
+sample-report.2024-02-01_19-51-59.add-nutr-129-131w-104-106s.txt
+2373,2438c2373,2438
+
